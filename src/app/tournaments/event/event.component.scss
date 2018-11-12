@@ -1,0 +1,18 @@
+// @import '~@angular/material/theming';
+@import '../../../assets/styles/scss/material.variables';
+
+.event-bold {
+    color: mat-color($mat-indigo, 500)!important;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.mat-list[dense] .mat-list-item {
+    height: 30px !important;
+}
+
+.register a {
+    text-decoration: underline;
+    color: mat-color($mat-teal, 500)!important;
+}

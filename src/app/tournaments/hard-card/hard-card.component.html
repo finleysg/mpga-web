@@ -1,3 +1,28 @@
-<p>
-  hard-card works!
-</p>
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="50%" fxFlex="100">
+        <mat-card>
+            <mat-card-content class="mat-indigo">
+                <h2 class="mt-0 mb-0">Tournament Hard Card</h2>
+            </mat-card-content>
+            <mat-card-content>
+                <div *ngFor="let rule of rules">
+                    <h3 class="mt-0 mb-0 rule-title"> {{rule.title}} </h3>
+                    <div [markdown]="rule.description"></div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="50%" fxFlex="100">
+        <mat-card>
+            <mat-card-content class="mat-light-blue">
+                <h2 class="mt-0 mb-0">Tournament Player Information</h2>
+            </mat-card-content>
+            <mat-card-content>
+                <div *ngFor="let tpi of playerInfo">
+                    <h3 class="mt-0 mb-0 tpi-title"> {{tpi.title}} </h3>
+                    <div [markdown]="tpi.description"></div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

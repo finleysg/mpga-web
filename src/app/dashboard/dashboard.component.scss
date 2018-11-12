@@ -1,0 +1,10 @@
+@import '../../assets/styles/scss/material.variables';
+
+h3.about-header {
+    color: mat-color($primary);
+}
+
+h3.event-name {
+    color: mat-color($mat-indigo, 500)!important;
+    font-weight: bold !important;
+}

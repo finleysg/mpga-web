@@ -27,6 +27,8 @@ import { SharedModule } from './shared/shared.module';
 import { UserService } from './services/user.service';
 import { AuthInterceptor } from './services/auth-interceptor';
 import { AppErrorHandler } from './services/app-error-handler.service';
+import { MpgaDataService } from './services/mpga-data.service';
+import { EventService } from './services/event.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -63,6 +65,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppErrorHandler,
     CookieService,
     UserService,
+    MpgaDataService,
+    EventService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

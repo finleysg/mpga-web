@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable ,  BehaviorSubject ,  of } from 'rxjs';
-import { User, PublicMember } from '../models/user';
+import { User } from '../models/user';
 import { map, flatMap, catchError, tap } from 'rxjs/operators';
 
 // import * as moment from 'moment';
@@ -27,10 +27,10 @@ export class UserService extends BaseService {
         this._currentUser = new User();
         this.currentUserSource = new BehaviorSubject(this._currentUser);
         this.currentUser$ = this.currentUserSource.asObservable();
-        this.getUser().subscribe(user => {
-            this._currentUser = user;
+        // this.getUser().subscribe(user => {
+           // this._currentUser = user;
             this.currentUserSource.next(this._currentUser);
-        });
+        // });
         // this.errorHandler.lastError$.subscribe(err => this.onError(err));
     }
 
@@ -163,31 +163,31 @@ export class UserService extends BaseService {
         // this.errorHandler.clearUserContext();
     }
 
-    allMembers(): Observable<PublicMember[]> {
-        return this.http.get(`${this.baseUrl}/members/`).pipe(
-            map((members: any[]) => {
-                return members.map((m: any) => new PublicMember().fromJson(m));
-            })
-        );
-    }
+    // allMembers(): Observable<PublicMember[]> {
+    //     return this.http.get(`${this.baseUrl}/members/`).pipe(
+    //         map((members: any[]) => {
+    //             return members.map((m: any) => new PublicMember().fromJson(m));
+    //         })
+    //     );
+    // }
 
-    sortMembers(members: PublicMember[]): PublicMember[] {
-        return members.sort(function(a, b) {
-            if (a.firstName > b.firstName) {
-                return 1;
-            }
-            if (a.firstName < b.firstName) {
-                return -1;
-            }
-            if (a.lastName > b.lastName) {
-                return 1;
-            }
-            if (a.lastName < b.lastName) {
-                return -1;
-            }
-            return 0;
-        });
-    }
+    // sortMembers(members: PublicMember[]): PublicMember[] {
+    //     return members.sort(function(a, b) {
+    //         if (a.firstName > b.firstName) {
+    //             return 1;
+    //         }
+    //         if (a.firstName < b.firstName) {
+    //             return -1;
+    //         }
+    //         if (a.lastName > b.lastName) {
+    //             return 1;
+    //         }
+    //         if (a.lastName < b.lastName) {
+    //             return -1;
+    //         }
+    //         return 0;
+    //     });
+    // }
 
     private getTokenFromStorage(): string {
         let token = localStorage.getItem('mpga-token');

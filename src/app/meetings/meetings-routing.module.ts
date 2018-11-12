@@ -4,7 +4,7 @@ import { MeetingComponent } from './meeting/meeting.component';
 
 const routes: Routes = [
   { path: '', children: [
-    { path: 'meeting/:code', component: MeetingComponent }
+    { path: 'meeting/:id', component: MeetingComponent }
   ]}
 ];
 

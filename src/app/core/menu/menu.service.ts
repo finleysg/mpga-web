@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
+import { EventService } from 'src/app/services/event.service';
+import { EventDetail } from 'src/app/models/events';
 
 export interface ChildrenItems {
   state: string[];
@@ -22,17 +24,19 @@ export class MenuService {
   private _menuSource: BehaviorSubject<Menu[]>;
 
   constructor(
-    // private roundService: RoundService
+    private eventService: EventService
   ) {
     this._menuSource = new BehaviorSubject<Menu[]>([]);
-    this.menuBuilder();
+    this.eventService.events.subscribe(events => {
+      this.menuBuilder(events);
+    });
   }
 
   getMenu(): Observable<Menu[]> {
     return this._menuSource.asObservable();
   }
 
-  menuBuilder(): void {
+  menuBuilder(events: EventDetail[]): void {
     const menu: Menu[] = [
       // {
       //   state: [],
@@ -45,64 +49,19 @@ export class MenuService {
         name: 'Tournaments',
         type: 'sub',
         icon: 'golf_course',
-        children: [
-          {
-            state: ['event', 'four-ball'],
-            name: 'Four Ball'
-          },
-          {
-            state: ['event', 'mid-pub'],
-            name: 'Mid Public Links'
-          },
-          {
-            state: ['event', 'net-pub'],
-            name: 'Net Public Links'
-          },
-          {
-            state: ['event', 'junior'],
-            name: 'Junior Public Links'
-          },
-          {
-            state: ['event', 'senior'],
-            name: 'Senior Public Links'
-          },
-          {
-            state: ['event', 'pub'],
-            name: 'State Public Links'
-          },
-          {
-            state: ['event', 'combo'],
-            name: 'Combination'
-          },
-          {
-            state: ['hard-card'],
-            name: 'MPGA Hard Card'
-          },
-          {
-            state: ['bid'],
-            name: 'Tournament Bid Form'
-          }
-        ]
+        children: this.tournamentMenu(events)
       },
       {
         state: ['meetings'],
         name: 'Meetings',
         type: 'sub',
         icon: 'meeting_room',
-        children: [
-          {
-            state: ['meeting', 'bod'],
-            name: 'Board of Directors'
-          },
-          {
-            state: ['meeting', 'spring'],
-            name: 'Spring Banquet'
-          },
-          {
-            state: ['meeting', 'fall'],
-            name: 'Fall Banquet'
-          }
-        ]
+        children: events.filter(e => e.eventType !== 'T').map(e => {
+          return {
+            state: ['meeting', e.id.toString()],
+            name: e.shortName
+          };
+        })
       },
       {
         state: ['match-play'],
@@ -129,20 +88,10 @@ export class MenuService {
         ]
       },
       {
-        state: ['members'],
+        state: ['members', 'clubs'],
         name: 'Member Clubs',
-        type: 'sub',
-        icon: 'group',
-        children: [
-          {
-            state: ['clubs'],
-            name: '2018 Members'
-          },
-          {
-            state: ['register'],
-            name: 'Registration'
-          }
-        ]
+        type: 'link',
+        icon: 'group'
       },
       {
         state: ['about'],
@@ -195,5 +144,27 @@ export class MenuService {
       }
     ];
     this._menuSource.next(menu);
+  }
+
+  private tournamentMenu(events: EventDetail[]): ChildrenItems[] {
+    const items = events.filter(e => e.eventType === 'T').map(e => {
+      return {
+        state: ['event', e.id.toString()],
+        name: e.shortName
+      };
+    });
+    items.push(
+      {
+        state: ['hard-card'],
+        name: 'MPGA Hard Card'
+      }
+    );
+    items.push(
+      {
+        state: ['bid'],
+        name: 'Tournament Bid Form'
+      }
+    );
+    return items;
   }
 }

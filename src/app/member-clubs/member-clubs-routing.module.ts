@@ -1,12 +1,12 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ListComponent } from './list/list.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { MembershipListComponent } from './membership-list/membership-list.component';
+import { MembershipDetailComponent } from './membership-detail/membership-detail.component';
 
 const routes: Routes = [
   { path: '', children: [
-    { path: 'clubs', component: ListComponent },
-    { path: 'register', component: RegistrationComponent }
+    { path: 'clubs', component: MembershipListComponent },
+    { path: 'clubs/:id', component: MembershipDetailComponent }
   ]}
 ];
 

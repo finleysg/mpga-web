@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MpgaDataService } from 'src/app/services/mpga-data.service';
+import { Policy } from 'src/app/models/policies';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-hard-card',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HardCardComponent implements OnInit {
 
-  constructor() { }
+  rules: Policy[];
+  playerInfo: Policy[];
+
+  constructor(
+    private mpgaData: MpgaDataService
+  ) { }
 
   ngOnInit() {
+    forkJoin([
+      this.mpgaData.policies('LR'),
+      this.mpgaData.policies('TP')
+    ]).subscribe(results => {
+      this.rules = results[0];
+      this.playerInfo = results[1];
+    });
   }
 
 }

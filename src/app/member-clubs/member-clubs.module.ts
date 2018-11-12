@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-
+import { MatTableModule } from '@angular/material/table';
 import { routing } from './member-clubs-routing.module';
-import { ListComponent } from './list/list.component';
-import { RegistrationComponent } from './registration/registration.component';
+import { MembershipListComponent } from './membership-list/membership-list.component';
+import { MembershipDetailComponent } from './membership-detail/membership-detail.component';
 
 @NgModule({
   imports: [
     SharedModule,
+    MatTableModule,
     routing
   ],
-  declarations: [ListComponent, RegistrationComponent]
+  declarations: [
+    MembershipListComponent,
+    MembershipDetailComponent
+  ]
 })
 export class MemberClubsModule { }

@@ -1,0 +1,9 @@
+@import '../../../assets/styles/scss/material.variables';
+
+h3.rule-title {
+    color: mat-color($mat-indigo, 500);
+}
+
+h3.tpi-title {
+    color: mat-color($mat-blue, 700);
+}

@@ -1,0 +1,56 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="66.66%" fxFlex="100">
+    <mat-card>
+      <mat-card-content class="mat-blue">
+        <h2 class="mt-0 mb-0">2018 Member Clubs</h2>
+      </mat-card-content>
+      <mat-card-content>
+        <div *ngIf="pageContent" [markdown]="pageContent.content"></div>
+        <mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="clubName">
+            <mat-header-cell class="cell-wide" *matHeaderCellDef>Club Name</mat-header-cell>
+            <mat-cell class="clickable cell-wide" *matCellDef="let item" (click)="clubDetail(item)">
+              {{ item.club.name }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="clubWebsite">
+            <mat-header-cell class="cell-narrow" *matHeaderCellDef>Website</mat-header-cell>
+            <mat-cell class="clickable cell-narrow" *matCellDef="let item" (click)="clubWebsite(item)">
+              <mat-icon color="primary" [inline]="true">{{webIcon(item)}}</mat-icon>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="location">
+            <mat-header-cell class="cell-normal" *matHeaderCellDef>Location</mat-header-cell>
+            <mat-cell class="cell-normal" *matCellDef="let item">
+              {{ item.club.golfCourse ? item.club.golfCourse.city : '' }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="clubSize">
+            <mat-header-cell class="cell-narrow" *matHeaderCellDef>Size</mat-header-cell>
+            <mat-cell class="cell-narrow" *matCellDef="let item">
+              {{ item.club.size ? item.clus.size : "?" }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="isType2">
+            <mat-header-cell class="cell-narrow" *matHeaderCellDef>Type 2</mat-header-cell>
+            <mat-cell class="cell-narrow" *matCellDef="let item">
+              {{ item.club.type2 ? "Yes" : "" }}
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33%" fxFlex="100">
+    <mat-card>
+      <mat-card-content class="mat-light-blue">
+        <h2 class="mt-0 mb-0">2018 Season Registration</h2>
+      </mat-card-content>
+      <mat-card-content>
+        <p>TODO: links to online registration and offline registration form</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

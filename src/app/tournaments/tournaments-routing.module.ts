@@ -6,7 +6,7 @@ import { BidComponent } from './bid/bid.component';
 
 const routes: Routes = [
   { path: '', children: [
-    { path: 'event/:code', component: EventComponent },
+    { path: 'event/:id', component: EventComponent },
     { path: 'hard-card', component: HardCardComponent },
     { path: 'bid', component: BidComponent }
   ]}

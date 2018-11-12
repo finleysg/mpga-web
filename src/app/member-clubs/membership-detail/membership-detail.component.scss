@@ -1,0 +1,21 @@
+@import '../../../assets/styles/scss/material.variables';
+
+.detail-topic {
+    color: mat-color($mat-blue, 800)!important;
+    margin-right: 10px;
+}
+
+.contact-topic {
+    color: mat-color($mat-light-blue, 500)!important;
+    margin-right: 10px;
+}
+
+.course-topic {
+    color: mat-color($mat-green, 800)!important;
+    margin-right: 10px;
+}
+ 
+.italic {
+    font-style: italic;
+    color: mat-color($mat-light-blue, 500);
+}

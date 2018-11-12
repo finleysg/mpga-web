@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
 import { routing } from './meetings-routing.module';
-import { EventComponent } from './event/event.component';
 import { MeetingComponent } from './meeting/meeting.component';
 
 @NgModule({
@@ -10,6 +9,6 @@ import { MeetingComponent } from './meeting/meeting.component';
     SharedModule,
     routing
   ],
-  declarations: [EventComponent, MeetingComponent]
+  declarations: [MeetingComponent]
 })
 export class MeetingsModule { }

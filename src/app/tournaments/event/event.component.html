@@ -1,3 +1,58 @@
-<p>
-  event works!
-</p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="66.66%" fxFlex="100">
+      <mat-card *ngIf="event">
+          <mat-card-content class="mat-indigo">
+              <h2 class="mt-0 mb-0">{{ event.name }}</h2>
+          </mat-card-content>
+          <mat-card-content>
+            <h3 class="mb-0">
+              <a [href]="event.location.website" target="_blank">
+                {{ event.location.name }}&nbsp;<mat-icon color="primary" [inline]="true">open_in_new</mat-icon>
+              </a>
+            </h3>
+            <h4 class="mt-0">{{ event.eventDates }}</h4>
+            <!--TODO: show only until the registration closes-->
+            <div class="register">
+              <h5 class="event-bold">Register</h5>
+              <p *ngIf="registrationUrl"><a [href]="registrationUrl.url" target="_blank">Register online</a> (Open registration 
+                period is {{ event.registrationStart.format('dddd, MMMM Do') }}
+                to {{ event.registrationEnd.format('dddd, MMMM Do') }})</p>
+              <p *ngIf="registrationForm"><a [href]="registrationForm.file" target="_blank">Mail-in registration</a> (Must be post-marked 
+                on or before {{ event.earlyRegistrationEnd.format('dddd, MMMM Do') }}") }})</p>
+            </div>
+            <h5 class="event-bold">Format</h5>
+            <div [markdown]="event.description"></div>
+            <div *ngFor="let p of event.policies">
+              <h5 class="event-bold">{{ p.policy.title }}</h5>
+              <div [markdown]="p.policy.description"></div>
+            </div>
+            <h5 *ngIf="event.playerPoints" class="event-bold">Player Points</h5>
+            <mat-list dense *ngIf="event.playerPoints" class="mb-1">
+              <mat-list-item *ngFor="let pp of event.playerPoints">
+                {{ pp.ordinalPlace }}: {{ pp.points }}
+              </mat-list-item>
+            </mat-list>
+            <h5 *ngIf="event.notes" class="event-bold">Additional Information</h5>
+            <div *ngIf="event.notes" [markdown]="event.notes"></div>
+            <h5 class="event-bold">Chairmen</h5>
+            <div *ngFor="let c of event.chairs">
+              {{ c.chair.firstName }} {{ c.chair.lastName }}
+            </div>
+          </mat-card-content>
+      </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33%" fxFlex="100">
+      <mat-card *ngIf="event">
+          <mat-card-content>
+            <h2>TODO: Results</h2>
+            <p>Link to online results, link to PDF results, link(s) to stories in the MGA new section</p>
+            <h2>TODO: History</h2>
+            <p>Link to the full event history</p>
+            <p>Last N (5?) winners</p>
+            <h2>TODO: Photo Gallery</h2>
+            <p>Random 2 or 3 pics</p>
+            <p>Link to full photo gallery</p>
+          </mat-card-content>
+      </mat-card>
+  </div>
+</div>

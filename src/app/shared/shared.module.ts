@@ -21,9 +21,11 @@ import {
   MatSnackBarModule,
   MatAutocompleteModule,
   MatDialogModule} from '@angular/material';
-// import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DialogService } from './dialog.service';
+import { MarkdownDirective } from './markdown/markdown.directive';
 
 @NgModule({
   imports: [
@@ -49,10 +51,12 @@ import { DialogService } from './dialog.service';
     MatSnackBarModule,
     MatIconModule,
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    FlexLayoutModule
   ],
   declarations: [
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    MarkdownDirective
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -68,6 +72,7 @@ import { DialogService } from './dialog.service';
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
+    MarkdownDirective,
     MatSidenavModule,
     MatCardModule,
     MatMenuModule,
@@ -84,7 +89,8 @@ import { DialogService } from './dialog.service';
     MatSnackBarModule,
     MatIconModule,
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    FlexLayoutModule
   ]
 })
 export class SharedModule { }
