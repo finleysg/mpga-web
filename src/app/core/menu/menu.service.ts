@@ -28,6 +28,7 @@ export class MenuService {
   ) {
     this._menuSource = new BehaviorSubject<Menu[]>([]);
     this.eventService.events.subscribe(events => {
+      console.log(events);
       this.menuBuilder(events);
     });
   }

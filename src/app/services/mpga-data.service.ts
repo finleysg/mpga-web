@@ -10,7 +10,7 @@ import { EventDetail } from '../models/events';
 import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/communication';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
-import { Membership } from '../models/clubs';
+import { Membership, Team } from '../models/clubs';
 
 @Injectable()
 export class MpgaDataService extends BaseService {
@@ -84,6 +84,15 @@ export class MpgaDataService extends BaseService {
     return this.http.get(`${this.baseUrl}/policies/?type=${policyType}`).pipe(
       map((json: any) => {
         return json.map(o => new Policy().fromJson(o));
+      })
+    );
+  }
+
+  teams(year?: number): Observable<Team[]> {
+    const url = year ? `${this.baseUrl}/teams/?year=${year}` : `${this.baseUrl}/teams/`;
+    return this.http.get(url).pipe(
+      map((json: any) => {
+        return json.map(o => new Team().fromJson(o));
       })
     );
   }

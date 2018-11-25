@@ -1,4 +1,24 @@
-<div class="notes">
-  <h1>Match Play Information and Rules</h1>
-  <p>Separate tabs for 12-20 and senior 8-man</p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-tab-group>
+        <mat-tab label="Match Play Rules">
+          <mat-card-content>
+            <div *ngFor="let rule of rules">
+              <h3 class="mt-0 mb-0 rule-title"> {{rule.title}} </h3>
+              <div [markdown]="rule.description"></div>
+            </div>
+          </mat-card-content>
+        </mat-tab>
+        <mat-tab label="Senior Match Play Rules">
+          <mat-card-content>
+            <div *ngFor="let rule of seniorRules">
+              <h3 class="mt-0 mb-0 rule-title"> {{rule.title}} </h3>
+              <div [markdown]="rule.description"></div>
+            </div>
+          </mat-card-content>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </div>
 </div>

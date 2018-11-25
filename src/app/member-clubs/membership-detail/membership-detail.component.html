@@ -15,7 +15,7 @@
         </p>
         <p>
           <span class="detail-topic">Club website:</span>
-          <a *ngIf="membership.club.website" [href]="membership.club.website" _target="blank">{{ membership.club.website }}</a><mat-icon [inline]="true">open_in_new</mat-icon>
+          <a *ngIf="membership.club.website" [href]="membership.club.website" target="_blank">{{ membership.club.website }}</a><mat-icon [inline]="true">open_in_new</mat-icon>
           <span *ngIf="!membership.club.website">None available</span>
         </p>
         <p>
@@ -82,7 +82,7 @@
         </div>
         <p>
           <span class="course-topic">Course website:</span>
-          <a *ngIf="membership.club.golfCourse.website" [href]="membership.club.golfCourse.website" _target="blank">
+          <a *ngIf="membership.club.golfCourse.website" [href]="membership.club.golfCourse.website" target="_blank">
             {{ membership.club.golfCourse.website }}
           </a> <mat-icon [inline]="true">open_in_new</mat-icon>
           <span *ngIf="!membership.club.golfCourse.website">None available</span>

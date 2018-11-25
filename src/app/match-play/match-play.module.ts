@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
-
+import { MatTableModule } from '@angular/material/table';
 
 import { routing } from './match-play-routing.module';
 import { DetailComponent } from './detail/detail.component';
@@ -11,6 +11,7 @@ import { ResultsComponent } from './results/results.component';
 @NgModule({
   imports: [
     routing,
+    MatTableModule,
     SharedModule
   ],
   declarations: [DetailComponent, TeamsComponent, ScheduleComponent, ResultsComponent]

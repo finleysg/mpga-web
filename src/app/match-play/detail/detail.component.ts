@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MpgaDataService } from '../../services/mpga-data.service';
+import { forkJoin } from 'rxjs';
+import { Policy } from '../../models/policies';
 
 @Component({
   selector: 'app-detail',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailComponent implements OnInit {
 
-  constructor() { }
+  rules: Policy[];
+  seniorRules: Policy[];
+
+  constructor(
+    private mpgaData: MpgaDataService
+  ) { }
 
   ngOnInit() {
+    forkJoin([
+      this.mpgaData.policies('MP'),
+      this.mpgaData.policies('SP')
+    ]).subscribe(results => {
+      this.rules = results[0];
+      this.seniorRules = results[1];
+    });
   }
 
 }

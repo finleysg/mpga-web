@@ -1,6 +1,64 @@
-<div class="notes">
-  <h1>Match Play Teams and Captains</h1>
-  <p>Separate tabs for 12-20 and senior 8-man</p>
-  <p>List of teams, groups, and captains</p>
-  <p>Contact info for the captains</p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="100%" fxFlex="100">
+    <mat-card>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-select placeholder="Filter by Group" (selectionChange)="selectGroup($event)">
+            <mat-option [value]="">Show All</mat-option>
+            <mat-option *ngFor="let group of groups" [value]="group">
+              {{group}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-slide-toggle [(ngModel)]="dataSource.isSenior" class="ml-3">
+          Senior Teams
+        </mat-slide-toggle>
+      </mat-card-content>
+      <mat-card-content>
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+          <ng-container matColumnDef="groupName">
+            <th mat-header-cell *matHeaderCellDef>Club Name</th>
+            <td mat-cell *matCellDef="let item">
+              {{ item.groupName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="clubName">
+            <th mat-header-cell *matHeaderCellDef>Club Name</th>
+            <td mat-cell *matCellDef="let item">
+              {{ item.clubName }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="captain">
+            <th mat-header-cell *matHeaderCellDef>Captain(s)</th>
+            <td mat-cell *matCellDef="let item">
+              {{ captains(item) }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="contactInfo">
+            <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
+              <div class="contact-info" [@detailExpand]="expandedItem && item.id === expandedItem.id ? 'expanded' : 'collapsed'">
+                <div class="contact-info-detail">
+                  <p><strong>{{ item.captain.firstName }} {{ item.captain.lastName }}</strong></p>
+                  <p>{{ item.captain.email }}</p>
+                  <p>{{ item.captain.primaryPhone }}</p>
+                  <p *ngIf="item.captain.alternatePhone">{{ item.captain.alternatePhone }}</p>
+                </div>
+                <div class="contact-info-detail" *ngIf="item.coCaptain">
+                  <p><strong>{{ item.coCaptain.firstName }} {{ item.coCaptain.lastName }}</strong></p>
+                  <p>{{ item.coCaptain.email }}</p>
+                  <p>{{ item.coCaptain.primaryPhone }}</p>
+                  <p *ngIf="item.captain.alternatePhone">{{ item.coCaptain.alternatePhone }}</p>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let item; columns: displayedColumns" class="contact-row clickable"
+            [class.expanded-contact-row]="expandedItem && expandedItem.id === item.id" (click)="toggleDetail(item)">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['contactInfo']" class="contact-info-row"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

@@ -25,6 +25,10 @@ export class Contact extends Model {
     state: string;
     zip: string;
     notes: string;
+
+    get name(): string {
+        return `${this.firstName} ${this.lastName}`;
+    }
 }
 
 export class Club extends Model {
@@ -72,16 +76,18 @@ export class Membership extends Model {
 export class Team extends Model {
     id: number;
     year: number;
-    club: Club;
-    // captain: Contact;
-    // coCaptain: Contact;
+    club: number;
+    clubName: string;
+    captain: Contact;
+    coCaptain: Contact;
     groupName: string;
     isSenior: boolean;
     notes: string;
 
     fromJson(obj: any): any {
         const team = super.fromJson(obj);
-        team.club = new Club().fromJson(obj['club']);
+        team.captain = new Contact().fromJson(obj['contact']);
+        team.coCaptain = new Contact().fromJson(obj['contact2']);
         return team;
     }
 }
