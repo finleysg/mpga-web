@@ -36,9 +36,9 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
     private errorHandler: AppErrorHandler,
     private snackBar: MatSnackBar
   ) {
-    this.mediaMatcher.addListener(mql => zone.run(() => {
-      this.mediaMatcher = mql;
-    }));
+    // this.mediaMatcher.addListener(mql => zone.run(() => {
+    //   this.mediaMatcher = mql;
+    // }));
   }
 
   ngOnInit(): void {

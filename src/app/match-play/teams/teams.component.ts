@@ -40,8 +40,11 @@ export class TeamsComponent implements OnInit {
   }
 
   toggleDetail(row: Team): void {
-    console.log(row);
-    this.expandedItem = row;
+    if (this.expandedItem && this.expandedItem.id === row.id) {
+      this.expandedItem = null;
+    } else {
+      this.expandedItem = row;
+    }
   }
 
   captains(team: Team): string {

@@ -18,6 +18,8 @@
       <mat-icon>settings</mat-icon>
       Settings
     </button> -->
+    <button (click)="startLoading()">start</button>
+    <button (click)="stopLoading()">stop</button> 
     <button *ngIf="currentUser && currentUser.isAuthenticated" [routerLink]="['/profile', 'edit']" mat-menu-item>
       <mat-icon>account_box</mat-icon>
       Profile
@@ -32,3 +34,4 @@
     </button>
   </mat-menu>
 </mat-toolbar>
+<mat-progress-bar mode="determinate" [value]="loader.progress$|async"></mat-progress-bar>
