@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-header class="mat-purple">
+    <mat-card-title>{{ currentYear }} Tournament Results</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="resultLinks && resultLinks.length">
+      <h4 class="event-bold">Online Results</h4>
+      <p *ngFor="let link of resultLinks">
+        <a [href]="link.url" target="_blank">
+          {{ link.title }}&nbsp;<mat-icon color="primary" [inline]="true">open_in_new</mat-icon>
+        </a>
+      </p>
+    </div>
+    <div *ngIf="mediaLinks && mediaLinks.length">
+      <h4 class="event-bold">{{ event.name }} in the News</h4>
+      <p *ngFor="let link of mediaLinks">
+        <a [href]="link.url" target="_blank">
+          {{ link.title }}&nbsp;<mat-icon color="primary" [inline]="true">open_in_new</mat-icon>
+        </a>
+      </p>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <a *ngFor="let result of fullResults" [href]="result.file" target="_blank" mat-button color="primary">{{ result.title }}</a>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,11 @@
+@import '../../../assets/styles/scss/material.variables';
+
+.event-bold {
+    color: mat-color($mat-teal, 700)!important;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.mat-card-title {
+    font-size: 16px !important;
+}

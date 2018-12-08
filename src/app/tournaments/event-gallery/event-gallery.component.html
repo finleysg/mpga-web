@@ -1,0 +1,10 @@
+<mat-grid-list cols="6" gutterSize="10px" rowHeight="1:1">
+  <mat-grid-tile *ngFor="let pic of photos">
+    <img mat-card-image [src]="pic.thumbnailUrl" alt="pic.caption">
+    <mat-grid-tile-footer>
+      <h3 matLine>{{ pic.year }}</h3>
+      <span matLine>{{ pic.caption }}</span>
+      <mat-icon>view</mat-icon>
+    </mat-grid-tile-footer>
+  </mat-grid-tile>
+</mat-grid-list>

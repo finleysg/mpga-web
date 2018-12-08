@@ -6,7 +6,7 @@ import { BaseService } from './base.service';
 import { UserService } from './user.service';
 import { User } from '../models/user';
 import { Policy } from '../models/policies';
-import { EventDetail } from '../models/events';
+import { EventDetail, Tournament } from '../models/events';
 import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/communication';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
@@ -49,6 +49,15 @@ export class MpgaDataService extends BaseService {
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new EventDetail(o));
+      })
+    );
+  }
+
+  tournament(tournamentId: number): Observable<Tournament> {
+    const url = `${this.baseUrl}/tournaments/${tournamentId}/`;
+    return this.http.get(url).pipe(
+      map((json: any) => {
+        return new Tournament().fromJson(json);
       })
     );
   }
@@ -97,8 +106,8 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  documents({year, event, docType}: {year?: number, event?: EventDetail, docType?: string}): Observable<MpgaDocument[]> {
-    const url = this.buildUrl(year, event, docType);
+  documents({year, tournamentId, docType}: {year?: number, tournamentId?: number, docType?: string}): Observable<MpgaDocument[]> {
+    const url = this.mediaUrl('documents', year, tournamentId, docType);
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new MpgaDocument().fromJson(o));
@@ -106,8 +115,8 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  photos({year, event, picType}: {year?: number, event?: EventDetail, picType?: string}): Observable<MpgaPhoto[]> {
-    const url = this.buildUrl(year, event, picType);
+  photos({year, tournamentId, picType}: {year?: number, tournamentId?: number, picType?: string}): Observable<MpgaPhoto[]> {
+    const url = this.mediaUrl('photos', year, tournamentId, picType);
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new MpgaPhoto().fromJson(o));
@@ -115,13 +124,13 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  buildUrl(year?: number, event?: EventDetail, docType?: string): string {
-    let url = `${this.baseUrl}/documents/`;
+  private mediaUrl(resource: string, year?: number, tournamentId?: number, docType?: string): string {
+    let url = `${this.baseUrl}/${resource}/`;
     if (year) {
       url += `?year=${year}`;
     }
     if (event) {
-      url += url.endsWith('/') ? `?event=${event.id}` : `&event=${event.id}`;
+      url += url.endsWith('/') ? `?tournament=${tournamentId}` : `&tournament=${tournamentId}`;
     }
     if (docType) {
       url += url.endsWith('/') ? `?type=${docType}` : `&type=${docType}`;

@@ -3,18 +3,18 @@ import { Model } from './model';
 
 export class Tag {
     id: number;
-    name: string;
+    tag: string;
 }
 
 export class DocumentTag {
     id: number;
-    document: MpgaDocument;
+    document: number;
     tag: Tag;
 }
 
 export class PhotoTag {
     id: number;
-    photo: MpgaPhoto;
+    photo: number;
     tag: Tag;
 }
 
@@ -24,14 +24,17 @@ export class MpgaDocument extends Model {
     documentType: string;
     file: string;
     lastUpdate: moment.Moment;
-    event: number;
+    createdBy: string;
+    tournament: number;
 }
 
 export class MpgaPhoto extends Model {
     year: number;
-    title: string;
+    caption: string;
     photoType: string;
-    file: string;
+    thumbnailUrl: string;
+    imageUrl: string;
     lastUpdate: moment.Moment;
-    event: number;
+    createdBy: string;
+    tournament: number;
 }

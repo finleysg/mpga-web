@@ -33,6 +33,7 @@ export class TournamentWinner extends Model {
     flightOrDivision: string;
     score: string;
     isNet: boolean;
+    isMatch: boolean;
     notes: string;
 }
 
@@ -101,7 +102,7 @@ export class EventDetail extends Model {
     rounds: number;
     minimumSignupGroupSize: number;
     maximumSignupGroupSize: number;
-    tournament: Tournament;
+    tournament: number;
     registrationType: string;
     notes: string;
     eventType: string;
@@ -124,7 +125,6 @@ export class EventDetail extends Model {
         const evt = super.fromJson(obj);
         if (obj) {
             evt.location = new GolfCourse().fromJson(obj['location']);
-            evt.tournament = new Tournament().fromJson(obj['tournament']);
             evt.year = evt.startDate.year();
             if (obj['policies']) {
                 evt.policies = obj['policies'].map(o => new EventPolicy().fromJson(o));
@@ -151,5 +151,29 @@ export class EventDetail extends Model {
             }
         }
         Object.assign(this, evt);
+    }
+
+    get currentTournamentYear(): number {
+        return this.startDate.year();
+    }
+
+    get mostRecentYear(): number {
+        // the most recent year with a completed tournament
+        const eventYear = this.startDate.year();
+        const currentYear = moment().year();
+        if (eventYear === currentYear) {
+            if (this.startDate.add(1, 'days').isAfter(moment())) {
+                return this.startDate.year() - 1;
+            }
+            return this.startDate.year();
+        } else if (eventYear < currentYear) {
+            return this.startDate.year();
+        } else {
+            return this.startDate.year() - 1;
+        }
+    }
+
+    get canRegister(): boolean {
+        return this.registrationEnd.isAfter(moment());
     }
 }
