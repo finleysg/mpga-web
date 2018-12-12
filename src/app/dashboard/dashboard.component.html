@@ -1,7 +1,7 @@
 <div fxLayout="row wrap">
     <div fxFlex.gt-sm="33.33%" fxFlex="100">
         <mat-card *ngIf="events">
-            <mat-card-content class="mat-indigo">
+            <mat-card-content class="mat-purple">
                 <h2 class="mt-0 mb-0">2018 Event Calendar</h2>
             </mat-card-content>
             <mat-card-content>
@@ -18,8 +18,8 @@
     </div>
     <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="50" fxFlex="100">
         <mat-card *ngIf="policies">
-            <mat-card-content class="mat-teal">
-                <h2 class="mt-0 mb-0">About the MPGA</h2>
+            <mat-card-content>
+                <h2 class="mt-0 mb-0 mat-text-primary">About the MPGA</h2>
             </mat-card-content>
             <mat-card-content>
                 <div [markdown]="pageContent.content"></div>
@@ -32,8 +32,8 @@
     </div>
     <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="50" fxFlex="100">
         <mat-card *ngIf="announcements">
-            <mat-card-content class="mat-amber">
-                <h2 class="mt-0 mb-0">Announcements</h2>
+            <mat-card-content class="mat-purple">
+                <h2 class="mt-0 mb-0">News and Announcements</h2>
             </mat-card-content>
             <mat-card-content>
                 <mat-list>

@@ -1,3 +1,47 @@
-<p>
-  event-history works!
-</p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="50%" fxFlex="100">
+    <mat-card *ngIf="tournament">
+      <mat-card-header class="mat-purple">
+        <mat-card-title>{{ tournament.name }} History</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div [markdown]="tournament.description"></div>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-select placeholder="Year">
+            <mat-option>All</mat-option>
+            <mat-option *ngFor="let year of years" [value]="year" (change)="applyFilter($event.target.value)">{{year}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-table [dataSource]="dataSource">
+          <ng-container cdkColumnDef="year">
+            <mat-header-cell *cdkHeaderCellDef> Year </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.year}} </mat-cell>
+          </ng-container>
+          <ng-container cdkColumnDef="location">
+            <mat-header-cell *cdkHeaderCellDef> Location </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.location}} </mat-cell>
+          </ng-container>
+          <ng-container cdkColumnDef="flight">
+            <mat-header-cell *cdkHeaderCellDef> Flight </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.flightOrDivision}} </mat-cell>
+          </ng-container>
+            <ng-container cdkColumnDef="winner">
+            <mat-header-cell *cdkHeaderCellDef> Winner(s) </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.winnersFormatted()}} </mat-cell>
+          </ng-container>
+          <ng-container cdkColumnDef="score">
+            <mat-header-cell *cdkHeaderCellDef> Score </mat-header-cell>
+            <mat-cell *cdkCellDef="let row"> {{row.score}}<span *ngIf="row.isNet">*</span> </mat-cell>
+          </ng-container>
+          <!-- Header and Row Declarations -->
+          <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *cdkRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="50%" fxFlex="100">
+  </div>
+</div>

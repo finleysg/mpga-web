@@ -57,7 +57,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     PerfectScrollbarModule,
     LoadingBarHttpClientModule,
-    LoadingBarModule.forRoot()
+    LoadingBarModule // .forRoot()
   ],
   providers: [
     {

@@ -129,7 +129,7 @@ export class MpgaDataService extends BaseService {
     if (year) {
       url += `?year=${year}`;
     }
-    if (event) {
+    if (tournamentId) {
       url += url.endsWith('/') ? `?tournament=${tournamentId}` : `&tournament=${tournamentId}`;
     }
     if (docType) {
