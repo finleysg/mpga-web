@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { routing } from './tournaments-routing.module';
 import { EventComponent } from './event/event.component';
@@ -17,7 +19,9 @@ import { EventRegistrationPreviewComponent } from './event-registration-preview/
   imports: [
     routing,
     SharedModule,
-    MatGridListModule
+    MatGridListModule,
+    CdkTableModule,
+    MatTableModule
   ],
   declarations: [
     EventComponent, 
