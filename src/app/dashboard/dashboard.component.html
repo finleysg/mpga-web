@@ -24,25 +24,24 @@
             <mat-card-content>
                 <div [markdown]="pageContent.content"></div>
                 <div *ngFor="let pol of policies">
-                    <h3 class="mt-0 mb-0 about-header"> {{pol.title}} </h3>
+                    <h3 class="mt-0 mb-0 about-item"> {{pol.title}} </h3>
                     <div [markdown]="pol.description"></div>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
     <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="50" fxFlex="100">
-        <mat-card *ngIf="announcements">
+        <mat-card>
             <mat-card-content class="mat-purple">
                 <h2 class="mt-0 mb-0">News and Announcements</h2>
             </mat-card-content>
             <mat-card-content>
-                <mat-list>
-                    <!-- <mat-list-item *ngFor="let item of announcements">
-                    <h3 matLine> {{item.name}} </h3>
-                    <p matLine> {{item.location.name}} </p>
-                    <p matLine> {{item.eventDates}} </p>
-                    </mat-list-item> -->
-                </mat-list>
+                <div *ngFor="let item of announcements">
+                  <h3 class="mt-0 mb-0 announcement-item"> {{item.title}} </h3>
+                  <div [markdown]="item.text"></div>
+                  <p *ngIf="item.externalUrl"><a mat-stroked-button color="primary" [href]="item.externalUrl" target="_blank">{{item.externalName}}</a></p>
+                  <p *ngIf="item.document"><a mat-stroked-button color="primary" [href]="item.document.file" target="_blank">{{item.document.Title}}</a></p>
+                </div>
             </mat-card-content>
         </mat-card>
     </div>

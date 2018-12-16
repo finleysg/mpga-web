@@ -35,46 +35,33 @@ export class TournamentWinner extends Model {
   isNet: boolean;
   isMatch: boolean;
   notes: string;
-}
 
-// export interface GroupedTournamentWinner {
-//   year: number;
-//   location: string;
-//   winners: TournamentWinner[];
-// }
+  constructor(json: string) {
+    super();
+    const obj = this.fromJson(json);
+    Object.assign(this, obj);
+  }
+
+  winnersFormatted(): string {
+    if (this.isMatch) {
+      return `${this.winner} defeated ${this.coWinner}`;
+    }
+    if (this.coWinner) {
+      return `${this.winner} (${this.winnerClub}) / ${this.coWinner} (${this.coWinnerClub})`;
+    }
+    return `${this.winner} (${this.winnerClub})`;
+  }
+}
 
 export class Tournament extends Model {
   name: string;
   description: string;
   winners: TournamentWinner[];
 
-  // winnersByYear(): GroupedTournamentWinner[] {
-
-  //   const locations = Object.values(
-  //     this.winners.reduce(
-  //       (result, winner) => ({
-  //         ...result,
-  //         [winner['year']]: [
-  //           ...(result[winner['year']] || []),
-  //           { 'year': winner.year, 'winner': winner.location }
-  //         ],
-  //       }), {})
-  //   ).sort((a, b) => +b['year'] - +a['year']);
-
-  //   return locations.map(loc => {
-  //     return {
-  //       'year': loc['year'],
-  //       'location': loc['location'],
-  //       // tslint:disable-next-line:triple-equals
-  //       'winners': this.winners.filter(o => o.year == loc['year'])
-  //     } as GroupedTournamentWinner;
-  //   });
-  // }
-
   fromJson(obj: any): any {
     const tournament = super.fromJson(obj);
     if (obj && obj['winners']) {
-      tournament.winners = obj['winners'].map(o => new TournamentWinner().fromJson(o));
+      tournament.winners = obj['winners'].map(o => new TournamentWinner(o));
     }
     return tournament;
   }

@@ -8,7 +8,7 @@ import { User } from '../models/user';
 import { Policy } from '../models/policies';
 import { EventDetail, Tournament } from '../models/events';
 import { LandingPage } from '../models/pages';
-import { Announcement } from '../models/communication';
+import { Announcement } from '../models/announcement';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
 import { Membership, Team } from '../models/clubs';
 
@@ -29,8 +29,8 @@ export class MpgaDataService extends BaseService {
 
   announcements(): Observable<Announcement[]> {
     return this.http.get(`${this.baseUrl}/announcements/`).pipe(
-      map((json: any) => {
-        return new Announcement().fromJson(json);
+      map((json: any[]) => {
+        return json.map(o => new Announcement().fromJson(o));
       })
     );
   }
@@ -110,7 +110,7 @@ export class MpgaDataService extends BaseService {
     const url = this.mediaUrl('documents', year, tournamentId, docType);
     return this.http.get(url).pipe(
       map((json: any) => {
-        return json.map(o => new MpgaDocument().fromJson(o));
+        return json.map(o => new MpgaDocument(o));
       })
     );
   }

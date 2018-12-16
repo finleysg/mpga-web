@@ -1,0 +1,9 @@
+// @import '~@angular/material/theming';
+@import '../../../assets/styles/scss/material.variables';
+
+.meeting-bold {
+    color: mat-color($mat-teal, 700)!important;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}

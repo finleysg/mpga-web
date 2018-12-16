@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { CdkTableModule } from '@angular/cdk/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { routing } from './tournaments-routing.module';
@@ -17,17 +19,19 @@ import { EventRegistrationPreviewComponent } from './event-registration-preview/
   imports: [
     routing,
     SharedModule,
+    CdkTableModule,
+    MatTableModule,
     MatGridListModule
   ],
   declarations: [
-    EventComponent, 
-    HardCardComponent, 
-    BidComponent, 
-    EventHistoryComponent, 
-    EventHistoryPreviewComponent, 
-    EventGalleryComponent, 
-    EventGalleryPreviewComponent, 
-    EventResultsPreviewComponent, 
+    EventComponent,
+    HardCardComponent,
+    BidComponent,
+    EventHistoryComponent,
+    EventHistoryPreviewComponent,
+    EventGalleryComponent,
+    EventGalleryPreviewComponent,
+    EventResultsPreviewComponent,
     EventRegistrationPreviewComponent
   ]
 })

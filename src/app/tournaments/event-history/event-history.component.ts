@@ -31,6 +31,7 @@ export class EventHistoryComponent implements OnInit {
         this.years = [...new Set(this.tournament.winners.map(w => w.year))].sort((a, b) => b - a); // descending
         this.flights = [...new Set(this.tournament.winners.map(w => w.flightOrDivision))];
         this.winners = tournament.winners.slice();
+        this.dataSource = new MatTableDataSource(this.winners);
       }
     );
   }
@@ -40,5 +41,6 @@ export class EventHistoryComponent implements OnInit {
     if (flight) {
       this.winners = this.winners.filter(o => o.flightOrDivision === flight).slice(0);
     }
+    this.dataSource = new MatTableDataSource(this.winners);
   }
 }

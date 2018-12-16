@@ -1,11 +1,12 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 import * as showdown from 'showdown';
 // const converter = new showdown.Converter();
 
 // tslint:disable-next-line:directive-selector
 @Directive({ selector: '[markdown]' })
-export class MarkdownDirective implements OnInit {
+export class MarkdownDirective implements OnChanges {
 
+    // tslint:disable-next-line:no-input-rename
     @Input('markdown') markdown: string;
     private element: any;
 
@@ -13,7 +14,7 @@ export class MarkdownDirective implements OnInit {
         this.element = elementRef.nativeElement;
      }
 
-    ngOnInit() {
+    ngOnChanges() {
         //noinspection TypeScriptUnresolvedFunction
         const markup = new showdown.Converter().makeHtml(this.markdown);
         this.element.innerHTML = markup;

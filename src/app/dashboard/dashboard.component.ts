@@ -4,7 +4,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { MpgaDataService } from '../services/mpga-data.service';
 import { LandingPage } from '../models/pages';
-import { Announcement } from '../models/communication';
+import { Announcement } from '../models/announcement';
 import { EventDetail } from '../models/events';
 import { Policy } from '../models/policies';
 import { forkJoin } from 'rxjs';

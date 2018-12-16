@@ -1,8 +1,31 @@
-<div class="notes">
-  <h1>Meeting Event Details</h1>
-  <p>Simpler than a tournament detal page, but same idea</p>
-  <p>
-    I'd like online registration for these events. Collecting money could be optional, but
-    this would be an easier way to get counts.
-  </p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="50%" fxFlex="100">
+    <mat-card *ngIf="event">
+      <mat-card-content class="mat-purple">
+        <h2 class="mt-0 mb-0">{{ event.name }}</h2>
+      </mat-card-content>
+      <mat-card-content>
+        <h3 class="mb-0">
+          <a [href]="event.location.website" target="_blank">
+            {{ event.location.name }}&nbsp;<mat-icon color="primary" [inline]="true">open_in_new</mat-icon>
+          </a>
+        </h3>
+        <h4 class="mt-0">{{ event.eventDates }}</h4>
+
+        <h5 class="meeting-bold">About this Meeting</h5>
+        <div [markdown]="event.description"></div>
+        <!-- <h5 *ngIf="event.fees" class="meeting-bold">Dinner / Golf Costs</h5>
+        <mat-list dense *ngIf="event.fees">
+          <mat-list-item *ngFor="let fee of event.fees">
+            {{ fee.feeType }}: {{ fee.amount | currency:'USD':'symbol-narrow' }}
+          </mat-list-item>
+        </mat-list> -->
+        <h5 class="meeting-bold">Agenda</h5>
+        <div [markdown]="event.notes"></div>
+        <p *ngIf="minutes">
+          <a mat-flat-button color="primary" [href]="minutes.file" target="_blank">{{minutes.title}}</a>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
