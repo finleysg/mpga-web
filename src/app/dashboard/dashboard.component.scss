@@ -1,7 +1,7 @@
 @import '../../assets/styles/scss/material.variables';
 
 h3.about-item {
-  color: mat-color($accent);
+  color: mat-color($mat-teal, 700);
 }
 h3.announcement-item {
   color: mat-color($mat-teal, 700);

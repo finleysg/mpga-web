@@ -31,7 +31,7 @@ export class MpgaDocument extends Model {
     constructor(json: any) {
       super();
       const obj = this.fromJson(json);
-      if (json.tags) {
+      if (json && json.tags) {
         obj.tags = json.tags.map(t => t.tag);
       }
       Object.assign(this, obj);

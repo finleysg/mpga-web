@@ -1,4 +1,4 @@
-<mat-toolbar class="main-header" color="primary">
+<mat-toolbar class="main-header">
   <button (click)="toggleSidenav.emit()" mat-icon-button>
     <mat-icon>menu</mat-icon>
   </button>
@@ -19,7 +19,7 @@
       Settings
     </button> -->
     <button (click)="startLoading()">start</button>
-    <button (click)="stopLoading()">stop</button> 
+    <button (click)="stopLoading()">stop</button>
     <button *ngIf="currentUser && currentUser.isAuthenticated" [routerLink]="['/profile', 'edit']" mat-menu-item>
       <mat-icon>account_box</mat-icon>
       Profile

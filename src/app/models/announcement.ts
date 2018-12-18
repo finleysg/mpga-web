@@ -11,7 +11,7 @@ export class Announcement extends Model {
 
     fromJson(obj: any): any {
         const announcement = super.fromJson(obj);
-        announcement.document = new MpgaDocument().fromJson(obj['document']);
+        announcement.document = new MpgaDocument(obj['document']);
         return announcement;
     }
 }

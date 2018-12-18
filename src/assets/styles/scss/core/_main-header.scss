@@ -26,6 +26,8 @@ mat-toolbar {
     text-align: center;
   }
   &.main-header {
+    background: mat-color($dark-background, card);
+    color: #10bc83;
     padding: 0 8px;
     position: relative;
     box-shadow: 0 1px 8px rgba(0,0,0,.3);

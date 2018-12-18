@@ -1,7 +1,7 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="33.33%" fxFlex="100">
     <mat-card *ngIf="membership">
-      <mat-card-content class="mat-blue">
+      <mat-card-content class="mat-purple">
         <h2 class="mt-0 mb-0">{{ membership.club.name }}</h2>
       </mat-card-content>
       <mat-card-content>
@@ -33,28 +33,28 @@
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100">
     <mat-card *ngIf="membership">
-      <mat-card-content class="mat-light-blue">
+      <mat-card-content class="mat-purple">
         <h2 class="mt-0 mb-0">Club Contacts</h2>
       </mat-card-content>
       <mat-card-content>
         <div *ngFor="let cc of membership.club.clubContacts" class="mb-1">
-          <h3 class="contact-topic">
+          <h3 class="detail-topic">
             {{ cc.contact.firstName }} {{ cc.contact.lastName }} ({{ cc.contact.contactType }})
           </h3>
           <p *ngIf="cc.roles && cc.roles.length > 0">
-            <span class="contact-topic">Roles:</span>
+            <span class="detail-topic">Roles:</span>
             {{ displayRoles(cc.roles) }}
           </p>
           <p *ngIf="cc.contact.primaryPhone">
-            <span class="contact-topic">Primary phone:</span>
+            <span class="detail-topic">Primary phone:</span>
             {{ cc.contact.primaryPhone }}
           </p>
           <p *ngIf="cc.contact.alternatePhone">
-            <span class="contact-topic">Alternate phone:</span>
+            <span class="detail-topic">Alternate phone:</span>
             {{ cc.contact.alternatePhone }}
           </p>
           <p *ngIf="cc.contact.email">
-            <span class="contact-topic">Email:</span>
+            <span class="detail-topic">Email:</span>
             {{ cc.contact.email }}
           </p>
           <p *ngIf="cc.isPrimary" class="italic">
@@ -70,29 +70,29 @@
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100" *ngIf="membership && membership.club && membership.club.golfCourse">
     <mat-card>
-      <mat-card-content class="mat-green">
+      <mat-card-content class="mat-purple">
         <h2 class="mt-0 mb-0">{{ membership.club.golfCourse.name }}</h2>
       </mat-card-content>
       <mat-card-content>
-        <p><span class="course-topic">Address:</span></p>
+        <p><span class="detail-topic">Address:</span></p>
         <div class="mb-1">
           {{ membership.club.golfCourse.addressTxt }}<br />
           {{ membership.club.golfCourse.city }}, {{ membership.club.golfCourse.state }} {{
           membership.club.golfCourse.zip }}<br />
         </div>
         <p>
-          <span class="course-topic">Course website:</span>
+          <span class="detail-topic">Course website:</span>
           <a *ngIf="membership.club.golfCourse.website" [href]="membership.club.golfCourse.website" target="_blank">
             {{ membership.club.golfCourse.website }}
           </a> <mat-icon [inline]="true">open_in_new</mat-icon>
           <span *ngIf="!membership.club.golfCourse.website">None available</span>
         </p>
         <p>
-          <span class="course-topic">Phone:</span>
+          <span class="detail-topic">Phone:</span>
           {{ membership.club.golfCourse.phone ? membership.club.golfCourse.phone : 'None available' }}
         </p>
         <p>
-          <span class="course-topic">Email:</span>
+          <span class="detail-topic">Email:</span>
           {{ membership.club.golfCourse.email ? membership.club.golfCourse.email : 'None available' }}
         </p>
       </mat-card-content>

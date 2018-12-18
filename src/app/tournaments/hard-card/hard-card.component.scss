@@ -1,9 +1,11 @@
 @import '../../../assets/styles/scss/material.variables';
 
 h3.rule-title {
-    color: mat-color($mat-indigo, 500);
+  color: mat-color($mat-teal, 700)!important;
+  font-weight: bold;
 }
 
 h3.tpi-title {
-    color: mat-color($mat-blue, 700);
+  color: mat-color($mat-teal, 700)!important;
+  font-weight: bold;
 }

@@ -5,6 +5,7 @@ $mat-toolbar-height-mobile-portrait: 56px !default;
 $mat-toolbar-height-mobile-landscape: 48px !default;
 
 mat-sidenav.sidebar-panel {
+  background: mat-color($dark-background, card);
   position: absolute!important;
   overflow-x: hidden;
   width: $sidebar-width;
@@ -26,6 +27,9 @@ mat-sidenav.sidebar-panel {
     transition: max-height .3s cubic-bezier(.35, 0, .25, 1);
   }
   .mat-list-item {
+    // color:  mat-color($primary, 300);
+    color: #10bc83;
+    font-weight: 500;
     height: auto;
     background-color: transparent;
     -webkit-transition: background-color .3s cubic-bezier(.35, 0, .25, 1);
@@ -51,24 +55,27 @@ mat-sidenav.sidebar-panel {
     transform: translateZ(0)!important;
   }
   .sub-menu a{
-    @include padding-left(64px);
+    @include padding-left(16px);
+    color: lightgrey;
+    font-weight: 100;
   }
 
   .sub-menu .sub-menu a{
-    @include padding-left(64px + 16px);
+    @include padding-left(16px + 16px);
   }
 
   .sub-menu .sub-menu .sub-menu a{
-    @include padding-left(64px + 32px);
+    @include padding-left(16px + 32px);
   }
 
   .sub-menu .sub-menu .sub-menu .sub-menu a{
-    @include padding-left(64px + 48px);
+    @include padding-left(16px + 48px);
   }
 
   .navigation {
     mat-icon:not(.menu-caret) {
       @include margin-right(24px);
+      color: 0fb27c;
     }
     .menu-caret {
       display: inline-block;
