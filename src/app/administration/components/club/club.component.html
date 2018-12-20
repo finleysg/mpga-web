@@ -1,0 +1,30 @@
+<div [formGroup]="form">
+  <p>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Club name" [formControl]="form.controls['name']">
+    </mat-form-field>
+    <small *ngIf="fieldErrors.name" class="mat-text-warn">{{fieldErrors.name}}</small>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <input matInput type="url" placeholder="Club website" [formControl]="form.controls['website']">
+      <mat-hint>This is the full url for your club's website or webpage (not the golf course website).</mat-hint>
+    </mat-form-field>
+    <small *ngIf="fieldErrors.website" class="mat-text-warn">{{fieldErrors.website}}</small>
+  </p>
+  <p>
+    <mat-form-field class="partial-width-25">
+      <input matInput type="tel" placeholder="Size" [formControl]="form.controls['size']">
+      <mat-hint>Number of members.</mat-hint>
+    </mat-form-field>
+    <small *ngIf="fieldErrors.size" class="mat-text-warn">{{fieldErrors.size}}</small>
+  </p>
+  <p>
+    <mat-checkbox name="type2" [formControl]="form.controls['type2']">We are a Type 2 club</mat-checkbox>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <textarea matInput rows="12" placeholder="About Your Club" [formControl]="form.controls['notes']"></textarea>
+    </mat-form-field>
+  </p>
+</div>

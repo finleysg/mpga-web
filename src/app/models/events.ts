@@ -72,7 +72,7 @@ export class EventChair extends Model {
 
   fromJson(obj: any): any {
     const ec = super.fromJson(obj);
-    ec.chair = new Contact().fromJson(obj['chair']);
+    ec.chair = new Contact(obj['chair']);
     return ec;
   }
 }
@@ -140,7 +140,7 @@ export class EventDetail extends Model {
     super();
     const evt = super.fromJson(obj);
     if (obj) {
-      evt.location = new GolfCourse().fromJson(obj['location']);
+      evt.location = new GolfCourse(obj['location']);
       evt.year = evt.startDate.year();
       if (obj['policies']) {
         evt.policies = obj['policies'].map(o => new EventPolicy().fromJson(o));

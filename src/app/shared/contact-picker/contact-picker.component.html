@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>MPGA Contacts</h1>
+<div mat-dialog-content>
+  <p>Start typing to search for an existing MPGA contact. If the contact is in our database, click New below.</p>
+  <mat-form-field class="full-width">
+    <input type="text" placeholder="Contact" aria-label="Contact" matInput [formControl]="contactCtrl"
+      [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayContact" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let contact of filteredContacts | async" [value]="contact">
+        {{contact.name}} ({{contact.email}})
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button class="mr-1" mat-flat-button color="primary" (click)="sendContact()" cdkFocusInitial>Ok</button>
+    <button class="mr-1" mat-flat-button color="accent" (click)="newContact()">New</button>
+  <button class="mr-1" mat-button (click)="cancel()">Cancel</button>
+</div>

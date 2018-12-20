@@ -1,0 +1,37 @@
+<div [formGroup]="form">
+  <p>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="First name" [formControl]="form.controls['firstName']">
+    </mat-form-field>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Last name" [formControl]="form.controls['lastName']">
+    </mat-form-field>
+    <small *ngIf="fieldErrors.firstName" class="mat-text-warn">{{fieldErrors.firstName}}</small>
+    <small *ngIf="fieldErrors.lastName" class="mat-text-warn">{{fieldErrors.lastName}}</small>
+  </p>
+  <p>
+    <mat-form-field class="half-width">
+      <mat-select placeholder="Contact type" [formControl]="form.controls['contactType']">
+        <mat-option *ngFor="let ct of contactTypes" [value]="ct">{{ ct }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <small *ngIf="fieldErrors.contactType" class="mat-text-warn">{{fieldErrors.contactType}}</small>
+  </p>
+  <p>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Primary phone" [formControl]="form.controls['primaryPhone']">
+    </mat-form-field>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Alternate phone" [formControl]="form.controls['alternatePhone']">
+    </mat-form-field>
+    <small *ngIf="fieldErrors.primaryPhone" class="mat-text-warn">{{fieldErrors.primaryPhone}}</small>
+    <small *ngIf="fieldErrors.alternatePhone" class="mat-text-warn">{{fieldErrors.alternatePhone}}</small>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Contact email" [formControl]="form.controls['email']">
+    </mat-form-field>
+    <small *ngIf="fieldErrors.email" class="mat-text-warn">{{fieldErrors.email}}</small>
+  </p>
+  <app-address *ngIf="showAddress" [address]="address"></app-address>
+</div>

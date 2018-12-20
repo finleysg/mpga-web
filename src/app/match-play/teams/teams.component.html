@@ -10,7 +10,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-slide-toggle [(ngModel)]="dataSource.isSenior" class="ml-3">
+        <mat-slide-toggle [checked]="dataSource.isSenior" (change)="dataSource.isSenior = $event.target.checked;" class="ml-3">
           Senior Teams
         </mat-slide-toggle>
       </mat-card-content>

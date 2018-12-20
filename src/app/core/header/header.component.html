@@ -1,3 +1,4 @@
+<mat-progress-bar mode="determinate" [value]="loader.progress$|async" color="accent"></mat-progress-bar>
 <mat-toolbar class="main-header">
   <button (click)="toggleSidenav.emit()" mat-icon-button>
     <mat-icon>menu</mat-icon>
@@ -34,4 +35,3 @@
     </button>
   </mat-menu>
 </mat-toolbar>
-<mat-progress-bar mode="determinate" [value]="loader.progress$|async"></mat-progress-bar>

@@ -10,7 +10,7 @@ import { EventDetail, Tournament } from '../models/events';
 import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/announcement';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
-import { Membership, Team } from '../models/clubs';
+import { Membership, Team, Contact } from '../models/clubs';
 
 @Injectable()
 export class MpgaDataService extends BaseService {
@@ -66,7 +66,7 @@ export class MpgaDataService extends BaseService {
     const url = year ? `${this.baseUrl}/memberships/?year=${year}` : `${this.baseUrl}/memberships/`;
     return this.http.get(url).pipe(
       map((json: any) => {
-        return json.map(o => new Membership().fromJson(o));
+        return json.map(o => new Membership(o));
       })
     );
   }
@@ -75,7 +75,7 @@ export class MpgaDataService extends BaseService {
     const url = `${this.baseUrl}/memberships/${id}/`;
     return this.http.get(url).pipe(
       map((json: any) => {
-        return new Membership().fromJson(json);
+        return new Membership(json);
       })
     );
   }
@@ -101,7 +101,7 @@ export class MpgaDataService extends BaseService {
     const url = year ? `${this.baseUrl}/teams/?year=${year}` : `${this.baseUrl}/teams/`;
     return this.http.get(url).pipe(
       map((json: any) => {
-        return json.map(o => new Team().fromJson(o));
+        return json.map(o => new Team(o));
       })
     );
   }
@@ -120,6 +120,20 @@ export class MpgaDataService extends BaseService {
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new MpgaPhoto().fromJson(o));
+      })
+    );
+  }
+
+  roles(): Observable<string[]> {
+    return this.http.get(`${this.baseUrl}/roles/`).pipe(
+      map((json: any[]) => json.map(o => o))
+    );
+  }
+
+  contacts(): Observable<Contact[]> {
+    return this.http.get(`${this.baseUrl}/contacts/`).pipe(
+      map((json: any[]) => {
+        return json.map(o => new Contact(o));
       })
     );
   }

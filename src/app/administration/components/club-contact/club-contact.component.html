@@ -1,0 +1,32 @@
+<div [formGroup]="form">
+  <app-contact [contact]="clubContact.contact" [showAddress]="clubContact.useForMailings"></app-contact>
+  <p>
+    <mat-checkbox [formControl]="form.controls['isPrimary']">
+      This is a primary email contact
+    </mat-checkbox>
+  </p>
+  <p>
+    <mat-checkbox [formControl]="form.controls['useForMailings']">
+      Send MPGA mailings to this contact
+    </mat-checkbox>
+  </p>
+  <p>
+    <mat-form-field class="role-list">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let role of clubContact.roles" class="mat-chip-role" [selectable]="true" [removable]="true"
+          (removed)="removeRole(clubContact, role)">
+          {{role.role}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Club roles..." #roleInput [formControl]="roleCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+          (matChipInputTokenEnd)="addRole(clubContact, $event)" class="clickable">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected(clubContact, $event)">
+        <mat-option *ngFor="let role of availableRoles | async" [value]="role">
+          {{role}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </p>
+</div>

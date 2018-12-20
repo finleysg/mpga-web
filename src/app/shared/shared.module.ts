@@ -1,6 +1,5 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -19,20 +18,20 @@ import {
   MatInputModule,
   MatIconModule,
   MatSnackBarModule,
-  MatAutocompleteModule,
-  MatDialogModule} from '@angular/material';
+  MatDialogModule,
+  MatAutocompleteModule} from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DialogService } from './dialog.service';
 import { MarkdownDirective } from './markdown/markdown.directive';
+import { ContactPickerComponent } from './contact-picker/contact-picker.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     RouterModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatSidenavModule,
@@ -56,10 +55,12 @@ import { MarkdownDirective } from './markdown/markdown.directive';
   ],
   declarations: [
     ConfirmDialogComponent,
-    MarkdownDirective
+    MarkdownDirective,
+    ContactPickerComponent
   ],
   entryComponents: [
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ContactPickerComponent
   ],
   providers: [
     DialogService
@@ -69,7 +70,6 @@ import { MarkdownDirective } from './markdown/markdown.directive';
   ],
   exports: [
     CommonModule,
-    FormsModule,
     RouterModule,
     ReactiveFormsModule,
     MarkdownDirective,
