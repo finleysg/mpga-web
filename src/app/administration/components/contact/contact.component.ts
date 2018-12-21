@@ -14,7 +14,7 @@ import { AddressComponent } from '../address/address.component';
 export class ContactComponent implements OnInit, OnDestroy {
 
   @Input() contact: Contact;
-  @Input() showAddress: boolean;
+  @Input() addressRequired: boolean;
   @ViewChild(AddressComponent) addressForm: AddressComponent;
 
   address: Address;
@@ -40,7 +40,15 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   isValid(): boolean {
-    return this.form.valid && this.addressForm.isValid();
+    this.contactForm.onValueChanges();
+    return this.form.valid && this.addressIsValid();
+  }
+
+  addressIsValid(): boolean {
+    if (this.addressRequired) {
+      return this.addressForm.isValid(this.addressRequired);
+    }
+    return true;
   }
 
   isDirty(): boolean {
@@ -48,16 +56,16 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   update(): void {
-    if (this.form.valid && this.addressForm.isValid()) {
+    if (this.form.valid && this.addressIsValid()) {
       this.addressForm.update();
       this.contactForm.updateValue(this.contact);
       this.contact.updateAddress(this.address);
     }
   }
 
-  cancel(): void {
-    this.addressForm.cancel();
-    this.form.reset();
-    this.contactForm.buildForm(this.contact);
-  }
+  // cancel(): void {
+  //   this.addressForm.cancel();
+  //   this.form.reset();
+  //   this.contactForm.buildForm(this.contact);
+  // }
 }

@@ -51,13 +51,14 @@ export class ContactForm {
   }
 
   buildForm(contact: Contact) {
+    const phonePattern = '^\\d{3}-\\d{3}-\\d{4}$';
     this.form = this.builder.group({
       'firstName': [contact.firstName, [Validators.required]],
       'lastName': [contact.lastName, [Validators.required]],
       'contactType': [contact.contactType, [Validators.required]],
       'email': [contact.email, [Validators.required, CustomValidators.email]],
-      'primaryPhone': [contact.primaryPhone, [Validators.required, Validators.pattern('^\d{3}-\d{3}-\d{4}$')]],
-      'alternatePhone': [contact.alternatePhone, [Validators.pattern('^\d{3}-\d{3}-\d{4}$')]]
+      'primaryPhone': [contact.primaryPhone, [Validators.required, Validators.pattern(phonePattern)]],
+      'alternatePhone': [contact.alternatePhone, [Validators.pattern(phonePattern)]]
     });
 
     this.form.statusChanges.subscribe(data => this.onValueChanges());

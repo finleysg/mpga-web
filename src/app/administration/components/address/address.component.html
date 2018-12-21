@@ -3,7 +3,6 @@
     <mat-form-field class="full-width">
       <input matInput placeholder="Mailing address" [formControl]="form.controls['addressTxt']">
     </mat-form-field>
-    <small *ngIf="fieldErrors.addressTxt" class="mat-text-warn">{{fieldErrors.addressTxt}}</small>
   </p>
   <p>
     <mat-form-field class="half-width">
@@ -17,8 +16,5 @@
     <mat-form-field class="partial-width-25">
       <input matInput placeholder="Zip code" [formControl]="form.controls['zip']">
     </mat-form-field>
-    <small *ngIf="fieldErrors.city" class="mat-text-warn">{{fieldErrors.city}}</small>
-    <small *ngIf="fieldErrors.state" class="mat-text-warn">{{fieldErrors.state}}</small>
-    <small *ngIf="fieldErrors.zip" class="mat-text-warn">{{fieldErrors.zip}}</small>
   </p>
 </div>

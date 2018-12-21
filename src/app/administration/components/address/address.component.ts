@@ -257,23 +257,23 @@ export class AddressComponent implements OnInit, OnDestroy {
   form: FormGroup;
   fieldErrors: any;
   private formSubscription: Subscription;
-  private errorSubscription: Subscription;
+  // private errorSubscription: Subscription;
 
   constructor(private addressForm: AddressForm) { }
 
   ngOnInit() {
     this.formSubscription = this.addressForm.form$.subscribe(form => this.form = form);
-    this.errorSubscription = this.addressForm.errors$.subscribe(errors => this.fieldErrors = errors);
+    // this.errorSubscription = this.addressForm.errors$.subscribe(errors => this.fieldErrors = errors);
     this.addressForm.buildForm(this.address);
   }
 
   ngOnDestroy() {
     this.formSubscription.unsubscribe();
-    this.errorSubscription.unsubscribe();
+    // this.errorSubscription.unsubscribe();
   }
 
-  isValid(): boolean {
-    return this.form.valid;
+  isValid(addressRequired: boolean = false): boolean {
+    return addressRequired && this.form.valid;
   }
 
   isDirty(): boolean {
@@ -286,8 +286,8 @@ export class AddressComponent implements OnInit, OnDestroy {
     }
   }
 
-  cancel(): void {
-    this.form.reset();
-    this.addressForm.buildForm(this.address);
-  }
+  // cancel(): void {
+  //   this.form.reset();
+  //   this.addressForm.buildForm(this.address);
+  // }
 }

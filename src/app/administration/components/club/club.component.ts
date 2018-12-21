@@ -47,8 +47,8 @@ export class ClubComponent implements OnInit, OnDestroy {
     }
   }
 
-  cancel(): void {
-    this.form.reset();
-    this.clubForm.buildForm(this.club);
-  }
+  // cancel(): void {
+  //   this.form.reset();
+  //   this.clubForm.buildForm(this.club);
+  // }
 }

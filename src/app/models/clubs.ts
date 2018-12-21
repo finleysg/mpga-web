@@ -96,7 +96,7 @@ export class Club extends Model {
   }
 
   addContact(contact: Contact): void {
-    this.clubContacts.push(new ClubContact({'contact': contact}));
+    this.clubContacts.unshift(new ClubContact({'contact': contact}));
   }
 
   prepJson(): string {
@@ -149,6 +149,7 @@ export class Team extends Model {
 }
 
 export class ClubContact extends Model {
+  localId: string = Math.floor(Math.random() * 1000).toString();
   contact: Contact;
   isPrimary: boolean;
   useForMailings: boolean;

@@ -1,0 +1,19 @@
+@import "./material.variables";
+
+.error-snackbar {
+  background: mat-color($mat-red, 500);
+}
+
+.warn-snackbar {
+  background: mat-color($mat-amber, 500);
+  color: mat-color($mat-purple, 900);
+}
+
+.info-snackbar {
+  background: mat-color($mat-light-blue, 600);
+  color: mat-color($mat-indigo, 900);
+}
+
+.success-snackbar {
+  background: mat-color($mat-green, 400);
+}

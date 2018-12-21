@@ -1,59 +1,58 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="33.33%" fxFlex="100">
     <mat-card *ngIf="club">
-      <!-- <mat-card-content>
-        <h2 class="mt-0 mb-0 mat-text-teal">About This Page</h2>
-      </mat-card-content> -->
+      <mat-card-header class="mat-teal">
+        <mat-card-title>Club Maintenance Page</mat-card-title>
+        <mat-card-subtitle>Update club information and contacts</mat-card-subtitle>
+      </mat-card-header>
       <mat-card-content>
-        <p>TODO: instructions and other helpful info about editing club data.</p>
+        <button mat-flat-button (click)="addContact()" color="primary" class="mr-1">
+          New Contact<mat-icon class="ml-1">person_add</mat-icon>
+        </button>
+        <button mat-flat-button color="accent" (click)="saveClub()">Save<mat-icon class="ml-1">save_alt</mat-icon></button>
+      </mat-card-content>
+      <mat-card-content *ngIf="instructions">
+        <div [markdown]="instructions.content"></div>
       </mat-card-content>
     </mat-card>
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100">
     <mat-card *ngIf="club">
-      <mat-card-content class="mat-teal">
-        <h2 class="mt-0 mb-0">Edit {{ club.name }}</h2>
-      </mat-card-content>
+      <mat-card-header class="mat-teal">
+        <mat-card-title>{{ club.name }}</mat-card-title>
+        <mat-card-subtitle>Edit details about your club</mat-card-subtitle>
+      </mat-card-header>
       <mat-card-content>
         <app-club [club]="club"></app-club>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-flat-button color="accent" (click)="saveClub()">Save</button>
-        <button mat-flat-button (click)="cancel()">Cancel</button>
-      </mat-card-actions>
     </mat-card>
   </div>
-  <div fxFlex.gt-sm="33.33%" fxFlex="100">
-    <mat-card *ngIf="club && allRoles">
-      <mat-card-content class="mat-teal">
-        <h2 class="mt-0 mb-0">Edit Club Contacts</h2>
-        <button mat-mini-fab (click)="addContact()" color="accent" class="add-contact">
-          <mat-icon>add</mat-icon>
-        </button>
-      </mat-card-content>
+  <div fxFlex.gt-sm="33.33%" fxFlex="100" *ngIf="club">
+    <div *ngFor="let cc of club.clubContacts" class="mb-2">
+      <mat-card>
+        <mat-card-header class="mat-teal">
+          <mat-card-title-group>
+            <mat-card-title *ngIf="cc.contact.lastName">{{cc.contact.name}}</mat-card-title>
+            <mat-card-title *ngIf="!cc.contact.lastName">New Contact</mat-card-title>
+            <mat-card-subtitle>Edit or remove this contact</mat-card-subtitle>
+          </mat-card-title-group>
+          <div fxFlex></div>
+          <button mat-icon-button color="warn" (click)="removeContact(cc)" class="remove-contact">
+            <mat-icon>remove_circle</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content *ngIf="allRoles">
+          <app-club-contact [clubContact]="cc" [roles]="allRoles"></app-club-contact>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <mat-card *ngIf="club">
       <mat-card-content>
-        <div *ngFor="let cc of club.clubContacts" class="mb-2">
-          <mat-card>
-            <mat-card-header class="mat-teal">
-              <mat-card-title-group>
-                <mat-card-title>{{cc.contact.name}}</mat-card-title>
-                <mat-card-subtitle>Edit or remove this contact</mat-card-subtitle>
-              </mat-card-title-group>
-              <div fxFlex></div>
-              <button mat-icon-button color="warn" class="remove-contact">
-                <mat-icon>remove_circle</mat-icon>
-              </button>
-            </mat-card-header>
-            <mat-card-content>
-              <app-club-contact [clubContact]="cc" [roles]="allRoles"></app-club-contact>
-            </mat-card-content>
-          </mat-card>
-        </div>
+        <button mat-flat-button (click)="addContact()" color="primary" class="mr-1">
+          New Contact<mat-icon class="ml-1">person_add</mat-icon>
+        </button>
+        <button mat-flat-button color="accent" (click)="saveClub()">Save<mat-icon class="ml-1">save_alt</mat-icon></button>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-flat-button color="accent">Save</button>
-        <button mat-flat-button>Cancel</button>
-      </mat-card-actions>
     </mat-card>
   </div>
 </div>

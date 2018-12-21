@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ClubContact, ClubContactRole } from '../../../models/clubs';
-import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent, MatCheckboxChange } from '@angular/material';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
@@ -25,6 +25,7 @@ export class ClubContactComponent implements OnInit, OnDestroy {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   roleCtrl = new FormControl();
   availableRoles: Observable<string[]>;
+  requireAddress: boolean;
 
   form: FormGroup;
   private formSubscription: Subscription;
@@ -32,6 +33,7 @@ export class ClubContactComponent implements OnInit, OnDestroy {
   constructor(private clubContactForm: ClubContactForm) { }
 
   ngOnInit() {
+    this.requireAddress = this.clubContact.useForMailings;
     this.formSubscription = this.clubContactForm.form$.subscribe(form => this.form = form);
     this.clubContactForm.buildForm(this.clubContact);
       this.availableRoles = this.roleCtrl.valueChanges.pipe(
@@ -58,10 +60,14 @@ export class ClubContactComponent implements OnInit, OnDestroy {
     }
   }
 
-  cancel(): void {
-    this.contactForm.cancel();
-    this.form.reset();
-    this.clubContactForm.buildForm(this.clubContact);
+  // cancel(): void {
+  //   this.contactForm.cancel();
+  //   this.form.reset();
+  //   this.clubContactForm.buildForm(this.clubContact);
+  // }
+
+  addressRequired(event: MatCheckboxChange): void {
+    this.requireAddress = event.checked;
   }
 
   addRole(clubContact: ClubContact, event: MatChipInputEvent): void {

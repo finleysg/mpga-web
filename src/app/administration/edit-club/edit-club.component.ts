@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { ClubMaintenanceService } from '../club-maintenance.service';
 import { ActivatedRoute } from '@angular/router';
-import { Club, Contact } from '../../models/clubs';
+import { Club, Contact, ClubContact } from '../../models/clubs';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactPickerComponent } from '../../shared/contact-picker/contact-picker.component';
 import { ClubComponent } from '../components/club/club.component';
 import { MatSnackBar } from '@angular/material';
+import { ClubContactComponent } from '../components/club-contact/club-contact.component';
+import { LandingPage } from 'src/app/models/pages';
 
 @Component({
   selector: 'app-edit-club',
@@ -16,9 +18,11 @@ import { MatSnackBar } from '@angular/material';
 export class EditClubComponent implements OnInit {
 
   @ViewChild(ClubComponent) clubForm: ClubComponent;
+  @ViewChildren(ClubContactComponent) clubContacts: QueryList<ClubContactComponent>;
 
   club: Club;
   allRoles: string[];
+  instructions: LandingPage;
 
   constructor(
     private clubData: ClubMaintenanceService,
@@ -35,13 +39,17 @@ export class EditClubComponent implements OnInit {
       this.clubData.loadClub(+params['id']);
     });
     this.mpgaData.roles().subscribe(roles => this.allRoles = roles);
+    this.mpgaData.langingPage('Z').subscribe(content => this.instructions = content);
   }
 
   saveClub(): void {
     if (!this.clubForm.isValid()) {
-      this.snackbar.open('There are problems with the main Club form');
+      this.snackbar.open('There are problems with the main Club form', null, {duration: 5000, panelClass: ['error-snackbar']});
+    } else if (this.clubContacts.some(cc => !cc.isValid())) {
+      this.snackbar.open('There are problems with one or more of the contacts', null, {duration: 5000, panelClass: ['error-snackbar']});
     } else {
       this.clubForm.update();
+      this.clubContacts.forEach(cc => cc.update());
       console.log(this.club);
     }
   }
@@ -58,7 +66,15 @@ export class EditClubComponent implements OnInit {
     });
   }
 
-  cancel(): void {
-    this.clubForm.cancel();
+  removeContact(clubContact: ClubContact): void {
+    const idx = this.club.clubContacts.findIndex(cc => cc.localId === clubContact.localId);
+    if (idx >= 0) {
+      this.clubContacts.forEach(cc => cc.update()); // don't lose any pending changes
+      this.club.clubContacts.splice(idx, 1);
+      this.snackbar.open(`${clubContact.contact.name} will be removed permanently when you save your changes`,
+        'Undo', {duration: 7000, panelClass: ['warn-snackbar']}).onAction().subscribe(() => {
+          this.club.clubContacts.splice(idx, 0, clubContact);
+        });
+    }
   }
 }
