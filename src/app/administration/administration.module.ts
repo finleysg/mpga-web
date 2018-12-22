@@ -11,7 +11,8 @@ import { EditClubComponent } from './edit-club/edit-club.component';
 import { ClubMaintenanceService } from './club-maintenance.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { ClubContactComponent } from './components/club-contact/club-contact.component';
-import { CustomFormsModule } from 'ngx-custom-validators';
+import { CustomFormsModule } from 'ng2-validation';
+import { ContactFilterPipe } from './edit-club/contact-filter.pipe';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { CustomFormsModule } from 'ngx-custom-validators';
     AddressComponent,
     ClubComponent,
     EditClubComponent,
-    ClubContactComponent
+    ClubContactComponent,
+    ContactFilterPipe
   ],
   providers: [
     ClubMaintenanceService

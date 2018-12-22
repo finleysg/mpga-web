@@ -101,8 +101,8 @@ export class Club extends Model {
 
   prepJson(): string {
     const club = super.snakeCase(this);
-    club.clubContacts = this.clubContacts.map(cc => cc.prepJson());
-    club.golfCourse = this.golfCourse.prepJson();
+    // club.clubContacts = this.clubContacts.map(cc => cc.prepJson());
+    // club.golfCourse = this.golfCourse.prepJson();
     return club;
   }
 }
@@ -149,10 +149,11 @@ export class Team extends Model {
 }
 
 export class ClubContact extends Model {
-  localId: string = Math.floor(Math.random() * 1000).toString();
+  // localId: string = Math.floor(Math.random() * 1000).toString();
   contact: Contact;
   isPrimary: boolean;
   useForMailings: boolean;
+  deleted: boolean;
   roles: ClubContactRole[];
 
   constructor(obj: any) {

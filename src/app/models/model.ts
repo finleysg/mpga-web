@@ -24,7 +24,7 @@ export class Model implements IModel {
         const newObj = {};
         if (obj) {
             for (const d in obj) {
-                if (obj.hasOwnProperty(d)) {
+                if (obj.hasOwnProperty(d) && d !== 'deleted' && d !== 'localId') {
                     newObj[d.replace(/[\w]([A-Z])/g, function(m) {
                         return m[0] + '_' + m[1];
                     }).toLowerCase()] = obj[d];

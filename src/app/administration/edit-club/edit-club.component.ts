@@ -39,7 +39,7 @@ export class EditClubComponent implements OnInit {
       this.clubData.loadClub(+params['id']);
     });
     this.mpgaData.roles().subscribe(roles => this.allRoles = roles);
-    this.mpgaData.langingPage('Z').subscribe(content => this.instructions = content);
+    this.mpgaData.langingPage('E').subscribe(content => this.instructions = content);
   }
 
   saveClub(): void {
@@ -50,7 +50,9 @@ export class EditClubComponent implements OnInit {
     } else {
       this.clubForm.update();
       this.clubContacts.forEach(cc => cc.update());
-      console.log(this.club);
+      this.clubData.saveClub(this.club).subscribe(() => {
+        this.snackbar.open('Your changes have been saved', null, {duration: 3000, panelClass: ['success-snackbar']});
+      });
     }
   }
 
@@ -67,14 +69,10 @@ export class EditClubComponent implements OnInit {
   }
 
   removeContact(clubContact: ClubContact): void {
-    const idx = this.club.clubContacts.findIndex(cc => cc.localId === clubContact.localId);
-    if (idx >= 0) {
-      this.clubContacts.forEach(cc => cc.update()); // don't lose any pending changes
-      this.club.clubContacts.splice(idx, 1);
-      this.snackbar.open(`${clubContact.contact.name} will be removed permanently when you save your changes`,
-        'Undo', {duration: 7000, panelClass: ['warn-snackbar']}).onAction().subscribe(() => {
-          this.club.clubContacts.splice(idx, 0, clubContact);
-        });
-    }
+    clubContact.deleted = true;
+    this.snackbar.open(`${clubContact.contact.name} will be removed permanently when you save your changes`,
+      'Undo', {duration: 7000, panelClass: ['warn-snackbar']}).onAction().subscribe(() => {
+        clubContact.deleted = false;
+      });
   }
 }

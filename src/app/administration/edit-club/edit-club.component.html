@@ -28,7 +28,7 @@
     </mat-card>
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100" *ngIf="club">
-    <div *ngFor="let cc of club.clubContacts" class="mb-2">
+    <div *ngFor="let cc of club.clubContacts | contactFilter" class="mb-2">
       <mat-card>
         <mat-card-header class="mat-teal">
           <mat-card-title-group>
