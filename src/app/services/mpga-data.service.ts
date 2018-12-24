@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
-import { UserService } from './user.service';
-import { User } from '../models/user';
 import { Policy } from '../models/policies';
 import { EventDetail, Tournament } from '../models/events';
 import { LandingPage } from '../models/pages';
@@ -15,16 +13,10 @@ import { Membership, Team, Contact } from '../models/clubs';
 @Injectable()
 export class MpgaDataService extends BaseService {
 
-  private user: User;
-
   constructor(
-    private userService: UserService,
     private http: HttpClient
   ) {
     super();
-    this.userService.currentUser$.subscribe(user => {
-      this.user = user;
-    });
   }
 
   announcements(): Observable<Announcement[]> {

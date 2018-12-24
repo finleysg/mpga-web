@@ -1,23 +1,23 @@
-import { Club, Contact } from './clubs';
+// import { Club, Contact } from './clubs';
 
-export class Member {
-  id: number;
-  club: Club;
-  contact: Contact;
+// export class Member {
+//   id: number;
+//   club: Club;
+//   contact: Contact;
 
-  fromJson(json: any): Member {
-    if (json) {
-      this.id = json.id;
-    }
-    return this;
-  }
+//   fromJson(json: any): Member {
+//     if (json) {
+//       this.id = json.id;
+//     }
+//     return this;
+//   }
 
-  toJson(): any {
-    return {
-      'id': this.id,
-    };
-  }
-}
+//   toJson(): any {
+//     return {
+//       'id': this.id,
+//     };
+//   }
+// }
 
 export class User {
 
@@ -26,13 +26,12 @@ export class User {
   firstName: string;
   lastName: string;
   email: string;
-  member: Member;
+  // member: Member;
   isAuthenticated = false;
   isStaff = false;
   isActive = false;
 
   constructor() {
-    this.member = new Member();
   }
 
   get name(): string {
@@ -52,21 +51,20 @@ export class User {
       this.isAuthenticated = json.is_authenticated;
       this.isStaff = json.is_staff;
       this.isActive = json.is_active;
-      this.member = new Member().fromJson(json.member);
     }
     return this;
   }
 
   // used only to create new accounts
-  toJson(password: string): any {
-    return {
-      'username': this.username,
-      'email': this.email,
-      'password': password,
-      'first_name': this.firstName,
-      'last_name': this.lastName,
-      'groups': [],
-      'member': this.member.toJson()
-    };
-  }
+  // toJson(password: string): any {
+  //   return {
+  //     'username': this.username,
+  //     'email': this.email,
+  //     'password': password,
+  //     'first_name': this.firstName,
+  //     'last_name': this.lastName,
+  //     'groups': [],
+  //     'member': this.member.toJson()
+  //   };
+  // }
 }

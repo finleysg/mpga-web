@@ -15,24 +15,18 @@ export class HeaderComponent {
   @Output() toggleNotificationSidenav = new EventEmitter<void>();
 
   currentUser: User;
+  dbLocation: string;
 
   constructor(
     private userService: UserService,
     private router: Router,
     public loader: LoadingBarService
   ) {
+    this.dbLocation = this.userService.adminUrl;
     this.userService.currentUser$.subscribe(user => {
       console.log(`user change: authenticated = ${user.isAuthenticated}`);
       this.currentUser = user;
     });
-  }
-
-  startLoading() {
-    this.loader.start();
-  }
-
-  stopLoading() {
-    this.loader.complete();
   }
 
   logout(): void {

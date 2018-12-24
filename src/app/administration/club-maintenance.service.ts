@@ -5,9 +5,7 @@ import { tap, map } from 'rxjs/operators';
 import { Club, ClubContact } from '../models/clubs';
 import { BaseService } from '../services/base.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ClubMaintenanceService extends BaseService {
 
   private _club: Club;
@@ -46,34 +44,34 @@ export class ClubMaintenanceService extends BaseService {
       }
     });
     return forkJoin(calls).pipe(
-      map(() => {
-        return this.updateClub(club);
-      }),
       tap(() => {
-        this.loadClub(club.id);
+        this.updateClub(club).subscribe(() => this.loadClub(club.id));
       })
+      // tap(() => {
+      //   this.loadClub(club.id);
+      // })
     );
   }
 
   updateClub(club: Club): Observable<void | Object> {
-    return this.http.put(`${this.baseUrl}/clubs/${club.id}/`, club.prepJson(), {
+    return this.http.put(`${this.baseUrl}/clubs/${club.id}/`, JSON.stringify(club.prepJson()), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   createClubContact(cc: ClubContact): Observable<void | Object> {
-    return this.http.post(`${this.baseUrl}/club-contacts/${cc.id}`, cc.prepJson(), {
+    return this.http.post(`${this.baseUrl}/club-contacts/${cc.id}/`, cc.prepJson(), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   updateClubContact(cc: ClubContact): Observable<void | Object> {
-    return this.http.put(`${this.baseUrl}/club-contacts/${cc.id}`, cc.prepJson(), {
+    return this.http.put(`${this.baseUrl}/club-contacts/${cc.id}/`, cc.prepJson(), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   deleteClubContact(cc: ClubContact): Observable<void | Object> {
-    return this.http.delete(`${this.baseUrl}/club-contacts/${cc.id}`);
+    return this.http.delete(`${this.baseUrl}/club-contacts/${cc.id}/`);
   }
 }

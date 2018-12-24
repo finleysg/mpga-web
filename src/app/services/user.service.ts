@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable ,  BehaviorSubject ,  of } from 'rxjs';
 import { User } from '../models/user';
 import { map, flatMap, catchError, tap } from 'rxjs/operators';
-
-// import * as moment from 'moment';
 import { BaseService } from './base.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,12 +9,10 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable()
 export class UserService extends BaseService {
 
-    // private _rememberUser: boolean;
     private currentUserSource: BehaviorSubject<User>;
     public currentUser$: Observable<User>;
     private _currentUser: User;
     public redirectUrl: string;
-    public returningMember: boolean; // temporary hack
 
     constructor(
         private http: HttpClient,
@@ -27,10 +23,10 @@ export class UserService extends BaseService {
         this._currentUser = new User();
         this.currentUserSource = new BehaviorSubject(this._currentUser);
         this.currentUser$ = this.currentUserSource.asObservable();
-        // this.getUser().subscribe(user => {
-           // this._currentUser = user;
+        this.getUser().subscribe(user => {
+            this._currentUser = user;
             this.currentUserSource.next(this._currentUser);
-        // });
+        });
         // this.errorHandler.lastError$.subscribe(err => this.onError(err));
     }
 
@@ -59,7 +55,6 @@ export class UserService extends BaseService {
             }),
             map(user => {
                 this._currentUser = user;
-                // this.saveUserToStorage(JSON.stringify(this._currentUser));
                 // this.errorHandler.setUserContext(this._currentUser);
                 this.currentUserSource.next(this._currentUser);
                 return;
@@ -69,7 +64,7 @@ export class UserService extends BaseService {
 
     // login for a read-only user
     quietLogin(username: string): Observable<void> {
-        return this.http.post(`${this.authUrl}/login/`, { username: username, email: '', password: 'mpga' }, {
+        return this.http.post(`${this.authUrl}/login/`, { username: username, email: '', password: 'gamer' }, {
             headers: new HttpHeaders().set('Content-Type', 'application/json'),
         }).pipe(
             map((data: any) => {
@@ -129,7 +124,6 @@ export class UserService extends BaseService {
         this.getUser().pipe(
             map(user => {
                 this._currentUser = user;
-                // this.saveUserToStorage(JSON.stringify(this._currentUser));
                 this.currentUserSource.next(this._currentUser);
                 return;
             })
@@ -159,42 +153,7 @@ export class UserService extends BaseService {
         this.removeTokenFromStorage();
         this._currentUser = new User();
         this.currentUserSource.next(this._currentUser);
-        // this.saveUserToStorage(JSON.stringify(this._currentUser));
         // this.errorHandler.clearUserContext();
-    }
-
-    // allMembers(): Observable<PublicMember[]> {
-    //     return this.http.get(`${this.baseUrl}/members/`).pipe(
-    //         map((members: any[]) => {
-    //             return members.map((m: any) => new PublicMember().fromJson(m));
-    //         })
-    //     );
-    // }
-
-    // sortMembers(members: PublicMember[]): PublicMember[] {
-    //     return members.sort(function(a, b) {
-    //         if (a.firstName > b.firstName) {
-    //             return 1;
-    //         }
-    //         if (a.firstName < b.firstName) {
-    //             return -1;
-    //         }
-    //         if (a.lastName > b.lastName) {
-    //             return 1;
-    //         }
-    //         if (a.lastName < b.lastName) {
-    //             return -1;
-    //         }
-    //         return 0;
-    //     });
-    // }
-
-    private getTokenFromStorage(): string {
-        let token = localStorage.getItem('mpga-token');
-        if (!token) {
-            token = sessionStorage.getItem('mpga-token');
-        }
-        return token;
     }
 
     private saveTokenToStorage(data: string, remember: boolean): void {

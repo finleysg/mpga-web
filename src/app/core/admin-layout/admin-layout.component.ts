@@ -1,9 +1,8 @@
-import { Component, ElementRef, NgZone, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { UserService } from '../../services/user.service';
-import { Options } from '../../models/options';
 import { AppErrorHandler } from '../../services/app-error-handler.service';
 import { MatSnackBar } from '@angular/material';
 import { filter } from 'rxjs/operators';
@@ -21,7 +20,6 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   mediaMatcher: MediaQueryList = matchMedia(`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`);
   url: string;
   sidePanelOpened;
-  options: Options;
 
   @ViewChild('sidemenu') sidemenu;
   @ViewChild(PerfectScrollbarDirective) directiveScroll: PerfectScrollbarDirective;
@@ -52,10 +50,11 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
         this.runOnRouteChange();
       });
 
-    this.options = Options.Default();
-
     this.errorHandler.lastError$.subscribe(err => {
-      this.snackBar.open(err, null, { duration: 5000 });
+      console.log(`lastError subscriber: ${err}`);
+      if (err && err.toString() !== 'Authentication credentials were not provided.') {
+        this.snackBar.open(err, null, { duration: 5000, panelClass: 'error-snackbar' });
+      }
     });
   }
 
@@ -72,35 +71,27 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   }
 
   receiveOptions($event): void {
-    this.options = $event;
+    // this.options = $event;
   }
 
   isOver(): boolean {
-    if (this.url === '/apps/messages' ||
-      this.url === '/apps/calendar' ||
-      this.url === '/apps/media' ||
-      this.url === '/maps/leaflet' ||
-      this.url === '/taskboard') {
-      return true;
-    } else {
-      return this.mediaMatcher.matches;
-    }
+    return this.mediaMatcher.matches;
   }
 
   menuMouseOver(): void {
-    if (this.mediaMatcher.matches && this.options.collapsed) {
+    if (this.mediaMatcher.matches) {
       this.sidemenu.mode = 'over';
     }
   }
 
   menuMouseOut(): void {
-    if (this.mediaMatcher.matches && this.options.collapsed) {
+    if (this.mediaMatcher.matches) {
       this.sidemenu.mode = 'side';
     }
   }
 
   updatePS(): void  {
-    if (!this.mediaMatcher.matches && !this.options.compact) {
+    if (!this.mediaMatcher.matches) {
       setTimeout(() => {
         this.directiveScroll.update();
       }, 350);

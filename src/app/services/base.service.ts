@@ -15,4 +15,10 @@ export class BaseService implements IService {
         }
         return  'https://mpgagolf.pythonanywhere.com/rest-auth';
     }
+    get adminUrl(): string {
+      if (window.location.hostname.indexOf('localhost') >= 0) {
+          return 'http://localhost:8000/admin/';
+      }
+      return  'https://mpgagolf.pythonanywhere.com/admin/';
+  }
 }

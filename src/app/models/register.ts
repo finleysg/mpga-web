@@ -1,12 +1,10 @@
 import * as moment from 'moment';
 import { Model } from './model';
-import { Member } from './user';
 import { Club } from './clubs';
 import { EventDetail, EventDivision, EventFee } from './events';
 
 export class Participant {
     id: number;
-    member: Member;
     homeClub: Club;
     lastName: string;
     firstName: string;

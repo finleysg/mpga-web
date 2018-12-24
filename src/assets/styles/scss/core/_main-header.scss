@@ -1,5 +1,11 @@
 /* $header
  ------------------------------------------*/
+ mat-progress-bar {
+   &.app-progress .mat-progress-bar-buffer {
+      background-color: mat-color($dark-background, card)!important;
+    }
+  }
+
 mat-toolbar {
   .toolbar-avatar {
     width: 40px;

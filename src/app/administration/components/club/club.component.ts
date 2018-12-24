@@ -15,6 +15,8 @@ export class ClubComponent implements OnInit, OnDestroy {
   @Input()
   club: Club;
 
+  isOpen: boolean;
+
   form: FormGroup;
   fieldErrors: any;
   private formSubscription: Subscription;

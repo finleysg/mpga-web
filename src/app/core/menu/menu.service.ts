@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, forkJoin } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { EventService } from 'src/app/services/event.service';
 import { EventDetail } from 'src/app/models/events';
 
@@ -39,12 +39,6 @@ export class MenuService {
 
   menuBuilder(events: EventDetail[]): void {
     const menu: Menu[] = [
-      // {
-      //   state: [],
-      //   name: 'Home',
-      //   type: 'link',
-      //   icon: 'home'
-      // },
       {
         state: ['tournaments'],
         name: 'Tournaments',
@@ -123,23 +117,6 @@ export class MenuService {
           {
             state: ['affiliates'],
             name: 'Affiliated Organizations'
-          }
-        ]
-      },
-      {
-        state: ['admin'],
-        name: 'Administration',
-        type: 'sub',
-        icon: 'settings',
-        private: true,
-        children: [
-          {
-            state: ['db'],
-            name: 'Database Admin'
-          },
-          {
-            state: ['reports'],
-            name: 'Reports'
           }
         ]
       }

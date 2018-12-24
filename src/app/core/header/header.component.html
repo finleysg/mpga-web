@@ -1,4 +1,4 @@
-<mat-progress-bar mode="determinate" [value]="loader.progress$|async" color="accent"></mat-progress-bar>
+<mat-progress-bar class="app-progress" mode="determinate" [value]="loader.progress$|async" color="accent"></mat-progress-bar>
 <mat-toolbar class="main-header">
   <button (click)="toggleSidenav.emit()" mat-icon-button>
     <mat-icon>menu</mat-icon>
@@ -9,22 +9,19 @@
   <div class="flex-me">
     &nbsp;
   </div>
-  <button [matMenuTriggerFor]="user" mat-icon-button class="ml-xs">
-    <mat-icon>person</mat-icon>
+  <button [matMenuTriggerFor]="user" mat-flat-button color="primary" class="ml-xs">
+    <span class="mr-1">{{ currentUser.isAuthenticated ? currentUser.username : 'guest' }}</span><mat-icon>person</mat-icon>
   </button>
   <mat-menu #user="matMenu" x-position="before">
-    <span mat-menu-item>{{ currentUser.isAuthenticated ? currentUser.firstName : 'Guest' }}</span>
+    <a *ngIf="currentUser && currentUser.isAuthenticated" mat-menu-item [href]="dbLocation" target="_blank">
+      <mat-icon>build</mat-icon>
+      Database
+    </a>
+    <a *ngIf="currentUser && currentUser.isAuthenticated" mat-menu-item [routerLink]="['/admin', 'reports']">
+      <mat-icon>reorder</mat-icon>
+      Reports
+    </a>
     <mat-divider></mat-divider>
-    <!-- <button *ngIf="currentUser && currentUser.isAuthenticated" [routerLink]="['/profile', 'settings']" mat-menu-item>
-      <mat-icon>settings</mat-icon>
-      Settings
-    </button> -->
-    <button (click)="startLoading()">start</button>
-    <button (click)="stopLoading()">stop</button>
-    <button *ngIf="currentUser && currentUser.isAuthenticated" [routerLink]="['/profile', 'edit']" mat-menu-item>
-      <mat-icon>account_box</mat-icon>
-      Profile
-    </button>
     <button *ngIf="currentUser && currentUser.isAuthenticated" mat-menu-item (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       Sign Out

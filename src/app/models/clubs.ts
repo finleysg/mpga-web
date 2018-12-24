@@ -99,11 +99,16 @@ export class Club extends Model {
     this.clubContacts.unshift(new ClubContact({'contact': contact}));
   }
 
-  prepJson(): string {
-    const club = super.snakeCase(this);
-    // club.clubContacts = this.clubContacts.map(cc => cc.prepJson());
-    // club.golfCourse = this.golfCourse.prepJson();
-    return club;
+  prepJson(): any {
+    return {
+      'name': this.name,
+      'website': this.website,
+      'type_2': this.type2,
+      'notes': this.notes,
+      'size': this.size,
+      'golf_course': this.golfCourse.prepJson(),
+      'club_contacts': []  // contacts are managed separately
+    };
   }
 }
 

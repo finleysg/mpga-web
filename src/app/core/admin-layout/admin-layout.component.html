@@ -1,4 +1,4 @@
-<div class="app mat-typography" [ngClass]="{'app-dark': options.dark, 'boxed': options.boxed, 'collapsed-sidebar': options.collapsed, 'compact-sidebar': options.compact, 'side-panel-opened': sidePanelOpened, 'side-panel-closed': !sidePanelOpened }">
+<div class="app mat-typography" [ngClass]="{'side-panel-opened': sidePanelOpened, 'side-panel-closed': !sidePanelOpened }">
   <app-header (toggleSidenav)="sidemenu.toggle()"></app-header>
   <mat-sidenav-container class="app-inner">
     <mat-sidenav #sidemenu class="sidebar-panel" id="sidebar-panel" [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()" (open)="sidePanelOpened = true"
