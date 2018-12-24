@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { ClubMaintenanceService } from '../club-maintenance.service';
 import { ActivatedRoute } from '@angular/router';
-import { Club, Contact, ClubContact } from '../../models/clubs';
+import { Club, Contact, ClubContact, ClubValidationMessage } from '../../models/clubs';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactPickerComponent } from '../../shared/contact-picker/contact-picker.component';
@@ -23,6 +23,7 @@ export class EditClubComponent implements OnInit {
   club: Club;
   allRoles: string[];
   instructions: LandingPage;
+  problems: ClubValidationMessage[];
 
   constructor(
     private clubData: ClubMaintenanceService,
@@ -37,6 +38,7 @@ export class EditClubComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.clubData.club.subscribe(club => this.club = club);
       this.clubData.loadClub(+params['id']);
+      this.mpgaData.validationMessages(+params['id']).subscribe(messages => this.problems = messages);
     });
     this.mpgaData.roles().subscribe(roles => this.allRoles = roles);
     this.mpgaData.langingPage('E').subscribe(content => this.instructions = content);

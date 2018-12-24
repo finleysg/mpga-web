@@ -8,7 +8,8 @@ import { EventDetail, Tournament } from '../models/events';
 import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/announcement';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
-import { Membership, Team, Contact } from '../models/clubs';
+import { Membership, Team, Contact, Club, ClubValidationMessage } from '../models/clubs';
+import * as moment from 'moment';
 
 @Injectable()
 export class MpgaDataService extends BaseService {
@@ -54,8 +55,25 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  memberClubs(year?: number): Observable<Membership[]> {
-    const url = year ? `${this.baseUrl}/memberships/?year=${year}` : `${this.baseUrl}/memberships/`;
+  clubs(): Observable<Club[]> {
+    return this.http.get(`${this.baseUrl}/clubs/`).pipe(
+      map((json: any) => {
+        return json.map(o => new Club(o));
+      })
+    );
+  }
+
+  club(id: number): Observable<Club> {
+    const url = `${this.baseUrl}/clubs/${id}/`;
+    return this.http.get(url).pipe(
+      map((json: any) => {
+        return new Club(json);
+      })
+    );
+  }
+
+  memberships(club?: number): Observable<Membership[]> {
+    const url = club ? `${this.baseUrl}/memberships/?club=${club}` : `${this.baseUrl}/memberships/`;
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new Membership(o));
@@ -63,8 +81,8 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  memberClub(id: number): Observable<Membership> {
-    const url = `${this.baseUrl}/memberships/${id}/`;
+  membership(id: number): Observable<Membership> {
+    const url = `${this.baseUrl}/membership/${id}/`;
     return this.http.get(url).pipe(
       map((json: any) => {
         return new Membership(json);
@@ -128,6 +146,24 @@ export class MpgaDataService extends BaseService {
         return json.map(o => new Contact(o));
       })
     );
+  }
+
+  validationMessages(clubId: number): Observable<ClubValidationMessage[]> {
+    return this.http.get(`${this.baseUrl}/club-validation/${clubId}/`).pipe(
+      map((messages: any) => {
+        return messages.map(m => new ClubValidationMessage(m));
+      })
+    );
+  }
+
+  seasons(): number[] {
+    const years = [];
+    let thisYear = moment().year();
+    do {
+      years.push(thisYear);
+      thisYear -= 1;
+    } while (thisYear >= 2017);  // we have membership and team history only going back to 2017
+    return years;
   }
 
   private mediaUrl(resource: string, year?: number, tournamentId?: number, docType?: string): string {

@@ -1,24 +1,27 @@
 export interface IService {
-    baseUrl: string;
+  baseUrl: string;
+  authUrl: string;
 }
 
 export class BaseService implements IService {
-    get baseUrl(): string {
-        if (window.location.hostname.indexOf('localhost') >= 0) {
-            return 'http://localhost:8000/api';
-        }
-        return 'https://mpgagolf.pythonanywhere.com/api';
+  useLocal: boolean;
+
+  get baseUrl(): string {
+    if (this.useLocal && window.location.hostname.indexOf('localhost') >= 0) {
+      return 'http://localhost:8000/api';
     }
-    get authUrl(): string {
-        if (window.location.hostname.indexOf('localhost') >= 0) {
-            return 'http://localhost:8000/rest-auth';
-        }
-        return  'https://mpgagolf.pythonanywhere.com/rest-auth';
+    return 'https://mpgagolf.pythonanywhere.com/api';
+  }
+  get authUrl(): string {
+    if (this.useLocal && window.location.hostname.indexOf('localhost') >= 0) {
+      return 'http://localhost:8000/rest-auth';
     }
-    get adminUrl(): string {
-      if (window.location.hostname.indexOf('localhost') >= 0) {
-          return 'http://localhost:8000/admin/';
-      }
-      return  'https://mpgagolf.pythonanywhere.com/admin/';
+    return 'https://mpgagolf.pythonanywhere.com/rest-auth';
+  }
+  get adminUrl(): string {
+    if (this.useLocal && window.location.hostname.indexOf('localhost') >= 0) {
+      return 'http://localhost:8000/admin/';
+    }
+    return 'https://mpgagolf.pythonanywhere.com/admin/';
   }
 }

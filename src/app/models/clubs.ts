@@ -82,6 +82,7 @@ export class Club extends Model {
   size: number;
   golfCourse: GolfCourse;
   clubContacts: ClubContact[];
+  years: number[];  // years for which we have membership data
 
   constructor(obj: any) {
     super();
@@ -114,7 +115,7 @@ export class Club extends Model {
 
 export class Membership extends Model {
   year: number;
-  club: Club;
+  club: number;
   paymentDate: moment.Moment;
   paymentType: string;
   paymentCode: string;
@@ -125,7 +126,7 @@ export class Membership extends Model {
     super();
     if (obj) {
       const mem = super.fromJson(obj);
-      mem.club = new Club(obj['club']);
+      // mem.club = new Club(obj['club']);
       Object.assign(this, mem);
     }
   }
@@ -198,6 +199,18 @@ export class ClubContactRole extends Model {
     if (obj) {
       const ccr = super.fromJson(obj);
       Object.assign(this, ccr);
+    }
+  }
+}
+
+export class ClubValidationMessage {
+  level: string;
+  message: string;
+
+  constructor(msg: string[]) {
+    if (msg) {
+      this.level = msg[0];
+      this.message = msg[1];
     }
   }
 }

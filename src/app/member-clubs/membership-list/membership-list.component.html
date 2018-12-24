@@ -1,8 +1,28 @@
 <div fxLayout="row wrap">
-  <div fxFlex.gt-sm="66.66%" fxFlex="100">
+  <div fxFlex.gt-sm="25%" fxFlex="100">
     <mat-card>
       <mat-card-content class="mat-purple">
-        <h2 class="mt-0 mb-0">2018 Member Clubs</h2>
+        <h2 class="mt-0 mb-0">Filter Club Listing</h2>
+      </mat-card-content>
+      <mat-card-content>
+        <h3>Filter the list of clubs by season:</h3>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-chip-list>
+          <mat-chip *ngFor="let season of seasons"
+            [selected]="season === selectedSeason"
+            (click)="selectSeason(season)">{{season}}</mat-chip>
+          <mat-chip [selected]="selectedSeason === 0" (click)="selectSeason(0)">All</mat-chip>
+        </mat-chip-list>
+        <p class="mt-1" *ngIf="totalRows && selectedSeason">{{totalRows}} member clubs in {{selectedSeason}}</p>
+        <p class="mt-1" *ngIf="totalRows && !selectedSeason">{{totalRows}} total clubs in the MPGA database</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="50%" fxFlex="100">
+    <mat-card>
+      <mat-card-content class="mat-purple">
+        <h2 class="mt-0 mb-0">Member Clubs</h2>
       </mat-card-content>
       <mat-card-content>
         <div *ngIf="pageContent" [markdown]="pageContent.content"></div>
@@ -10,7 +30,7 @@
           <ng-container matColumnDef="clubName">
             <mat-header-cell class="cell-wide" *matHeaderCellDef>Club Name</mat-header-cell>
             <mat-cell class="clickable cell-wide" *matCellDef="let item" (click)="clubDetail(item)">
-              {{ item.club.name }}
+              {{ item.name }}
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="clubWebsite">
@@ -22,19 +42,19 @@
           <ng-container matColumnDef="location">
             <mat-header-cell class="cell-normal" *matHeaderCellDef>Location</mat-header-cell>
             <mat-cell class="cell-normal" *matCellDef="let item">
-              {{ item.club.golfCourse ? item.club.golfCourse.city : '' }}
+              {{ item.golfCourse ? item.golfCourse.city : '' }}
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="clubSize">
             <mat-header-cell class="cell-narrow" *matHeaderCellDef>Size</mat-header-cell>
             <mat-cell class="cell-narrow" *matCellDef="let item">
-              {{ item.club.size ? item.club.size : "?" }}
+              {{ item.size ? item.size : "?" }}
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="isType2">
             <mat-header-cell class="cell-narrow" *matHeaderCellDef>Type 2</mat-header-cell>
             <mat-cell class="cell-narrow" *matCellDef="let item">
-              {{ item.club.type2 ? "Yes" : "" }}
+              {{ item.type2 ? "Yes" : "" }}
             </mat-cell>
           </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -43,10 +63,10 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div fxFlex.gt-sm="33.33%" fxFlex="100">
+  <div fxFlex.gt-sm="25%" fxFlex="100">
     <mat-card>
       <mat-card-content class="mat-purple">
-        <h2 class="mt-0 mb-0">2018 Season Registration</h2>
+        <h2 class="mt-0 mb-0">Current Season Registration</h2>
       </mat-card-content>
       <mat-card-content>
         <p>TODO: links to online registration and offline registration form</p>

@@ -13,6 +13,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { ClubContactComponent } from './components/club-contact/club-contact.component';
 import { CustomFormsModule } from 'ng2-validation';
 import { ContactFilterPipe } from './edit-club/contact-filter.pipe';
+import { CanEditGuard } from './can-edit-guard.service';
+import { IsStaffGuard } from './is-staff-guard.service';
 
 @NgModule({
   imports: [
@@ -32,7 +34,9 @@ import { ContactFilterPipe } from './edit-club/contact-filter.pipe';
     ContactFilterPipe
   ],
   providers: [
-    ClubMaintenanceService
+    ClubMaintenanceService,
+    CanEditGuard,
+    IsStaffGuard
   ]
 })
 export class AdministrationModule { }

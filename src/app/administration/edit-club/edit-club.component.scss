@@ -1,3 +1,4 @@
+@import '../../../assets/styles/scss/material.variables';
 
 .add-contact {
   float: right;
@@ -7,4 +8,14 @@
 .remove-contract {
   margin-top: 8px;
   margin-right: 8px;
+}
+
+.error-message {
+  color: mat-color($mat-red, 500);
+}
+.warning-message {
+  color: mat-color($mat-amber, 900);
+}
+.info-message {
+  color: mat-color($mat-blue, 300);
 }

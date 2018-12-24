@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Observable, forkJoin } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { Club, ClubContact } from '../models/clubs';
+import { Club, ClubContact, ClubValidationMessage } from '../models/clubs';
 import { BaseService } from '../services/base.service';
 
 @Injectable()
@@ -47,9 +47,6 @@ export class ClubMaintenanceService extends BaseService {
       tap(() => {
         this.updateClub(club).subscribe(() => this.loadClub(club.id));
       })
-      // tap(() => {
-      //   this.loadClub(club.id);
-      // })
     );
   }
 
