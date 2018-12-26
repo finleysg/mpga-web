@@ -1,8 +1,11 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="100%" fxFlex="100">
     <mat-card>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>Rules of Competition</mat-card-title>
+      </mat-card-header>
       <mat-tab-group>
-        <mat-tab label="Match Play Rules">
+        <mat-tab label="Match Play Competition">
           <mat-card-content>
             <div *ngFor="let rule of rules">
               <h3 class="mt-0 mb-0 rule-title"> {{rule.title}} </h3>
@@ -10,7 +13,7 @@
             </div>
           </mat-card-content>
         </mat-tab>
-        <mat-tab label="Senior Match Play Rules">
+        <mat-tab label="Senior Competition">
           <mat-card-content>
             <div *ngFor="let rule of seniorRules">
               <h3 class="mt-0 mb-0 rule-title"> {{rule.title}} </h3>

@@ -3,6 +3,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { Team } from '../../models/clubs';
 import { TeamsData, TeamsDataSource } from '../teams-datasource';
+import { MatSlideToggle, MatSelectChange } from '@angular/material';
+import { LandingPage } from 'src/app/models/pages';
 
 @Component({
   selector: 'app-teams',
@@ -18,25 +20,31 @@ import { TeamsData, TeamsDataSource } from '../teams-datasource';
 })
 export class TeamsComponent implements OnInit {
 
-  displayedColumns = ['groupName', 'clubName', 'captain'];
+  displayedColumns = ['groupName', 'clubName', 'captains'];
   database: TeamsData | null;
   dataSource: TeamsDataSource | null;
   groups: string[];
   expandedItem: Team;
+  pageContent: LandingPage;
 
   constructor(
     private mpgaData: MpgaDataService
   ) { }
 
   ngOnInit() {
+    this.mpgaData.langingPage('M').subscribe(content => this.pageContent = content);
     this.database = new TeamsData(this.mpgaData);
     this.dataSource = new TeamsDataSource(this.database);
     this.dataSource.connect();
     this.dataSource.groups.subscribe(groupNames => this.groups = groupNames);
   }
 
-  selectGroup(evt: any): void {
+  selectGroup(evt: MatSelectChange): void {
     this.dataSource.group = evt.value;
+  }
+
+  toggleSenior(evt: MatSlideToggle): void {
+    this.dataSource.isSenior = evt.checked;
   }
 
   toggleDetail(row: Team): void {
@@ -45,13 +53,5 @@ export class TeamsComponent implements OnInit {
     } else {
       this.expandedItem = row;
     }
-  }
-
-  captains(team: Team): string {
-    let result = `${team.captain.firstName} ${team.captain.lastName}`;
-    if (team.coCaptain) {
-      result += `, ${team.coCaptain.firstName} ${team.coCaptain.lastName}`;
-    }
-    return result;
   }
 }

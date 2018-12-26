@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { MatTableModule } from '@angular/material/table';
+import { CdkTableModule } from '@angular/cdk/table';
 
 import { routing } from './match-play-routing.module';
 import { DetailComponent } from './detail/detail.component';
@@ -12,6 +13,7 @@ import { ResultsComponent } from './results/results.component';
   imports: [
     routing,
     MatTableModule,
+    CdkTableModule,
     SharedModule
   ],
   declarations: [DetailComponent, TeamsComponent, ScheduleComponent, ResultsComponent]

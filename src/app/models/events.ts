@@ -58,12 +58,15 @@ export class Tournament extends Model {
   description: string;
   winners: TournamentWinner[];
 
-  fromJson(obj: any): any {
-    const tournament = super.fromJson(obj);
-    if (obj && obj['winners']) {
-      tournament.winners = obj['winners'].map(o => new TournamentWinner(o));
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const tournament = this.fromJson(obj);
+      if (obj && obj['winners']) {
+        tournament.winners = obj['winners'].map(o => new TournamentWinner(o));
+      }
+      Object.assign(this, tournament);
     }
-    return tournament;
   }
 }
 

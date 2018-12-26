@@ -30,4 +30,9 @@
     </mat-form-field>
     <small *ngIf="!clubContact.roles || clubContact.roles.length === 0" class="mat-text-warn">Please assign at least one role to this contact</small>
   </p>
+  <p>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Additional notes" [formControl]="form.controls['notes']" maxlength="140">
+    </mat-form-field>
+  </p>
 </div>

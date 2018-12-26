@@ -54,7 +54,7 @@ export class TeamsDataSource extends DataSource<Team> {
       }
       return t.isSenior === this.isSenior;
     }).sort((a, b) => {
-      return (`${a.groupName}${a.clubName}` < `${b.groupName}${b.clubName}` ? -1 : 1);
+      return (`${a.groupName}${a.club.name}` < `${b.groupName}${b.club.name}` ? -1 : 1);
     });
   }
 

@@ -1,6 +1,60 @@
-<div class="notes">
-  <h1>Results from Previous Years</h1>
-  <p>Separate tabs for 12-20 and senior 8-man</p>
-  <p>Year selection control</p>
-  <p>Links to the results doc for each group for the selected year</p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="33%" fxFlex="100">
+    <mat-card *ngIf="tournament">
+      <mat-card-header class="mat-purple">
+        <mat-card-title>Search by Year or Group</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-form-field>
+          <mat-select placeholder="Year" (selectionChange)="applyFilter($event.value, null)">
+            <mat-option value="0">All</mat-option>
+            <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="ml-1">
+          <mat-select placeholder="Group" (selectionChange)="applyFilter(null, $event.value)">
+            <mat-option value="all">All</mat-option>
+            <mat-option *ngFor="let group of groups" [value]="group">{{group}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="67%" fxFlex="100">
+    <mat-card *ngIf="tournament">
+      <mat-card-header class="mat-purple">
+        <mat-card-title>{{ tournament.name }} History</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div [markdown]="tournament.description"></div>
+      </mat-card-content>
+      <mat-card-content>
+        <table mat-table class="history-table" [dataSource]="dataSource">
+          <ng-container cdkColumnDef="year">
+            <th mat-header-cell *cdkHeaderCellDef> Year </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.year}} </td>
+          </ng-container>
+          <ng-container cdkColumnDef="location">
+            <th mat-header-cell *cdkHeaderCellDef> Location </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.location}} </td>
+          </ng-container>
+          <ng-container cdkColumnDef="flight">
+            <th mat-header-cell *cdkHeaderCellDef> Group </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.flightOrDivision}} </td>
+          </ng-container>
+          <ng-container cdkColumnDef="winner">
+            <th mat-header-cell *cdkHeaderCellDef> Result </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.winnersFormatted()}} </td>
+          </ng-container>
+          <ng-container cdkColumnDef="score">
+            <th mat-header-cell *cdkHeaderCellDef> Score </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.score}}<span *ngIf="row.isNet">*</span> </td>
+          </ng-container>
+          <!-- Header and Row Declarations -->
+          <tr mat-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

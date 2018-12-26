@@ -65,12 +65,12 @@ export class MenuService {
         icon: 'people_outline',
         children: [
           {
-            state: ['info'],
-            name: 'Information and Rules'
-          },
-          {
             state: ['teams'],
             name: 'Teams and Captains'
+          },
+          {
+            state: ['info'],
+            name: 'Rules'
           },
           {
             state: ['schedules'],

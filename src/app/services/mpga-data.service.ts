@@ -8,7 +8,7 @@ import { EventDetail, Tournament } from '../models/events';
 import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/announcement';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
-import { Membership, Team, Contact, Club, ClubValidationMessage } from '../models/clubs';
+import { Membership, Team, Contact, Club, ClubValidationMessage, ClubContact } from '../models/clubs';
 import * as moment from 'moment';
 
 @Injectable()
@@ -50,7 +50,18 @@ export class MpgaDataService extends BaseService {
     const url = `${this.baseUrl}/tournaments/${tournamentId}/`;
     return this.http.get(url).pipe(
       map((json: any) => {
-        return new Tournament().fromJson(json);
+        return new Tournament(json);
+      })
+    );
+  }
+
+  // match play is not associated with a championship event, so we
+  // need to request it by name
+  matchPlayTournament(): Observable<Tournament> {
+    const url = `${this.baseUrl}/tournaments/?name=Match Play`;
+    return this.http.get(url).pipe(
+      map((json: any[]) => {
+        return new Tournament(json[0]);
       })
     );
   }
@@ -144,6 +155,14 @@ export class MpgaDataService extends BaseService {
     return this.http.get(`${this.baseUrl}/contacts/`).pipe(
       map((json: any[]) => {
         return json.map(o => new Contact(o));
+      })
+    );
+  }
+
+  clubContacts(): Observable<ClubContact[]> {
+    return this.http.get(`${this.baseUrl}/club-contacts/`).pipe(
+      map((json: any[]) => {
+        return json.map(o => new ClubContact(o));
       })
     );
   }

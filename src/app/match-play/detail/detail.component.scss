@@ -1,0 +1,7 @@
+@import '../../../assets/styles/scss/material.variables';
+
+.rule-title {
+    color: mat-color($mat-teal, 700)!important;
+    font-weight: 600;
+    margin-bottom: 3px;
+}

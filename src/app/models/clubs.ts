@@ -135,10 +135,7 @@ export class Membership extends Model {
 export class Team extends Model {
   id: number;
   year: number;
-  club: number;
-  clubName: string;
-  captain: Contact;
-  coCaptain: Contact;
+  club: Club;
   groupName: string;
   isSenior: boolean;
   notes: string;
@@ -147,20 +144,38 @@ export class Team extends Model {
     super();
     if (obj) {
       const team = super.fromJson(obj);
-      team.captain = new Contact(obj['contact']);
-      team.coCaptain = new Contact(obj['contact2']);
+      team.club = new Club(obj['club']);
       Object.assign(this, team);
     }
+  }
+
+  captainNames(senior: boolean): string {
+    const captains = this.captains(senior);
+    return captains ? captains.map(c => `${c.contact.firstName} ${c.contact.lastName}`).join(', ') : '';
+  }
+
+  captains(senior: boolean): ClubContact[] {
+    if (this.club && this.club.clubContacts) {
+      if (senior) {
+        return this.club.clubContacts
+          .filter(c => c.isSeniorCaptain);
+      }
+      return this.club.clubContacts
+        .filter(c => c.isCaptain);
+    }
+    return [];
   }
 }
 
 export class ClubContact extends Model {
   // localId: string = Math.floor(Math.random() * 1000).toString();
+  club: number;
   contact: Contact;
   isPrimary: boolean;
   useForMailings: boolean;
   deleted: boolean;
   roles: ClubContactRole[];
+  notes: string;
 
   constructor(obj: any) {
     super();
@@ -180,6 +195,14 @@ export class ClubContact extends Model {
     }
     const role = new ClubContactRole({ 'role': name, 'clubContact': this.id });
     this.roles.push(role);
+  }
+
+  get isCaptain(): boolean {
+    return this.roles && this.roles.some(r => r.role === 'Match Play Captain');
+  }
+
+  get isSeniorCaptain(): boolean {
+    return this.roles && this.roles.some(r => r.role === 'Sr. Match Play Captain');
   }
 
   prepJson(): any {

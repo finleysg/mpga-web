@@ -30,7 +30,8 @@ export class ClubContactForm {
   buildForm(clubContact: ClubContact) {
     this.form = this.builder.group({
       'isPrimary': [clubContact.isPrimary],
-      'useForMailings': [clubContact.useForMailings]
+      'useForMailings': [clubContact.useForMailings],
+      'notes': [clubContact.notes]
     });
 
     // this.form.statusChanges.subscribe(data => this.onValueChanges());
