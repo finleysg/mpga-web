@@ -24,3 +24,15 @@
 .club-action {
   margin-top: -4px;
 }
+
+.has-value {
+  color: mat-color($mat-green, 500);
+  margin-top: -10px;
+  float: right;
+}
+
+.no-value {
+  color: mat-color($mat-red, 500);
+  margin-top: -10px;
+  float: right;
+}

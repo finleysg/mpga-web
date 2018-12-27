@@ -32,7 +32,7 @@ export class ContactPickerComponent implements OnInit {
 
   ngOnInit() {
     this.mpgaData.contacts().subscribe(contacts => {
-      this.contacts = contacts;
+      // this.contacts = contacts;
       this.filteredContacts = this.contactCtrl.valueChanges
         .pipe(
           startWith<string | Contact>(''),

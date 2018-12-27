@@ -144,7 +144,7 @@ export class Team extends Model {
     super();
     if (obj) {
       const team = super.fromJson(obj);
-      team.club = new Club(obj['club']);
+      team.club = new PublicClub(obj['club']);
       Object.assign(this, team);
     }
   }
@@ -235,5 +235,77 @@ export class ClubValidationMessage {
       this.level = msg[0];
       this.message = msg[1];
     }
+  }
+}
+
+export class PublicContact extends Model {
+  firstName: string;
+  lastName: string;
+  contactType: string;
+  publicPhone: string;
+  publicEmail: string;
+  publicAddress: string;
+  notes: string;
+
+  constructor(obj: any) {
+    super();
+    const contact = this.fromJson(obj);
+    Object.assign(this, contact);
+  }
+
+  get name(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+export class PublicClub extends Model {
+  name: string;
+  website: string;
+  type2: boolean;
+  notes: string;
+  size: number;
+  golfCourse: GolfCourse;
+  clubContacts: PublicClubContact[];
+  years: number[];  // years for which we have membership data
+
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const club = super.fromJson(obj);
+      club.golfCourse = new GolfCourse(obj['golf_course']);
+      if (obj['club_contacts']) {
+        club.clubContacts = obj['club_contacts'].map(cc => new ClubContact(cc));
+      }
+      Object.assign(this, club);
+    }
+  }
+}
+
+export class PublicClubContact extends Model {
+  club: number;
+  contact: PublicContact;
+  isPrimary: boolean;
+  useForMailings: boolean;
+  roles: ClubContactRole[];
+  notes: string;
+
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const cc = super.fromJson(obj);
+      cc.contact = new Contact(obj['contact']);
+      if (obj['roles']) {
+        cc.roles = obj['roles'].map(r => new ClubContactRole(r));
+      }
+      Object.assign(this, cc);
+    }
+  }
+
+  get isCaptain(): boolean {
+    return this.roles && this.roles.some(r => r.role === 'Match Play Captain');
+  }
+
+  get isSeniorCaptain(): boolean {
+    return this.roles && this.roles.some(r => r.role === 'Sr. Match Play Captain');
   }
 }

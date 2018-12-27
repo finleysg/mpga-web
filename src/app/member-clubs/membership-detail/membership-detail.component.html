@@ -1,13 +1,13 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="33.33%" fxFlex="100">
     <mat-card *ngIf="club">
-      <mat-card-content class="mat-purple">
-        <h2 class="mt-0 mb-0">{{ club.name }}</h2>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>{{ club.name }}</mat-card-title>
         <div fxFlex></div>
         <a *ngIf="user && user.isStaff" mat-mini-fab color="primary" [routerLink]="['/admin', 'club', club.id]" class="club-action">
           <mat-icon>create</mat-icon>
         </a>
-      </mat-card-content>
+      </mat-card-header>
       <mat-card-content>
         <p>
           <span class="detail-topic">Latest membership season:</span>
@@ -37,9 +37,9 @@
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100">
     <mat-card *ngIf="club">
-      <mat-card-content class="mat-purple">
-        <h2 class="mt-0 mb-0">Club Contacts</h2>
-      </mat-card-content>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>Club Contacts</mat-card-title>
+      </mat-card-header>
       <mat-card-content>
         <div *ngFor="let cc of club.clubContacts" class="mb-1">
           <h3 class="detail-topic">
@@ -49,17 +49,20 @@
             <span class="detail-topic">Roles:</span>
             {{ displayRoles(cc.roles) }}
           </p>
-          <p *ngIf="cc.contact.primaryPhone">
+          <p>
             <span class="detail-topic">Primary phone:</span>
-            {{ cc.contact.primaryPhone }}
+            <span *ngIf="cc.contact.publicPhone"><mat-icon class="has-value">check_circle</mat-icon>({{ cc.contact.publicPhone }}-xxx-xxxx)</span>
+            <span *ngIf="!cc.contact.publicPhone"><mat-icon class="no-value">cancel</mat-icon>no phone</span>
           </p>
-          <p *ngIf="cc.contact.alternatePhone">
-            <span class="detail-topic">Alternate phone:</span>
-            {{ cc.contact.alternatePhone }}
-          </p>
-          <p *ngIf="cc.contact.email">
+          <p>
             <span class="detail-topic">Email:</span>
-            {{ cc.contact.email }}
+            <span *ngIf="cc.contact.publicPhone"><mat-icon class="has-value">check_circle</mat-icon>(xxxxx@{{ cc.contact.publicEmail }})</span>
+            <span *ngIf="!cc.contact.publicPhone"><mat-icon class="no-value">cancel</mat-icon>no email</span>
+          </p>
+          <p>
+            <span class="detail-topic">Address:</span>
+            <span *ngIf="cc.contact.publicAddress"><mat-icon class="has-value">check_circle</mat-icon>({{ cc.contact.publicAddress }})</span>
+            <span *ngIf="!cc.contact.publicAddress"><mat-icon class="no-value">cancel</mat-icon>no address</span>
           </p>
           <p *ngIf="cc.isPrimary" class="italic">
             <mat-icon color="accent" [inline]="true">star</mat-icon>&nbsp;Primary contact (email)
@@ -74,12 +77,10 @@
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100" *ngIf="club">
     <mat-card>
-      <mat-card-content class="mat-purple" *ngIf="club.golfCourse && club.golfCourse.name">
-        <h2 class="mt-0 mb-0">{{ club.golfCourse.name }}</h2>
-      </mat-card-content>
-      <mat-card-content class="mat-purple" *ngIf="!club.golfCourse || !club.golfCourse.name">
-        <h2 class="mt-0 mb-0">No Home Course</h2>
-      </mat-card-content>
+      <mat-card-header class="mat-purple">
+        <mat-card-title *ngIf="club.golfCourse && club.golfCourse.name">{{ club.golfCourse.name }}</mat-card-title>
+        <mat-card-title *ngIf="!club.golfCourse || !club.golfCourse.name">No Home Course</mat-card-title>
+      </mat-card-header>
       <mat-card-content *ngIf="club.golfCourse && club.golfCourse.name">
         <p><span class="detail-topic">Address:</span></p>
         <div class="mb-1">

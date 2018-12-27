@@ -1,9 +1,9 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="25%" fxFlex="100">
     <mat-card>
-      <mat-card-content class="mat-purple">
-        <h2 class="mt-0 mb-0">Filter Club Listing</h2>
-      </mat-card-content>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>Filter Club List</mat-card-title>
+      </mat-card-header>
       <mat-card-content>
         <h3>Filter the list of clubs by season:</h3>
       </mat-card-content>
@@ -21,9 +21,9 @@
   </div>
   <div fxFlex.gt-sm="50%" fxFlex="100">
     <mat-card>
-      <mat-card-content class="mat-purple">
-        <h2 class="mt-0 mb-0">Member Clubs</h2>
-      </mat-card-content>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>MPGA Member Clubs</mat-card-title>
+      </mat-card-header>
       <mat-card-content>
         <div *ngIf="pageContent" [markdown]="pageContent.content"></div>
         <mat-table [dataSource]="dataSource">
@@ -65,9 +65,9 @@
   </div>
   <div fxFlex.gt-sm="25%" fxFlex="100">
     <mat-card>
-      <mat-card-content class="mat-purple">
-        <h2 class="mt-0 mb-0">Current Season Registration</h2>
-      </mat-card-content>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>2019 Registration</mat-card-title>
+      </mat-card-header>
       <mat-card-content>
         <p>TODO: links to online registration and offline registration form</p>
       </mat-card-content>

@@ -28,7 +28,14 @@
         </mat-slide-toggle>
       </mat-card-content>
       <mat-card-content>
-        <p>Click on a team to get more details about the captain or captains.</p>
+        <p>
+          Click on a team to get contact details about the captain or captains. You can request 
+          contact detail for a single team or an entire group.
+        </p>
+        <p>
+          You must have a contact email on file with the MPGA. We will only send this information to 
+          a known email address.
+        </p>
       </mat-card-content>
     </mat-card>
   </div>
@@ -62,10 +69,12 @@
               <div class="contact-info" [@detailExpand]="expandedItem && item.id === expandedItem.id ? 'expanded' : 'collapsed'">
                 <div *ngFor="let captain of item.captains(dataSource.isSenior)" class="contact-info-detail">
                   <p><strong>{{ captain.contact.firstName }} {{ captain.contact.lastName }}</strong></p>
-                  <p>{{ captain.contact.email }}</p>
-                  <p>{{ captain.contact.primaryPhone }}<span *ngIf="captain.contact.alternatePhone"> / {{
-                      captain.contact.alternatePhone }}</span></p>
+                  <p>xxxxx@{{ captain.contact.publicEmail }}</p>
+                  <p>{{ captain.contact.publicPhone }}-xxx-xxxx</p>
                   <p *ngIf="captain.notes">{{ captain.notes }}</p>
+                </div>
+                <div>
+                  <button mat-button color="accent" class="mt-1">Send Contact</button>
                 </div>
               </div>
             </td>
