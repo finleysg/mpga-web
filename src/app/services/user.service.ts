@@ -149,7 +149,7 @@ export class UserService extends BaseService {
     }
 
     resetUser(): void {
-        this.cookieService.delete('crsftoken');
+        this.cookieService.delete('csrftoken');
         this.removeTokenFromStorage();
         this._currentUser = new User();
         this.currentUserSource.next(this._currentUser);

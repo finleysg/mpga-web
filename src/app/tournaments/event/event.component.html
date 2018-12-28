@@ -38,6 +38,7 @@
         </div>
       </mat-card-content>
     </mat-card>
+    <app-contact-message [title]="'Tournament Questions and Requests'" [messageType]="'tournament'" [event]="event.name"></app-contact-message>
   </div>
   <div fxFlex.gt-sm="25%" fxFlex="100">
     <div fx-layout="row" *ngIf="event">

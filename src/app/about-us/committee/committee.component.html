@@ -1,4 +1,54 @@
-<div class="notes">
-  <h1>Executive Committe Members</h1>
-  <p>Includes contact information</p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="50%" fxFlex="100">
+    <mat-card>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>About the Committee</mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="about">
+        <div [markdown]="about.content"></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="50%" fxFlex="100">
+    <mat-card *ngIf="committee">
+      <mat-card-header class="mat-purple">
+        <mat-card-title>Executive Committee Members</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table class="committee-table" [dataSource]="dataSource" multiTemplateDataRows>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let row"> {{row.contact.name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef> Role </th>
+            <td mat-cell *matCellDef="let row"> {{row.role}} </td>
+          </ng-container>
+          <ng-container matColumnDef="home">
+            <th mat-header-cell *matHeaderCellDef> Home Club </th>
+            <td mat-cell *matCellDef="let row"> {{row.homeClub}} </td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row">
+              <mat-icon color="primary" [inline]="true">email</mat-icon>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="contactForm">
+            <td mat-cell *matCellDef="let item" [attr.colspan]="displayedColumns.length">
+              <div class="contact-form" [@contactExpand]="selectedContact && item.contact.id === selectedContact.contact.id ? 'expanded' : 'collapsed'">
+                <app-contact-message [messageType]="'ec'" [title]="'Send a Message to ' + item.contact.firstName" [event]="item.contact.name" (complete)="closeContact()"></app-contact-message>
+              </div>
+            </td>
+          </ng-container>
+          <!-- Header and Row Declarations -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let item; columns: displayedColumns" class="contact-row clickable"
+            [class.expanded-contact-row]="selectedContact && selectedContact.contact.id === item.contact.id" (click)="toggleContact(item)">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['contactForm']" class="contact-info-row"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

@@ -7,19 +7,29 @@ export class AwardWinner extends Model {
   year: number;
   winner: string;
   notes: string;
+
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const winner = super.fromJson(obj);
+      Object.assign(this, winner);
+    }
+  }
 }
 
 export class Award extends Model {
   name: string;
   description: string;
   winners: AwardWinner[];
+  winnerList: any;
 
-  fromJson(obj: any): any {
-    const award = super.fromJson(obj);
-    if (obj && obj['winners']) {
-      award.winners = obj['winners'].map(o => new AwardWinner().fromJson(o));
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const award = super.fromJson(obj);
+      award.winners = obj['winners'].map(o => new AwardWinner(o));
+      Object.assign(this, award);
     }
-    return award;
   }
 }
 

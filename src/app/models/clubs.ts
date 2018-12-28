@@ -309,3 +309,32 @@ export class PublicClubContact extends Model {
     return this.roles && this.roles.some(r => r.role === 'Sr. Match Play Captain');
   }
 }
+
+export class ExecutiveCommittee extends Model {
+  contact: PublicContact;
+  role: string;
+  homeClub: string;
+
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const ec = super.fromJson(obj);
+      ec.contact = new Contact(obj['contact']);
+      Object.assign(this, ec);
+    }
+  }
+}
+
+export class Affiliate extends Model {
+  organization: string;
+  website: string;
+  notes: string;
+
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const affiliate = super.fromJson(obj);
+      Object.assign(this, affiliate);
+    }
+  }
+}

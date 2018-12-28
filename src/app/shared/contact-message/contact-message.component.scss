@@ -1,0 +1,12 @@
+@import '../../../assets/styles/scss/material.variables';
+
+.error-message {
+  color: mat-color($mat-amber, 800);
+}
+.success-message {
+  color: mat-color($mat-green, 400);
+}
+
+.mat-card-title {
+  font-size: 16px !important;
+}

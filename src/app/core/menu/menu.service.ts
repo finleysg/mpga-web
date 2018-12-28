@@ -95,10 +95,6 @@ export class MenuService {
         icon: 'help_outline',
         children: [
           {
-            state: ['info'],
-            name: 'General Information'
-          },
-          {
             state: ['conduct'],
             name: 'Code of Conduct'
           },

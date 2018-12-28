@@ -30,6 +30,7 @@ import { AuthInterceptor } from './services/auth-interceptor';
 import { AppErrorHandler } from './services/app-error-handler.service';
 import { MpgaDataService } from './services/mpga-data.service';
 import { EventService } from './services/event.service';
+import { ContactService } from './services/contact.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -70,6 +71,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     UserService,
     MpgaDataService,
     EventService,
+    ContactService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

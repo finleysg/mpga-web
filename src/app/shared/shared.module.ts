@@ -26,6 +26,7 @@ import { DialogService } from './dialog.service';
 import { MarkdownDirective } from './markdown/markdown.directive';
 import { ContactPickerComponent } from './contact-picker/contact-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ContactMessageComponent } from './contact-message/contact-message.component';
 
 @NgModule({
   imports: [
@@ -54,7 +55,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     ConfirmDialogComponent,
     MarkdownDirective,
-    ContactPickerComponent
+    ContactPickerComponent,
+    ContactMessageComponent
   ],
   entryComponents: [
     ConfirmDialogComponent,
@@ -88,7 +90,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatDialogModule,
     MatAutocompleteModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ContactMessageComponent
   ]
 })
 export class SharedModule { }

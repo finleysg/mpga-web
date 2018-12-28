@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MpgaDataService } from '../../services/mpga-data.service';
+import { LandingPage } from '../../models/pages';
 
 @Component({
   selector: 'app-bid',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BidComponent implements OnInit {
 
-  constructor() { }
+  messageType = 'bid';
+  instructions: LandingPage;
+
+  constructor(private mpgaData: MpgaDataService) { }
 
   ngOnInit() {
+    this.mpgaData.langingPage('B').subscribe(content => this.instructions = content);
   }
-
 }

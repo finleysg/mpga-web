@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Affiliate } from '../../models/clubs';
+import { MpgaDataService } from '../../services/mpga-data.service';
 
 @Component({
   selector: 'app-affiliates',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AffiliatesComponent implements OnInit {
 
-  constructor() { }
+  affiliates: Affiliate[];
+
+  constructor(private mpgaData: MpgaDataService) { }
 
   ngOnInit() {
+    this.mpgaData.affiliates().subscribe(affiliates => this.affiliates = affiliates);
   }
-
 }

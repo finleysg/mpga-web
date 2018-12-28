@@ -20,9 +20,11 @@
   <p>
     <mat-form-field class="half-width">
       <input matInput placeholder="Primary phone" [formControl]="form.controls['primaryPhone']">
+      <mat-hint>Please format as xxx-xxx-xxxx</mat-hint>
     </mat-form-field>
     <mat-form-field class="half-width">
       <input matInput placeholder="Alternate phone" [formControl]="form.controls['alternatePhone']">
+      <mat-hint>Please format as xxx-xxx-xxxx</mat-hint>
     </mat-form-field>
     <small *ngIf="fieldErrors.primaryPhone" class="mat-text-warn">{{fieldErrors.primaryPhone}}</small>
     <small *ngIf="fieldErrors.alternatePhone" class="mat-text-warn">{{fieldErrors.alternatePhone}}</small>

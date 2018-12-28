@@ -1,4 +1,16 @@
-<div class="notes">
-  <h1>Links to Other Groups</h1>
-  <p>MGA, TCC, USGA, etc.</p>
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="33%" fxFlex="100">
+    <mat-card>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>Affiliated Organizations / Other Links</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let affiliate of affiliates">
+            <a [href]="affiliate.website" target="_blank">{{affiliate.organization}}</a>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

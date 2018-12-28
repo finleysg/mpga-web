@@ -1,4 +1,12 @@
-<div class="notes">
-  <h1>Code of Conduct</h1>
-  <p></p>
+<div fxLayout="row wrap">
+  <div fxFlex="100">
+    <mat-card>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>Code of Conduct</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div [markdown]="code.content"></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

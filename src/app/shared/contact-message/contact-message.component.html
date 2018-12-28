@@ -1,0 +1,48 @@
+<mat-card>
+  <mat-card-header class="mat-teal">
+    <mat-card-title>{{title}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div *ngIf="form">
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="40%" fxFlex="100">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Name" [formControl]="form.controls['contactName']">
+          </mat-form-field>
+          <small *ngIf="fieldErrors.contactName" class="mat-text-warn">{{fieldErrors.contactName}}</small>
+        </div>
+        <div fxFlex.gt-sm="60%" fxFlex="100">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" [formControl]="form.controls['contactEmail']">
+          </mat-form-field>
+          <small *ngIf="fieldErrors.contactEmail" class="mat-text-warn">{{fieldErrors.contactEmail}}</small>
+        </div>
+     </div>
+      <div fxLayout="row wrap">
+        <div fxFlex.gt-sm="40%" fxFlex="100">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Phone" [formControl]="form.controls['contactPhone']">
+          </mat-form-field>
+          <small *ngIf="fieldErrors.contactPhone" class="mat-text-warn">{{fieldErrors.contactPhone}}</small>
+        </div>
+         <div fxFlex.gt-sm="60%" fxFlex="100">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Home club / course" [formControl]="form.controls['course']">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout="row wrap">
+        <div fxFlex="100">
+          <mat-form-field class="full-width mt-2">
+            <textarea matInput rows="10" placeholder="Enter your message here" [formControl]="form.controls['message']"></textarea>
+          </mat-form-field>
+          <small *ngIf="fieldErrors.message" class="mat-text-warn">{{fieldErrors.message}}</small>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-flat-button color="accent" (click)="sendMessage()">Send<mat-icon class="ml-1">send</mat-icon></button>
+    <button class="ml-1" mat-button (click)="cancel()">Cancel</button>
+  </mat-card-actions>
+</mat-card>

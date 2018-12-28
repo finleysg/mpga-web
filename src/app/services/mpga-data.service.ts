@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
 import { Policy } from '../models/policies';
-import { EventDetail, Tournament } from '../models/events';
+import { EventDetail, Tournament, Award } from '../models/events';
 import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/announcement';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
-import { Membership, Team, PublicContact, PublicClub, ClubValidationMessage, PublicClubContact } from '../models/clubs';
+import { Membership, Team, PublicContact, PublicClub, ClubValidationMessage, PublicClubContact,
+  ExecutiveCommittee, Affiliate } from '../models/clubs';
 import * as moment from 'moment';
 
 @Injectable()
@@ -51,6 +52,15 @@ export class MpgaDataService extends BaseService {
     return this.http.get(url).pipe(
       map((json: any) => {
         return new Tournament(json);
+      })
+    );
+  }
+
+  awards(): Observable<Award[]> {
+    const url = `${this.baseUrl}/awards/`;
+    return this.http.get(url).pipe(
+      map((json: any[]) => {
+        return json.map(o => new Award(o));
       })
     );
   }
@@ -123,6 +133,22 @@ export class MpgaDataService extends BaseService {
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new Team(o));
+      })
+    );
+  }
+
+  committee(): Observable<ExecutiveCommittee[]> {
+    return this.http.get(`${this.baseUrl}/committee/`).pipe(
+      map((json: any[]) => {
+        return json.map(o => new ExecutiveCommittee(o));
+      })
+    );
+  }
+
+  affiliates(): Observable<Affiliate[]> {
+    return this.http.get(`${this.baseUrl}/affiliates/`).pipe(
+      map((json: any[]) => {
+        return json.map(o => new Affiliate(o));
       })
     );
   }

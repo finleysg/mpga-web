@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LandingPage } from '../../models/pages';
+import { MpgaDataService } from '../../services/mpga-data.service';
 
 @Component({
   selector: 'app-code-of-conduct',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CodeOfConductComponent implements OnInit {
 
-  constructor() { }
+  code: LandingPage;
+
+  constructor(private mpgaData: MpgaDataService) { }
 
   ngOnInit() {
+    this.mpgaData.langingPage('CC').subscribe(content => this.code = content);
   }
 
 }
