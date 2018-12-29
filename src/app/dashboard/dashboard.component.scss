@@ -13,6 +13,8 @@ h3.event-name {
 }
 
 .mat-list-avatar {
-  width: 75px !important;
+  width: 60px !important;
+  height: 60px !important;
   border-radius: 0 !important;
+  object-fit: scale-down !important;
 }

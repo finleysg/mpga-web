@@ -16,3 +16,15 @@
     text-decoration: underline;
     color: mat-color($mat-teal, 500)!important;
 }
+
+.course-logo {
+  float: right;
+  width: 80px !important;
+  height: 80px !important;
+  object-fit: scale-down !important;
+}
+
+.email-action {
+  float: right;
+  margin-top: -10px;
+}

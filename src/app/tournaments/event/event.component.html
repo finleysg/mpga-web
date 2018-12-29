@@ -9,8 +9,13 @@
     <mat-card *ngIf="event">
       <mat-card-content class="mat-purple">
         <h2 class="mt-0 mb-0">{{ event.name }}</h2>
+        <!-- <div fxFlex></div>
+        <a mat-icon-button color="primary" [routerLink]="['/tournaments', 'event', event.id]" fragment="contact" class="email-action">
+          <mat-icon>mail</mat-icon>
+        </a> -->
       </mat-card-content>
       <mat-card-content>
+        <img *ngIf="event.location.logoUrl" mat-list-avatar class="course-logo" src="{{event.location.logoUrl}}">
         <h3 class="mb-0">
           <a [href]="event.location.website" target="_blank">
             {{ event.location.name }}&nbsp;<mat-icon color="primary" [inline]="true">open_in_new</mat-icon>
@@ -38,7 +43,9 @@
         </div>
       </mat-card-content>
     </mat-card>
-    <app-contact-message [title]="'Tournament Questions and Requests'" [messageType]="'tournament'" [event]="event.name"></app-contact-message>
+    <div *ngIf="event" id="contact">
+      <app-contact-message [title]="'Tournament Questions and Requests'" [messageType]="'tournament'" [event]="event.name"></app-contact-message>
+    </div>
   </div>
   <div fxFlex.gt-sm="25%" fxFlex="100">
     <div fx-layout="row" *ngIf="event">
