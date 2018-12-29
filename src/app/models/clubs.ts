@@ -15,6 +15,7 @@ export class GolfCourse extends Model {
   state: string;
   zip: string;
   website: string;
+  logoUrl: string;
   email: string;
   phone: string;
   notes: string;

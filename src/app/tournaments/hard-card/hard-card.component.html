@@ -1,9 +1,9 @@
 <div fxLayout="row wrap">
     <div fxFlex.gt-sm="50%" fxFlex="100">
         <mat-card>
-            <mat-card-content class="mat-purple">
-                <h2 class="mt-0 mb-0">Tournament Hard Card</h2>
-            </mat-card-content>
+            <mat-card-header class="mat-purple">
+                <mat-card-title>Tournament Hard Card</mat-card-title>
+            </mat-card-header>
             <mat-card-content>
                 <div *ngFor="let rule of rules">
                     <h3 class="mt-0 mb-0 rule-title"> {{rule.title}} </h3>
@@ -14,9 +14,9 @@
     </div>
     <div fxFlex.gt-sm="50%" fxFlex="100">
         <mat-card>
-            <mat-card-content class="mat-purple">
-                <h2 class="mt-0 mb-0">Tournament Player Information</h2>
-            </mat-card-content>
+            <mat-card-header class="mat-purple">
+                <mat-card-title>Tournament Player Information</mat-card-title>
+            </mat-card-header>
             <mat-card-content>
                 <div *ngFor="let tpi of playerInfo">
                     <h3 class="mt-0 mb-0 tpi-title"> {{tpi.title}} </h3>

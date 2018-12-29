@@ -6,6 +6,7 @@ import { routing } from './member-clubs-routing.module';
 import { MembershipListComponent } from './membership-list/membership-list.component';
 import { MembershipDetailComponent } from './membership-detail/membership-detail.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { MatChipsModule } from '@angular/material/chips';
   ],
   declarations: [
     MembershipListComponent,
-    MembershipDetailComponent
+    MembershipDetailComponent,
+    RegistrationComponent
   ]
 })
 export class MemberClubsModule { }

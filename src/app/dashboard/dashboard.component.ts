@@ -9,6 +9,7 @@ import { EventDetail } from '../models/events';
 import { Policy } from '../models/policies';
 import { forkJoin } from 'rxjs';
 import { EventService } from '../services/event.service';
+import { AppConfigService } from '../app.config.service';
 
 @Component({
   templateUrl: './dashboard.component.html',
@@ -21,15 +22,18 @@ export class DashboardComponent implements OnInit {
   announcements: Announcement[];
   events: EventDetail[];
   policies: Policy[];
+  currentYear: number;
 
   constructor(
     private router: Router,
     private userService: UserService,
     private dataService: MpgaDataService,
-    private eventService: EventService
+    private eventService: EventService,
+    private appConfig: AppConfigService
   ) { }
 
   ngOnInit(): void {
+    this.appConfig.config.subscribe(config => this.currentYear = config.eventCalendarYear);
     this.userService.currentUser$.subscribe(user => this.user = user);
     forkJoin([
       this.dataService.langingPage('H'),

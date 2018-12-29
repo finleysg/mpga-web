@@ -5,6 +5,7 @@ import { Team } from '../../models/clubs';
 import { TeamsData, TeamsDataSource } from '../teams-datasource';
 import { MatSlideToggle, MatSelectChange } from '@angular/material';
 import { LandingPage } from 'src/app/models/pages';
+import { AppConfigService } from 'src/app/app.config.service';
 
 @Component({
   selector: 'app-teams',
@@ -26,17 +27,22 @@ export class TeamsComponent implements OnInit {
   groups: string[];
   expandedItem: Team;
   pageContent: LandingPage;
+  currentYear: number;
 
   constructor(
-    private mpgaData: MpgaDataService
+    private mpgaData: MpgaDataService,
+    private appConfig: AppConfigService
   ) { }
 
   ngOnInit() {
     this.mpgaData.langingPage('M').subscribe(content => this.pageContent = content);
-    this.database = new TeamsData(this.mpgaData);
-    this.dataSource = new TeamsDataSource(this.database);
-    this.dataSource.connect();
-    this.dataSource.groups.subscribe(groupNames => this.groups = groupNames);
+    this.appConfig.config.subscribe(config => {
+      this.currentYear = config.matchPlayYear;
+      this.database = new TeamsData(this.mpgaData, this.currentYear);
+      this.dataSource = new TeamsDataSource(this.database);
+      this.dataSource.connect();
+      this.dataSource.groups.subscribe(groupNames => this.groups = groupNames);
+    });
   }
 
   selectGroup(evt: MatSelectChange): void {

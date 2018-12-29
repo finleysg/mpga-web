@@ -103,8 +103,8 @@ export class MenuService {
             name: 'Executive Committee'
           },
           {
-            state: ['history'],
-            name: 'Our History'
+            state: ['mission'],
+            name: 'Our Mission'
           },
           {
             state: ['contact'],

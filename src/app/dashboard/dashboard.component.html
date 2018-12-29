@@ -1,48 +1,49 @@
 <div fxLayout="row wrap">
-    <div fxFlex.gt-sm="33.33%" fxFlex="100">
-        <mat-card *ngIf="events">
-            <mat-card-content class="mat-purple">
-                <h2 class="mt-0 mb-0">2018 Event Calendar</h2>
-            </mat-card-content>
-            <mat-card-content>
-                <mat-list>
-                    <mat-list-item *ngFor="let item of events" (click)="openEvent(item)" class="clickable">
-                        <!-- <img mat-list-avatar src="{{item.photo}}" alt=""> -->
-                        <h3 class="event-name" matLine> {{item.name}} </h3>
-                        <p matLine> {{item.location.name}} </p>
-                        <p matLine> {{item.eventDates}} </p>
-                    </mat-list-item>
-                </mat-list>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="50" fxFlex="100">
-        <mat-card *ngIf="policies">
-            <mat-card-content class="mat-purple">
-                <h2 class="mt-0 mb-0">About the MPGA</h2>
-            </mat-card-content>
-            <mat-card-content>
-                <div [markdown]="pageContent.content"></div>
-                <div *ngFor="let pol of policies">
-                    <h3 class="mt-0 mb-0 about-item"> {{pol.title}} </h3>
-                    <div [markdown]="pol.description"></div>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
-    <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="50" fxFlex="100">
-        <mat-card>
-            <mat-card-content class="mat-purple">
-                <h2 class="mt-0 mb-0">News and Announcements</h2>
-            </mat-card-content>
-            <mat-card-content>
-                <div *ngFor="let item of announcements">
-                  <h3 class="mt-0 mb-0 announcement-item"> {{item.title}} </h3>
-                  <div [markdown]="item.text"></div>
-                  <p *ngIf="item.externalUrl"><a mat-stroked-button color="primary" [href]="item.externalUrl" target="_blank">{{item.externalName}}</a></p>
-                  <p *ngIf="item.document"><a mat-stroked-button color="primary" [href]="item.document.file" target="_blank">{{item.document.Title}}</a></p>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>
+  <div fxFlex.gt-sm="33.33%" fxFlex="100">
+    <mat-card *ngIf="events">
+      <mat-card-header class="mat-purple">
+        <mat-card-title>2019 Event Calendar</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list>
+          <mat-list-item *ngFor="let item of events" (click)="openEvent(item)" class="clickable">
+            <img *ngIf="item.location.logoUrl" mat-list-avatar class="course-logo" src="{{item.location.logoUrl}}">
+            <h3 class="event-name" matLine> {{item.name}} </h3>
+            <p matLine> {{item.location.name}} </p>
+            <p matLine> {{item.eventDates}} </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="50" fxFlex="100">
+    <mat-card *ngIf="policies">
+      <mat-card-header class="mat-purple">
+        <mat-card-title>About the MPGA</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div [markdown]="pageContent.content"></div>
+        <div *ngFor="let pol of policies">
+          <h3 class="mt-0 mb-0 about-item"> {{pol.title}} </h3>
+          <div [markdown]="pol.description"></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="50" fxFlex="100">
+    <mat-card>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>News and Announcements</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngFor="let item of announcements">
+          <h3 class="mt-0 mb-0 announcement-item"> {{item.title}} </h3>
+          <div [markdown]="item.text"></div>
+          <p *ngIf="item.externalUrl"><a mat-stroked-button color="primary" [href]="item.externalUrl" target="_blank">{{item.externalName}}</a></p>
+          <p *ngIf="item.document && item.document.title"><a mat-stroked-button color="primary" [href]="item.document.file"
+              target="_blank">{{item.document.Title}}</a></p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

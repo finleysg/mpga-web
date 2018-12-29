@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-header class="mat-purple">
+  <mat-card-header class="mat-teal">
     <mat-card-title>{{ currentYear }} Tournament Results</mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -21,6 +21,6 @@
     </div>
   </mat-card-content>
   <mat-card-actions>
-    <a *ngFor="let result of fullResults" [href]="result.file" target="_blank" mat-button color="primary">{{ result.title }}</a>
+    <a *ngFor="let result of fullResults" [href]="result.file" target="_blank" mat-button color="accent">{{ result.title }}</a>
   </mat-card-actions>
 </mat-card>

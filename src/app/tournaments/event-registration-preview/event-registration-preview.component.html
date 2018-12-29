@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-header class="mat-purple">
+  <mat-card-header class="mat-teal">
     <mat-card-title>Registration Information</mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -8,7 +8,7 @@
     <p>Mail-in registration must be post-marked on or before <strong>{{ event.earlyRegistrationEnd.format('dddd, MMMM Do') }}.</strong></p>
   </mat-card-content>
   <mat-card-actions>
-    <a *ngIf="registrationUrl" [href]="registrationUrl.url" target="_blank" mat-button color="primary">Register Online</a>
-    <a *ngIf="registrationForm" [href]="registrationForm.file" target="_blank" mat-button color="primary">Registration Form</a>
+    <a *ngIf="registrationUrl" [href]="registrationUrl.url" target="_blank" mat-button color="accent">Register Online</a>
+    <a *ngIf="registrationForm" [href]="registrationForm.file" target="_blank" mat-button color="accent">Registration Form</a>
   </mat-card-actions>
 </mat-card>

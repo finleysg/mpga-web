@@ -1,5 +1,5 @@
 <mat-card *ngIf="results && results.length">
-  <mat-card-header class="mat-purple">
+  <mat-card-header class="mat-teal">
     <mat-card-title>{{ currentYear }} Winners</mat-card-title>
   </mat-card-header>
   <mat-card-content>
@@ -11,6 +11,6 @@
     <p class="net-score">* Net Score</p>
   </mat-card-content>
   <mat-card-actions>
-    <a [routerLink]="['/tournaments', 'history', event.tournament]" mat-button color="primary">Championship History</a>
+    <a [routerLink]="['/tournaments', 'history', event.tournament]" mat-button color="accent">Championship History</a>
   </mat-card-actions>
 </mat-card>

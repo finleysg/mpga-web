@@ -3,6 +3,10 @@
     margin: 20px;
 }
 
+.mat-card-title {
+  font-size: 16px !important;
+}
+
 .clickable {
     cursor: pointer;
 }

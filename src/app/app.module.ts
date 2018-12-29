@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, APP_INITIALIZER } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { LoadingBarModule } from '@ngx-loading-bar/core';
@@ -18,7 +18,8 @@ import {
   AuthLayoutComponent,
   AccordionAnchorDirective,
   AccordionLinkDirective,
-  AccordionDirective} from './core';
+  AccordionDirective
+} from './core';
 
 import { routing } from './app.routing';
 import { AppComponent } from './app.component';
@@ -31,6 +32,7 @@ import { AppErrorHandler } from './services/app-error-handler.service';
 import { MpgaDataService } from './services/mpga-data.service';
 import { EventService } from './services/event.service';
 import { ContactService } from './services/contact.service';
+import { AppConfigService, ConfigLoader } from './app.config.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -59,7 +61,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SharedModule,
     PerfectScrollbarModule,
     LoadingBarHttpClientModule,
-    LoadingBarModule // .forRoot()
+    LoadingBarModule
   ],
   providers: [
     {
@@ -72,6 +74,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MpgaDataService,
     EventService,
     ContactService,
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: ConfigLoader,
+      deps: [AppConfigService],
+      multi: true
+    },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

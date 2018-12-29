@@ -11,3 +11,8 @@ h3.event-name {
     color: mat-color($mat-teal, 700)!important;
     font-weight: bold !important;
 }
+
+.mat-list-avatar {
+  width: 75px !important;
+  border-radius: 0 !important;
+}

@@ -73,8 +73,11 @@ export class TeamsData {
   public dataChange: BehaviorSubject<Team[]> = new BehaviorSubject<Team[]>([]);
   get data(): Team[] { return this.dataChange.value; }
 
-  constructor(private mpgaData: MpgaDataService) {
-    mpgaData.teams(2018).subscribe(data => {
+  constructor(
+    private mpgaData: MpgaDataService,
+    private currentYear: number
+  ) {
+    mpgaData.teams(currentYear).subscribe(data => {
       this.dataChange.next(data);
     });
   }
