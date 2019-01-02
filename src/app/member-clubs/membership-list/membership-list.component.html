@@ -61,7 +61,7 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div fxFlex.gt-sm="25%" fxFlex="100" *ngIf="canRegister">
-    <app-registration [pdf]="registrationForm" [clubs]="database.data"></app-registration>
+  <div fxFlex.gt-sm="25%" fxFlex="100" *ngIf="canRegister">"
+    <app-registration [pdf]="registrationForm" [clubs]="database.data" [currentSeason]="currentSeason"></app-registration>
   </div>
 </div>

@@ -15,6 +15,7 @@ export class RegistrationComponent implements OnChanges {
 
   @Input() clubs: PublicClub[];
   @Input() pdf: MpgaDocument;
+  @Input() currentSeason: number;
   selectedClub: Club;
   selectedContact: ClubContact;
   hasToken: boolean;
