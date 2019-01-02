@@ -19,7 +19,8 @@ import {
   MatSnackBarModule,
   MatDialogModule,
   MatAutocompleteModule,
-  MatChipsModule} from '@angular/material';
+  MatChipsModule,
+  MatProgressSpinnerModule} from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
@@ -56,7 +57,8 @@ import { ContactComponent } from './contact/contact.component';
     MatDialogModule,
     MatAutocompleteModule,
     FlexLayoutModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     ConfirmDialogComponent,
@@ -100,6 +102,7 @@ import { ContactComponent } from './contact/contact.component';
     MatIconModule,
     MatDialogModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule,
     ContactMessageComponent,
     AddressComponent,

@@ -5,6 +5,13 @@
   margin-top: 12px;
 }
 
+.busy {
+  margin-bottom: -30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 // from https://github.com/stripe/elements-examples/#example-2 (most not getting used)
 .payment {
   background-color: #fff;
@@ -14,6 +21,11 @@
   font-family: Source Code Pro, Consolas, Menlo, monospace;
   // font-size: 16px;
   font-weight: 500;
+}
+
+.payment .form-row {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .payment .row {

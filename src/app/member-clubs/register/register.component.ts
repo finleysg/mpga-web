@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   card: any;
   cardHandler = this.onChange.bind(this);
   error: string;
+  busy: boolean;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -47,7 +48,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.card = this.elements.create('card', {hidePostalCode: true});
+    this.card = this.elements.create('card', { hidePostalCode: true });
     this.card.mount(this.cardInfo.nativeElement);
     this.card.addEventListener('change', this.cardHandler);
   }
@@ -67,16 +68,22 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async onSubmit(form: NgForm) {
-    const { token, error } = await this.stripe.createToken(this.card);
-    if (error) {
-      this.snackbar.open(error, null, {duration: 5000, panelClass: ['error-snackbar']});
-    } else {
-      this.clubService.register(this.club, this.config.memberClubYear, token)
-        .subscribe(() => {
-          this.snackbar.open(`Thank you! Your dues are paid for ${this.config.memberClubYear}`, null,
-            {duration: 5000, panelClass: ['success-snackbar']});
-          this.router.navigate(['/admin', 'club', this.club.id]);
-        });
+    try {
+      this.busy = true;
+      const { token, error } = await this.stripe.createToken(this.card);
+      if (error) {
+        this.snackbar.open(error, null, { duration: 5000, panelClass: ['error-snackbar'] });
+      } else {
+        this.clubService.register(this.club, this.config.memberClubYear, token)
+          .subscribe(() => {
+            this.snackbar.open(`Thank you! Your dues are paid for ${this.config.memberClubYear}`, null,
+              { duration: 5000, panelClass: ['success-snackbar'] });
+            this.router.navigate(['/admin', 'club', this.club.id]);
+          });
+      }
+    }
+    finally {
+      this.busy = false;
     }
   }
 }
