@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { Contact } from '../../../models/clubs';
+import { Club } from '../../models/clubs';
 import { CustomValidators } from 'ng2-validation';
 
 @Injectable()
-export class ContactForm {
+export class ClubForm {
   public form$: Observable<FormGroup>;
   public errors$: Observable<any>;
 
@@ -13,34 +13,20 @@ export class ContactForm {
   private errorSource: BehaviorSubject<any>;
   private form: FormGroup;
   private validationMessages = {
-    'firstName': {
-      'required': 'A first name is required.'
+    'name': {
+      'required': 'A club name is required.'
     },
-    'lastName': {
-      'required': 'A last name is required.'
+    'website': {
+      'url': 'Please enter the full url of your club website.'
     },
-    'contactType': {
-      'required': 'A contact type is required.'
-    },
-    'email': {
-      'required': 'A valid email is required.',
-      'email': 'The current email in invalid'
-    },
-    'primaryPhone': {
-      'required': 'A primary phone number is required.',
-      'pattern': 'Enter the phone number as xxx-xxx-xxxx'
-    },
-    'alternatePhone': {
-      'pattern': 'Enter the phone number as xxx-xxx-xxxx'
+    'size': {
+      'number': 'Enter a number here.'
     }
   };
   private fieldErrors = {
-    'firstName': '',
-    'lastName': '',
-    'contactType': '',
-    'email': '',
-    'primaryPhone': '',
-    'alternatePhone': ''
+    'name': '',
+    'website': '',
+    'size': ''
   };
 
   constructor(private builder: FormBuilder) {
@@ -50,15 +36,13 @@ export class ContactForm {
     this.errors$ = this.errorSource.asObservable();
   }
 
-  buildForm(contact: Contact) {
-    const phonePattern = '^\\d{3}-\\d{3}-\\d{4}$';
+  buildForm(club: Club) {
     this.form = this.builder.group({
-      'firstName': [contact.firstName, [Validators.required]],
-      'lastName': [contact.lastName, [Validators.required]],
-      'contactType': [contact.contactType, [Validators.required]],
-      'email': [contact.email, [Validators.required, CustomValidators.email]],
-      'primaryPhone': [contact.primaryPhone, [Validators.required, Validators.pattern(phonePattern)]],
-      'alternatePhone': [contact.alternatePhone, [Validators.pattern(phonePattern)]]
+      'name': [club.name, [Validators.required]],
+      'website': [club.website, [CustomValidators.url]],
+      'size': [club.size, [CustomValidators.number]],
+      'type2': [club.type2],
+      'notes': [club.notes]
     });
 
     this.form.statusChanges.subscribe(data => this.onValueChanges());
@@ -67,9 +51,13 @@ export class ContactForm {
     this.formSource.next(this.form);
   }
 
-  updateValue(contact: Contact): void {
-    Object.assign(contact, this.form.value);
+  updateValue(club: Club): void {
+    Object.assign(club, this.form.value);
   }
+
+  // reset(): void {
+  //   this.form.reset();
+  // }
 
   onValueChanges(): void {
     if (!this.form) { return; }

@@ -4,7 +4,7 @@
       <mat-card-header class="mat-purple">
         <mat-card-title>{{ club.name }}</mat-card-title>
         <div fxFlex></div>
-        <a *ngIf="user && user.isStaff" mat-mini-fab color="primary" [routerLink]="['/admin', 'club', club.id]" class="club-action">
+        <a mat-mini-fab color="primary" (click)="editClub()" class="club-action" alt="Edit this club information">
           <mat-icon>create</mat-icon>
         </a>
       </mat-card-header>
@@ -19,7 +19,8 @@
         </p>
         <p>
           <span class="detail-topic">Club website:</span>
-          <a *ngIf="club.website" [href]="club.website" target="_blank">{{ club.website }}</a><mat-icon [inline]="true">open_in_new</mat-icon>
+          <a *ngIf="club.website" [href]="club.website" target="_blank">{{ club.website }}</a>
+          <mat-icon [inline]="true">open_in_new</mat-icon>
           <span *ngIf="!club.website">None available</span>
         </p>
         <p>
@@ -33,6 +34,39 @@
         <p class="detail-topic">About {{ club.name }}:</p>
         <div [markdown]="club.notes"></div>
       </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="doEdit">
+      <mat-card-header class="mat-teal">
+        <mat-card-title>Request Temporary Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>To make changes to this club information, you must be one of the listed contacts with access to the
+          email address on file with the MPGA. Enter your email below to request a temporary login from the MPGA
+          website.
+        </p>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Email address" [(ngModel)]="requestEmail">
+        </mat-form-field>
+        <div *ngIf="requestEmail && requestEmailInvalid">
+          <p class="mat-text-warn">
+            We do not have an email address on file for {{requestEmail}}.
+          </p>
+          <p class="footnote">
+            Is this a mistake? Please <a [routerLink]="['/about', 'contact']">contact the MPGA</a> with your
+            contact information and role with {{selectedClub.name}}, and we will add you to our contact database.
+          </p>
+        </div>
+      </mat-card-content>
+      <mat-card-content *ngIf="hasToken">
+        <p>Enter the login code we just sent you:</p>
+        <mat-form-field class="half-width">
+          <input matInput placeholder="Login Token" [(ngModel)]="token">
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button *ngIf="!hasToken" mat-flat-button color="accent" (click)="sendToken()">Send Login Link</button>
+        <button *ngIf="hasToken" mat-flat-button color="accent" (click)="login()">Edit this Club Info</button>
+      </mat-card-actions>
     </mat-card>
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100">
@@ -51,24 +85,24 @@
           </p>
           <p>
             <span class="detail-topic">Primary phone:</span>
-            <span *ngIf="cc.contact.publicPhone"><mat-icon class="has-value">check_circle</mat-icon>({{ cc.contact.publicPhone }}-xxx-xxxx)</span>
-            <span *ngIf="!cc.contact.publicPhone"><mat-icon class="no-value">cancel</mat-icon>no phone</span>
+            <span *ngIf="cc.contact.publicPhone">({{ cc.contact.publicPhone }}-xxx-xxxx)</span>
+            <span *ngIf="!cc.contact.publicPhone">no phone</span>
           </p>
           <p>
             <span class="detail-topic">Email:</span>
-            <span *ngIf="cc.contact.publicPhone"><mat-icon class="has-value">check_circle</mat-icon>(xxxxx@{{ cc.contact.publicEmail }})</span>
-            <span *ngIf="!cc.contact.publicPhone"><mat-icon class="no-value">cancel</mat-icon>no email</span>
+            <span *ngIf="cc.contact.publicPhone">(xxxxx@{{ cc.contact.publicEmail }})</span>
+            <span *ngIf="!cc.contact.publicPhone">no email</span>
           </p>
           <p>
             <span class="detail-topic">Address:</span>
-            <span *ngIf="cc.contact.publicAddress"><mat-icon class="has-value">check_circle</mat-icon>({{ cc.contact.publicAddress }})</span>
-            <span *ngIf="!cc.contact.publicAddress"><mat-icon class="no-value">cancel</mat-icon>no address</span>
+            <span *ngIf="cc.contact.publicAddress">({{ cc.contact.publicAddress }})</span>
+            <span *ngIf="!cc.contact.publicAddress">no address</span>
           </p>
           <p *ngIf="cc.isPrimary" class="italic">
             <mat-icon color="accent" [inline]="true">star</mat-icon>&nbsp;Primary contact (email)
           </p>
           <p *ngIf="cc.useForMailings" class="italic">
-            <mat-icon color="accent" [inline]="true">star</mat-icon>&nbsp;Primary contact (mailings)
+            <mat-icon color="accent" [inline]="true">mail</mat-icon>&nbsp;Primary contact (mailings)
           </p>
           <hr />
         </div>
@@ -91,7 +125,8 @@
           <span class="detail-topic">Course website:</span>
           <a *ngIf="club.golfCourse.website" [href]="club.golfCourse.website" target="_blank">
             {{ club.golfCourse.website }}
-          </a> <mat-icon [inline]="true">open_in_new</mat-icon>
+          </a>
+          <mat-icon [inline]="true">open_in_new</mat-icon>
           <span *ngIf="!club.golfCourse.website">None available</span>
         </p>
         <p>

@@ -10,7 +10,7 @@
     &nbsp;
   </div>
   <button [matMenuTriggerFor]="user" mat-flat-button color="primary" class="ml-xs">
-    <span class="mr-1">{{ currentUser.isAuthenticated ? currentUser.username : 'guest' }}</span><mat-icon>person</mat-icon>
+    <span class="mr-1">{{ currentUser.isAuthenticated ? currentUser.firstName : 'guest' }}</span><mat-icon>person</mat-icon>
   </button>
   <mat-menu #user="matMenu" x-position="before">
     <a *ngIf="currentUser && currentUser.isAuthenticated" mat-menu-item [href]="dbLocation" target="_blank">

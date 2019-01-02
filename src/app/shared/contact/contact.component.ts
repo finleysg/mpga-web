@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Contact, Address } from '../../../models/clubs';
+import { Component, Input, OnChanges, OnDestroy, ViewChild } from '@angular/core';
+import { Contact, Address } from '../../models/clubs';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContactForm } from './contact.form';
@@ -11,14 +11,14 @@ import { AddressComponent } from '../address/address.component';
   styleUrls: ['./contact.component.scss'],
   providers: [ContactForm]
 })
-export class ContactComponent implements OnInit, OnDestroy {
+export class ContactComponent implements OnChanges, OnDestroy {
 
   @Input() contact: Contact;
-  @Input() addressRequired: boolean;
   @ViewChild(AddressComponent) addressForm: AddressComponent;
 
   address: Address;
   contactTypes = ['Men\'s Club', 'Facilities'];
+  showAddressWarning: boolean;
 
   form: FormGroup;
   fieldErrors: any;
@@ -27,7 +27,8 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   constructor(private contactForm: ContactForm) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    console.log('contact change');
     this.address = this.contact.copyAddress();
     this.formSubscription = this.contactForm.form$.subscribe(form => this.form = form);
     this.errorSubscription = this.contactForm.errors$.subscribe(errors => this.fieldErrors = errors);
@@ -39,14 +40,16 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.errorSubscription.unsubscribe();
   }
 
-  isValid(): boolean {
+  isValid(addressRequired: boolean): boolean {
     this.contactForm.onValueChanges();
-    return this.form.valid && this.addressIsValid();
+    return this.form.valid && this.addressIsValid(addressRequired);
   }
 
-  addressIsValid(): boolean {
-    if (this.addressRequired) {
-      return this.addressForm.isValid(this.addressRequired);
+  addressIsValid(isRequired: boolean): boolean {
+    this.showAddressWarning = false;
+    if (isRequired) {
+      this.showAddressWarning = !this.address.isComplete;
+      return this.address.isComplete;
     }
     return true;
   }
@@ -55,8 +58,8 @@ export class ContactComponent implements OnInit, OnDestroy {
     return this.form.dirty && this.addressForm.isDirty();
   }
 
-  update(): void {
-    if (this.form.valid && this.addressIsValid()) {
+  update(addressRequired: boolean): void {
+    if (this.form.valid && this.addressIsValid(addressRequired)) {
       this.addressForm.update();
       this.contactForm.updateValue(this.contact);
       this.contact.updateAddress(this.address);

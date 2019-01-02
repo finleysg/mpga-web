@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject, of } from 'rxjs';
 import { User } from '../models/user';
 import { map, flatMap, catchError, tap } from 'rxjs/operators';
 import { BaseService } from './base.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
@@ -63,15 +63,34 @@ export class UserService extends BaseService {
   }
 
   // login for a read-only user
-  quietLogin(username: string): Observable<void> {
-    return this.http.post(`${this.authUrl}/login/`, { username: username, email: '', password: 'gamer' }, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+  // quietLogin(username: string): Observable<void> {
+  //   return this.http.post(`${this.authUrl}/login/`, { username: username, email: '', password: 'gamer' }, {
+  //     headers: new HttpHeaders().set('Content-Type', 'application/json'),
+  //   }).pipe(
+  //     map((data: any) => {
+  //       if (data && data.key) {
+  //         this.saveTokenToStorage(data.key, false);
+  //         return;
+  //       }
+  //     })
+  //   );
+  // }
+
+  loginWithToken(token: string): Observable<void | Object> {
+    const body = new HttpParams().set('token', token);
+    return this.http.post('http://localhost:8000/callback/auth/', body.toString(), {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     }).pipe(
-      map((data: any) => {
-        if (data && data.key) {
-          this.saveTokenToStorage(data.key, false);
-          return;
+      flatMap((json: any) => {
+        if (json['token']) {
+          this.saveTokenToStorage(json['token'], false);
+          return this.getUser();
         }
+      }),
+      map(user => {
+        this._currentUser = user;
+        this.currentUserSource.next(this._currentUser);
+        return;
       })
     );
   }
@@ -80,6 +99,18 @@ export class UserService extends BaseService {
     this.http.post(`${this.authUrl}/logout/`, {}).subscribe(
       () => this.resetUser(),   // onNext
       (err) => this.resetUser() // onError
+    );
+  }
+
+
+  requestToken(email: string): Observable<string> {
+    const body = new HttpParams().set('email', email);
+    return this.http.post('http://localhost:8000/auth/email/', body.toString(), {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    }).pipe(
+      map((json: any) => {
+        return json['detail'];
+      })
     );
   }
 

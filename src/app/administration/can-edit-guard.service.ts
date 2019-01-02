@@ -15,11 +15,10 @@ export class CanEditGuard implements CanActivate {
     this.userService.currentUser$.subscribe(user => this.currentUser = user);
   }
 
-  // TODO: at some point, add the temporary auth token handling for club edits
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     this.userService.redirectUrl = state.url;
 
-    if (this.currentUser.isAuthenticated && this.currentUser.isStaff) {
+    if (this.currentUser.isAuthenticated) {
       return true;
     }
 

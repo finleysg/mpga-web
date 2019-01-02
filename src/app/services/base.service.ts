@@ -4,8 +4,8 @@ export interface IService {
 }
 
 export class BaseService implements IService {
-  useLocal: boolean;
-  // useLocal = true;
+  // useLocal: boolean;
+  useLocal = true;
 
   get baseUrl(): string {
     if (this.useLocal && window.location.hostname.indexOf('localhost') >= 0) {

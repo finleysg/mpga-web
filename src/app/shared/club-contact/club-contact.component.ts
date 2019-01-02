@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { ClubContact, ClubContactRole } from '../../../models/clubs';
+import { Component, OnChanges, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { ClubContact, ClubContactRole } from '../../models/clubs';
 import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent, MatCheckboxChange } from '@angular/material';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -14,7 +14,7 @@ import { ClubContactForm } from './club-contact.form';
   styleUrls: ['./club-contact.component.scss'],
   providers: [ClubContactForm]
 })
-export class ClubContactComponent implements OnInit, OnDestroy {
+export class ClubContactComponent implements OnChanges, OnDestroy {
 
   @Input() clubContact: ClubContact;
   @Input() roles: string[];
@@ -32,7 +32,8 @@ export class ClubContactComponent implements OnInit, OnDestroy {
 
   constructor(private clubContactForm: ClubContactForm) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    console.log('club-contact change');
     this.requireAddress = this.clubContact.useForMailings;
     this.formSubscription = this.clubContactForm.form$.subscribe(form => this.form = form);
     this.clubContactForm.buildForm(this.clubContact);
@@ -46,18 +47,23 @@ export class ClubContactComponent implements OnInit, OnDestroy {
   }
 
   isValid(): boolean {
-    return this.form.valid && this.contactForm.isValid();
+    return this.form.valid &&
+      this.clubContact.roles &&
+      this.clubContact.roles.length > 0 &&
+      this.contactForm.isValid(this.requireAddress);
   }
 
   isDirty(): boolean {
     return this.form.dirty && this.contactForm.isDirty();
   }
 
-  update(): void {
+  update(): boolean {
     if (this.isValid()) {
-      this.contactForm.update();
+      this.contactForm.update(this.requireAddress);
       this.clubContactForm.updateValue(this.clubContact);
+      return true;
     }
+    return false;
   }
 
   // cancel(): void {
@@ -68,6 +74,7 @@ export class ClubContactComponent implements OnInit, OnDestroy {
 
   addressRequired(event: MatCheckboxChange): void {
     this.requireAddress = event.checked;
+    this.contactForm.update(this.requireAddress);
   }
 
   addRole(clubContact: ClubContact, event: MatChipInputEvent): void {

@@ -3,7 +3,7 @@ import { MpgaDataService } from 'src/app/services/mpga-data.service';
 import { MemberClubsData, MemberClubsDataSource } from '../member-clubs-datasource';
 import { LandingPage } from 'src/app/models/pages';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PublicClub } from '../../models/clubs';
+import { PublicClub, PublicClubContact } from '../../models/clubs';
 import { MpgaDocument } from 'src/app/models/documents';
 import { AppConfigService } from 'src/app/app.config.service';
 

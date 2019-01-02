@@ -1,5 +1,5 @@
 <div [formGroup]="form">
-  <app-contact [contact]="clubContact.contact" [addressRequired]="requireAddress"></app-contact>
+  <app-contact [contact]="clubContact.contact"></app-contact>
   <p>
     <mat-checkbox [formControl]="form.controls['isPrimary']">
       This is a primary email contact

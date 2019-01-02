@@ -32,6 +32,7 @@ import { AppErrorHandler } from './services/app-error-handler.service';
 import { MpgaDataService } from './services/mpga-data.service';
 import { EventService } from './services/event.service';
 import { ContactService } from './services/contact.service';
+import { ClubMaintenanceService } from './services/club-maintenance.service';
 import { AppConfigService, ConfigLoader } from './app.config.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -74,6 +75,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MpgaDataService,
     EventService,
     ContactService,
+    ClubMaintenanceService,
     AppConfigService,
     {
       provide: APP_INITIALIZER,

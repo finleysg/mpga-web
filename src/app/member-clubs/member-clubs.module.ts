@@ -7,6 +7,9 @@ import { MembershipListComponent } from './membership-list/membership-list.compo
 import { MembershipDetailComponent } from './membership-detail/membership-detail.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { RegistrationComponent } from './registration/registration.component';
+import { MatRadioModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -14,12 +17,15 @@ import { RegistrationComponent } from './registration/registration.component';
     MatTableModule,
     MatExpansionModule,
     MatChipsModule,
+    MatRadioModule,
+    FormsModule,
     routing
   ],
   declarations: [
     MembershipListComponent,
     MembershipDetailComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    RegisterComponent
   ]
 })
 export class MemberClubsModule { }

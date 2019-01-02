@@ -1,11 +1,19 @@
 import * as moment from 'moment';
 import { Model } from './model';
 
-export interface Address {
+export class Address {
   addressTxt: string;
   city: string;
   state: string;
   zip: string;
+
+  get isComplete(): boolean {
+    return true &&
+      (this.addressTxt && this.addressTxt.length > 0) &&
+      (this.city && this.city.length > 0) &&
+      (this.state && this.state.length > 0) &&
+      (this.zip && this.zip.length > 0);
+  }
 }
 
 export class GolfCourse extends Model {
@@ -35,7 +43,7 @@ export class GolfCourse extends Model {
 
   copyAddress(): Address {
     const { addressTxt, city, state, zip } = this;
-    return { addressTxt, city, state, zip } as Address;
+    return Object.assign(new Address(), { addressTxt, city, state, zip });
   }
 }
 
@@ -71,7 +79,7 @@ export class Contact extends Model {
 
   copyAddress(): Address {
     const { addressTxt, city, state, zip } = this;
-    return { addressTxt, city, state, zip } as Address;
+    return Object.assign(new Address(), { addressTxt, city, state, zip });
   }
 }
 
@@ -97,8 +105,10 @@ export class Club extends Model {
     }
   }
 
-  addContact(contact: Contact): void {
-    this.clubContacts.unshift(new ClubContact({'contact': contact}));
+  addContact(contact: Contact): ClubContact {
+    const cc = new ClubContact({'contact': contact});
+    this.clubContacts.unshift(cc);
+    return cc;
   }
 
   prepJson(): any {
@@ -169,7 +179,6 @@ export class Team extends Model {
 }
 
 export class ClubContact extends Model {
-  // localId: string = Math.floor(Math.random() * 1000).toString();
   club: number;
   contact: Contact;
   isPrimary: boolean;

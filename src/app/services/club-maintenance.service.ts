@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Subject, Observable, forkJoin } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { Club, ClubContact, ClubValidationMessage } from '../models/clubs';
+import { Club, ClubContact, Contact, Membership } from '../models/clubs';
 import { BaseService } from '../services/base.service';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class ClubMaintenanceService extends BaseService {
   }
 
   loadClub(id: number): void {
-    const url = `${this.baseUrl}/clubs/${id}/`;
+    const url = `${this.baseUrl}/clubs/${id}/?edit=true`;
     this.http.get(url).pipe(
       tap((json: any) => {
         this._club = new Club(json);
@@ -51,24 +51,46 @@ export class ClubMaintenanceService extends BaseService {
   }
 
   updateClub(club: Club): Observable<void | Object> {
-    return this.http.put(`${this.baseUrl}/clubs/${club.id}/`, JSON.stringify(club.prepJson()), {
+    return this.http.put(`${this.baseUrl}/clubs/${club.id}/?edit=true`, JSON.stringify(club.prepJson()), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   createClubContact(cc: ClubContact): Observable<void | Object> {
-    return this.http.post(`${this.baseUrl}/club-contacts/${cc.id}/`, cc.prepJson(), {
+    return this.http.post(`${this.baseUrl}/club-contacts/${cc.id}/?edit=true`, cc.prepJson(), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   updateClubContact(cc: ClubContact): Observable<void | Object> {
-    return this.http.put(`${this.baseUrl}/club-contacts/${cc.id}/`, cc.prepJson(), {
+    return this.http.put(`${this.baseUrl}/club-contacts/${cc.id}/?edit=true`, cc.prepJson(), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   deleteClubContact(cc: ClubContact): Observable<void | Object> {
-    return this.http.delete(`${this.baseUrl}/club-contacts/${cc.id}/`);
+    return this.http.delete(`${this.baseUrl}/club-contacts/${cc.id}/?edit=true`);
+  }
+
+  contacts(): Observable<Contact[]> {
+    return this.http.get(`${this.baseUrl}/contacts/?edit=true`).pipe(
+      map((json: any[]) => {
+        return json.map(o => new Contact(o));
+      })
+    );
+  }
+
+  register(club: Club, year: number, stripeToken: any): Observable<Membership> {
+    const payload = {
+      year: year,
+      token: stripeToken.id
+    };
+    return this.http.post(`${this.baseUrl}/club-membership/${club.id}/`, JSON.stringify(payload), {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    }).pipe(
+      map((json: any) => {
+        return new Membership(json);
+      })
+    );
   }
 }

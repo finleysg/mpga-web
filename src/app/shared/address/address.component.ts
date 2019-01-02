@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { Address } from '../../../models/clubs';
+import { Component, Input, OnDestroy, OnChanges } from '@angular/core';
+import { Address } from '../../models/clubs';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AddressForm } from '../address/address.form';
@@ -10,7 +10,7 @@ import { AddressForm } from '../address/address.form';
   styleUrls: ['./address.component.scss'],
   providers: [AddressForm]
 })
-export class AddressComponent implements OnInit, OnDestroy {
+export class AddressComponent implements OnChanges, OnDestroy {
 
   @Input()
   address: Address;
@@ -23,10 +23,6 @@ export class AddressComponent implements OnInit, OnDestroy {
     {
       'name': 'Alaska',
       'abbreviation': 'AK'
-    },
-    {
-      'name': 'American Samoa',
-      'abbreviation': 'AS'
     },
     {
       'name': 'Arizona',
@@ -57,20 +53,12 @@ export class AddressComponent implements OnInit, OnDestroy {
       'abbreviation': 'DC'
     },
     {
-      'name': 'Federated States Of Micronesia',
-      'abbreviation': 'FM'
-    },
-    {
       'name': 'Florida',
       'abbreviation': 'FL'
     },
     {
       'name': 'Georgia',
       'abbreviation': 'GA'
-    },
-    {
-      'name': 'Guam',
-      'abbreviation': 'GU'
     },
     {
       'name': 'Hawaii',
@@ -107,10 +95,6 @@ export class AddressComponent implements OnInit, OnDestroy {
     {
       'name': 'Maine',
       'abbreviation': 'ME'
-    },
-    {
-      'name': 'Marshall Islands',
-      'abbreviation': 'MH'
     },
     {
       'name': 'Maryland',
@@ -173,10 +157,6 @@ export class AddressComponent implements OnInit, OnDestroy {
       'abbreviation': 'ND'
     },
     {
-      'name': 'Northern Mariana Islands',
-      'abbreviation': 'MP'
-    },
-    {
       'name': 'Ohio',
       'abbreviation': 'OH'
     },
@@ -189,16 +169,8 @@ export class AddressComponent implements OnInit, OnDestroy {
       'abbreviation': 'OR'
     },
     {
-      'name': 'Palau',
-      'abbreviation': 'PW'
-    },
-    {
       'name': 'Pennsylvania',
       'abbreviation': 'PA'
-    },
-    {
-      'name': 'Puerto Rico',
-      'abbreviation': 'PR'
     },
     {
       'name': 'Rhode Island',
@@ -229,10 +201,6 @@ export class AddressComponent implements OnInit, OnDestroy {
       'abbreviation': 'VT'
     },
     {
-      'name': 'Virgin Islands',
-      'abbreviation': 'VI'
-    },
-    {
       'name': 'Virginia',
       'abbreviation': 'VA'
     },
@@ -257,23 +225,17 @@ export class AddressComponent implements OnInit, OnDestroy {
   form: FormGroup;
   fieldErrors: any;
   private formSubscription: Subscription;
-  // private errorSubscription: Subscription;
 
   constructor(private addressForm: AddressForm) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+    console.log('address change');
     this.formSubscription = this.addressForm.form$.subscribe(form => this.form = form);
-    // this.errorSubscription = this.addressForm.errors$.subscribe(errors => this.fieldErrors = errors);
     this.addressForm.buildForm(this.address);
   }
 
   ngOnDestroy() {
     this.formSubscription.unsubscribe();
-    // this.errorSubscription.unsubscribe();
-  }
-
-  isValid(addressRequired: boolean = false): boolean {
-    return addressRequired && this.form.valid;
   }
 
   isDirty(): boolean {
@@ -285,9 +247,4 @@ export class AddressComponent implements OnInit, OnDestroy {
       this.addressForm.updateValue(this.address);
     }
   }
-
-  // cancel(): void {
-  //   this.form.reset();
-  //   this.addressForm.buildForm(this.address);
-  // }
 }

@@ -36,5 +36,5 @@
     <small *ngIf="fieldErrors.email" class="mat-text-warn">{{fieldErrors.email}}</small>
   </p>
   <app-address [address]="address"></app-address>
-  <small *ngIf="!addressIsValid()" class="mat-text-warn">A valid address is required when you want mailings sent here</small>
+  <small *ngIf="showAddressWarning" class="mat-text-warn">A valid address is required when you want mailings sent here</small>
 </div>

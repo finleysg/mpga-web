@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
-import { Club } from '../../../models/clubs';
+import { FormGroup } from '@angular/forms';
+import { Club } from '../../models/clubs';
 import { ClubForm } from './club.form';
 import { Subscription } from 'rxjs';
 

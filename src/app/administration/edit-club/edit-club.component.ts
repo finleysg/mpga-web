@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { ClubMaintenanceService } from '../club-maintenance.service';
+import { ClubMaintenanceService } from '../../services/club-maintenance.service';
 import { ActivatedRoute } from '@angular/router';
 import { Club, Contact, ClubContact, ClubValidationMessage } from '../../models/clubs';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactPickerComponent } from '../../shared/contact-picker/contact-picker.component';
-import { ClubComponent } from '../components/club/club.component';
+import { ClubComponent } from '../../shared/club/club.component';
 import { MatSnackBar } from '@angular/material';
-import { ClubContactComponent } from '../components/club-contact/club-contact.component';
+import { ClubContactComponent } from '../../shared/club-contact/club-contact.component';
 import { LandingPage } from 'src/app/models/pages';
 
 @Component({

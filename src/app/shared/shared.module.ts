@@ -18,7 +18,8 @@ import {
   MatIconModule,
   MatSnackBarModule,
   MatDialogModule,
-  MatAutocompleteModule} from '@angular/material';
+  MatAutocompleteModule,
+  MatChipsModule} from '@angular/material';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
@@ -27,6 +28,10 @@ import { MarkdownDirective } from './markdown/markdown.directive';
 import { ContactPickerComponent } from './contact-picker/contact-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactMessageComponent } from './contact-message/contact-message.component';
+import { AddressComponent } from './address/address.component';
+import { ClubContactComponent } from './club-contact/club-contact.component';
+import { ClubComponent } from './club/club.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   imports: [
@@ -50,13 +55,18 @@ import { ContactMessageComponent } from './contact-message/contact-message.compo
     MatIconModule,
     MatDialogModule,
     MatAutocompleteModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatChipsModule
   ],
   declarations: [
     ConfirmDialogComponent,
     MarkdownDirective,
     ContactPickerComponent,
-    ContactMessageComponent
+    ContactMessageComponent,
+    AddressComponent,
+    ClubComponent,
+    ClubContactComponent,
+    ContactComponent
   ],
   entryComponents: [
     ConfirmDialogComponent,
@@ -91,7 +101,11 @@ import { ContactMessageComponent } from './contact-message/contact-message.compo
     MatDialogModule,
     MatAutocompleteModule,
     FlexLayoutModule,
-    ContactMessageComponent
+    ContactMessageComponent,
+    AddressComponent,
+    ClubComponent,
+    ClubContactComponent,
+    ContactComponent
   ]
 })
 export class SharedModule { }

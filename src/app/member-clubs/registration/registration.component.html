@@ -1,3 +1,45 @@
-<div class="coming-soon">
-  <img src="https://media.giphy.com/media/14ko1wkUS2thu/giphy.gif">
-</div>
+<mat-card>
+  <mat-card-header class="mat-purple">
+    <mat-card-title>{{currentSeason}} Registration</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <a mat-flat-button color="primary" [href]="pdf.file">PDF Registration</a>
+  </mat-card-content>
+  <mat-card-content>
+    <h2 class="mat-text-primary">Online Registration</h2>
+    <p>Request a temporary login from the MPGA website and register online with a credit card.
+      You must be in the contact list for your club and have a valid email in our contact database.
+    </p>
+    <p>1. Select your club from the list below:</p>
+    <mat-form-field class="full-width">
+      <mat-select placeholder="MPGA Clubs" (selectionChange)="selectClub($event.value)">
+        <mat-option *ngFor="let c of clubs" [value]="c">{{ c.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-content *ngIf="selectedClub">
+    <p>2. Select your name from the contact list:</p>
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Club Contacts" (selectionChange)="selectContact($event.value)">
+        <mat-option *ngFor="let cc of selectedClub.clubContacts" [value]="cc">{{ cc.contact.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p class="mat-text-warn" *ngIf="selectedContact && !selectedContact.contact.email">
+      We do not have an email address on file for {{selectedContact.contact.name}}.
+    </p>
+    <p class="footnote">
+      Not in the list? Please <a [routerLink]="['/about', 'contact']">contact the MPGA</a> with your 
+      contact information and role with {{selectedClub.name}}, and we will add you to our contact database.
+    </p>
+  </mat-card-content>
+  <mat-card-content *ngIf="hasToken">
+    <p>3. Enter the login code we just sent you and log in to complete your registration:</p>
+    <mat-form-field class="half-width">
+      <input matInput placeholder="Login Token" [(ngModel)]="token">
+    </mat-form-field>
+  </mat-card-content>
+  <mat-card-actions *ngIf="selectedContact && selectedContact.contact.email">
+    <button *ngIf="!hasToken" mat-flat-button color="accent" (click)="sendToken()">Send Login Link</button>
+    <button *ngIf="hasToken" mat-flat-button color="accent" (click)="login()">Login</button>
+  </mat-card-actions>
+</mat-card>
