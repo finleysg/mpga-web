@@ -24,13 +24,18 @@ export class EventResultsPreviewComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['event']) {
       this.currentYear = this.event.mostRecentYear;
-      this.resultLinks = this.event.links.filter(l => l.linkType === 'Results');
-        this.mediaLinks = this.event.links.filter(l => l.linkType === 'Media');
-        this.dataService.documents({year: this.event.mostRecentYear, tournamentId: this.event.tournament, docType: 'Results'}).subscribe(
-          docs => {
-            this.fullResults = docs;
-          }
-        );
+      this.dataService.documents({year: this.event.mostRecentYear, tournamentId: this.event.tournament, docType: 'Results'}).subscribe(
+        docs => {
+          this.fullResults = docs;
+        }
+      );
+      this.dataService.eventsByTournament(this.event.tournament).subscribe(events => {
+        const ev = events.find(e => e.startDate.year() === this.currentYear);
+        if (ev) {
+          this.resultLinks = ev.links.filter(l => l.linkType === 'Results');
+          this.mediaLinks = ev.links.filter(l => l.linkType === 'Media');
+        }
+      });
     }
   }
 }

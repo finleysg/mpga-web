@@ -3,6 +3,7 @@ import { AppConfig } from './app.config';
 import { BaseService } from './services/base.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { retry } from 'rxjs/operators';
 
 export function ConfigLoader(configService: AppConfigService) {
   return () => configService.load();
@@ -28,7 +29,7 @@ export class AppConfigService extends BaseService {
     return new Promise((resolve) => {
       this.http.get(`${this.baseUrl}/settings/`, {
         headers: new HttpHeaders().set('Accept', 'application/json')
-      }).subscribe((json: any[]) => {
+      }).pipe(retry(2)).subscribe((json: any[]) => {
           this._config = new AppConfig(json[0]);
           this._configSource.next(this._config);
           resolve();

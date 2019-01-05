@@ -34,22 +34,14 @@ export class UserService extends BaseService {
     return this._currentUser;
   }
 
-  login(username: string, password: string, remember: boolean): Observable<void> {
+  login(email: string, password: string): Observable<void> {
 
-    // this._rememberUser = remember;
-
-    let email = '';
-    if (username.indexOf('@') > 0) {
-      email = username;
-      username = '';
-    }
-
-    return this.http.post(`${this.authUrl}/login/`, { username: username, email: email, password: password }, {
+    return this.http.post(`${this.authUrl}/login/`, { username: email, email: email, password: password }, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     }).pipe(
       flatMap((data: any) => {
         if (data && data.key) {
-          this.saveTokenToStorage(data.key, remember);
+          this.saveTokenToStorage(data.key, true);
           return this.getUser();
         }
       }),
@@ -62,23 +54,9 @@ export class UserService extends BaseService {
     );
   }
 
-  // login for a read-only user
-  // quietLogin(username: string): Observable<void> {
-  //   return this.http.post(`${this.authUrl}/login/`, { username: username, email: '', password: 'gamer' }, {
-  //     headers: new HttpHeaders().set('Content-Type', 'application/json'),
-  //   }).pipe(
-  //     map((data: any) => {
-  //       if (data && data.key) {
-  //         this.saveTokenToStorage(data.key, false);
-  //         return;
-  //       }
-  //     })
-  //   );
-  // }
-
   loginWithToken(token: string): Observable<void | Object> {
     const body = new HttpParams().set('token', token);
-    return this.http.post('http://localhost:8000/callback/auth/', body.toString(), {
+    return this.http.post(`${this.rawUrl}/callback/auth/`, body.toString(), {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     }).pipe(
       flatMap((json: any) => {
@@ -102,10 +80,9 @@ export class UserService extends BaseService {
     );
   }
 
-
   requestToken(email: string): Observable<string> {
     const body = new HttpParams().set('email', email);
-    return this.http.post('http://localhost:8000/auth/email/', body.toString(), {
+    return this.http.post(`${this.rawUrl}/auth/email/`, body.toString(), {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
     }).pipe(
       map((json: any) => {

@@ -6,7 +6,7 @@
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="text-xs-center pb-1">
               <!-- <img src="assets/images/logo-dark.svg" alt=""/> -->
-              <p class="mat-text-muted">Enter your email and we'll send you instructions on how to reset your password.</p>
+              <p class="mat-text-muted">Enter your email and we'll send you instructions on how to create or reset your password.</p>
             </div>
             <div  fxLayout="column"  fxLayoutAlign="space-around">
               <div class="pb-1">
@@ -16,12 +16,12 @@
                 <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">You must include an email address.</small>
                 <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="mat-text-warn">You must include a valid email address.</small>
               </div>
-              <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Login</button>
+              <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Send Password Request</button>
             </div>
-            <div class="pt-1 pb-1 text-xs-center">
+            <!-- <div class="pt-1 pb-1 text-xs-center">
               <a [routerLink]="['/session/signin']">Sign in</a>&nbsp;&nbsp;&nbsp;&nbsp;
               <a [routerLink]="['/session/signup']">Create new account</a>
-            </div>
+            </div> -->
           </form>
          </mat-card-content>
       </mat-card>

@@ -38,8 +38,17 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  events(year: number, eventType: string = null): Observable<EventDetail[]> {
-    const url = eventType ? `${this.baseUrl}/events/?year=${year}&type=${eventType}` : `${this.baseUrl}/events/?year=${year}`;
+  eventsByYear(year: number): Observable<EventDetail[]> {
+    const url = `${this.baseUrl}/events/?year=${year}`;
+    return this.http.get(url).pipe(
+      map((json: any) => {
+        return json.map(o => new EventDetail(o));
+      })
+    );
+  }
+
+  eventsByTournament(tournamentId: number): Observable<EventDetail[]> {
+    const url = `${this.baseUrl}/events/?tournament=${tournamentId}`;
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new EventDetail(o));

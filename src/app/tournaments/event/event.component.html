@@ -22,7 +22,8 @@
           </a>
         </h3>
         <h4 class="mt-0">{{ event.eventDates }}</h4>
-        <h3 *ngIf="!event.canRegister" class="mat-text-warn">Registration is Closed</h3>
+        <h3 *ngIf="event.registrationIsPending" class="mat-text-warn">Registration has not yet started</h3>
+        <h3 *ngIf="event.registrationIsClosed" class="mat-text-warn">Registration is closed</h3>
         <h5 class="event-bold">Format</h5>
         <div [markdown]="event.description"></div>
         <div *ngFor="let p of event.policies">

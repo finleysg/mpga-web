@@ -9,6 +9,12 @@
 }
 
 .session-content {
+  background: url(https://mpgagolf.s3.amazonaws.com/media/photos/2018/combo-9-w.jpg) no-repeat center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: mat-color($mat-teal, 300);
   padding: 40px $gutter;
   @include flexbox;
   @include align-items(center);

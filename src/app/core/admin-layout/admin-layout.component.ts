@@ -51,7 +51,6 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
       });
 
     this.errorHandler.lastError$.subscribe(err => {
-      console.log(`lastError subscriber: ${err}`);
       if (err && err.toString() !== 'Invalid token.') {
         this.snackBar.open(err, null, { duration: 5000, panelClass: 'error-snackbar' });
       }

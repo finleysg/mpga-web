@@ -19,7 +19,7 @@ export class EventService {
     this._tournamentSource = new BehaviorSubject<EventDetail[]>([]);
     this.appConfig.config.subscribe(config => {
       this._config = config;
-      this.mpgaData.events(config.eventCalendarYear).subscribe(events => {
+      this.mpgaData.eventsByYear(config.eventCalendarYear).subscribe(events => {
         this._eventList = events;
         this._tournamentSource.next(events);
       });
@@ -34,7 +34,7 @@ export class EventService {
     if (this._eventList) {
       this._tournamentSource.next(this._eventList);
     } else {
-      this.mpgaData.events(this._config.eventCalendarYear).subscribe(events => {
+      this.mpgaData.eventsByYear(this._config.eventCalendarYear).subscribe(events => {
         this._eventList = events;
         this._tournamentSource.next(events);
       });

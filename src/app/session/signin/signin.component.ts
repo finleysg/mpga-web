@@ -25,16 +25,15 @@ export class SigninComponent implements OnInit {
   ngOnInit() {
     this.returnUrl = this.userService.redirectUrl || '/';
     this.form = this.fb.group({
-      uname: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required])],
-      remember: true
+      email: [null, Validators.compose([Validators.required])],
+      password: [null, Validators.compose([Validators.required])]
     });
   }
 
   onSubmit() {
     this.loading = true;
     if (this.form.valid) {
-      this.userService.login(this.form.get('uname').value, this.form.get('password').value, this.form.get('remember').value).subscribe(
+      this.userService.login(this.form.get('email').value, this.form.get('password').value).subscribe(
         () => this.router.navigate([this.returnUrl])
       );
     }

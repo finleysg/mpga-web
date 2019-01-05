@@ -13,6 +13,9 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError(err => {
+              if (err.error && err.error['detail'] === 'Invalid token.') {
+                this.removeTokenFromStorage();
+              }
                 return this.handleError(err);
             })
         );
@@ -48,5 +51,10 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
 
         return throwError(message);
+    }
+
+    private removeTokenFromStorage(): void {
+      localStorage.removeItem('mpga-token');
+      sessionStorage.removeItem('mpga-token');
     }
 }

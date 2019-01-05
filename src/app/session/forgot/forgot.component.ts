@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-forgot',
@@ -11,7 +12,11 @@ import { CustomValidators } from 'ng2-validation';
 export class ForgotComponent implements OnInit {
 
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group ( {
@@ -20,7 +25,8 @@ export class ForgotComponent implements OnInit {
   }
 
   onSubmit() {
-    this.router.navigate ( ['/session/signin'] );
+    this.userService.resetPassword(this.form.get('email').value).subscribe(() => {
+      this.router.navigate ( ['/session/reset-password-sent'] );
+    });
   }
-
 }

@@ -4,9 +4,15 @@ export interface IService {
 }
 
 export class BaseService implements IService {
-  // useLocal: boolean;
-  useLocal = true;
+  useLocal: boolean;
+  // useLocal = true;
 
+  get rawUrl(): string {
+    if (this.useLocal && window.location.hostname.indexOf('localhost') >= 0) {
+      return 'http://localhost:8000';
+    }
+    return 'https://mpgagolf.pythonanywhere.com';
+  }
   get baseUrl(): string {
     if (this.useLocal && window.location.hostname.indexOf('localhost') >= 0) {
       return 'http://localhost:8000/api';

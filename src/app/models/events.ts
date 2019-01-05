@@ -203,6 +203,15 @@ export class EventDetail extends Model {
   }
 
   get canRegister(): boolean {
-    return this.registrationEnd.isAfter(moment());
+    return this.registrationStart.isBefore(moment()) &&
+      this.registrationEnd.isAfter(moment());
+  }
+
+  get registrationIsPending(): boolean {
+    return this.registrationStart.isAfter(moment());
+  }
+
+  get registrationIsClosed(): boolean {
+    return this.registrationEnd.isBefore(moment());
   }
 }
