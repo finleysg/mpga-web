@@ -2,29 +2,29 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CanEditGuard implements CanActivate {
-
-  private currentUser: User;
 
   constructor(
     private userService: UserService,
     private router: Router
   ) {
-    this.userService.currentUser$.subscribe(user => this.currentUser = user);
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    this.userService.redirectUrl = state.url;
-
-    if (this.currentUser.isAuthenticated) {
-      return true;
-    }
-
-    // the club id should be on the url
-    const segments = state.url.split('/');
-    this.router.navigate(['/members', 'clubs', segments.pop()]);
-    return false;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>|boolean {
+    // this.userService.redirectUrl = state.url;
+    return this.userService.currentUser$.pipe(
+      map((user: User) => {
+        if (user.isAuthenticated) {
+          return true;
+        } else {
+          this.router.navigate(['/']);
+          return false;
+        }
+      })
+    );
   }
 }

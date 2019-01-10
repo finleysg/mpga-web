@@ -137,8 +137,8 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  teams(year?: number): Observable<Team[]> {
-    const url = year ? `${this.baseUrl}/teams/?year=${year}` : `${this.baseUrl}/teams/`;
+  teams(year: number, clubId?: number): Observable<Team[]> {
+    const url = clubId ? `${this.baseUrl}/teams/?year=${year}&club=${clubId}&edit=true` : `${this.baseUrl}/teams/?year=${year}`;
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new Team(o));

@@ -10,11 +10,11 @@ import { MatSnackBar } from '@angular/material';
 declare const Stripe: any;
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  selector: 'app-register-club',
+  templateUrl: './register-club.component.html',
+  styleUrls: ['./register-club.component.scss']
 })
-export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RegisterClubComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('cardInfo') cardInfo: ElementRef;
 
@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
           .subscribe(() => {
             this.snackbar.open(`Thank you! Your dues are paid for ${this.config.memberClubYear}`, null,
               { duration: 5000, panelClass: ['success-snackbar'] });
-            this.router.navigate(['/admin', 'club', this.club.id]);
+            this.router.navigate(['/admin', 'clubs', this.club.id, 'edit']);
           });
       }
     }

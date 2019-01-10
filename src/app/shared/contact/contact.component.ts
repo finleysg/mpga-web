@@ -14,6 +14,7 @@ import { AddressComponent } from '../address/address.component';
 export class ContactComponent implements OnChanges, OnDestroy {
 
   @Input() contact: Contact;
+  @Input() condensed: boolean;
   @ViewChild(AddressComponent) addressForm: AddressComponent;
 
   address: Address;
@@ -42,6 +43,9 @@ export class ContactComponent implements OnChanges, OnDestroy {
 
   isValid(addressRequired: boolean): boolean {
     this.contactForm.onValueChanges();
+    if (this.condensed) {
+      return this.form.valid;
+    }
     return this.form.valid && this.addressIsValid(addressRequired);
   }
 
@@ -55,11 +59,16 @@ export class ContactComponent implements OnChanges, OnDestroy {
   }
 
   isDirty(): boolean {
+    if (this.condensed) {
+      return this.form.dirty;
+    }
     return this.form.dirty && this.addressForm.isDirty();
   }
 
   update(addressRequired: boolean): void {
-    if (this.form.valid && this.addressIsValid(addressRequired)) {
+    if (this.condensed && this.form.valid) {
+      this.contactForm.updateValue(this.contact);
+    } else if (this.form.valid && this.addressIsValid(addressRequired)) {
       this.addressForm.update();
       this.contactForm.updateValue(this.contact);
       this.contact.updateAddress(this.address);

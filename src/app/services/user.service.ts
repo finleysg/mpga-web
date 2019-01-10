@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, of } from 'rxjs';
+import { Observable, Subject, of, ReplaySubject } from 'rxjs';
 import { User } from '../models/user';
 import { map, flatMap, catchError, tap } from 'rxjs/operators';
 import { BaseService } from './base.service';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { Club } from '../models/clubs';
 
 @Injectable()
 export class UserService extends BaseService {
 
-  private currentUserSource: BehaviorSubject<User>;
+  private currentUserSource: ReplaySubject<User>;
   public currentUser$: Observable<User>;
   private _currentUser: User;
   public redirectUrl: string;
@@ -21,7 +22,7 @@ export class UserService extends BaseService {
     super();
 
     this._currentUser = new User();
-    this.currentUserSource = new BehaviorSubject(this._currentUser);
+    this.currentUserSource = new ReplaySubject(1);
     this.currentUser$ = this.currentUserSource.asObservable();
     this.getUser().subscribe(user => {
       this._currentUser = user;
@@ -167,6 +168,23 @@ export class UserService extends BaseService {
     this._currentUser = new User();
     this.currentUserSource.next(this._currentUser);
     // this.errorHandler.clearUserContext();
+  }
+
+  // TODO: rethink the throw idea
+  userClub(): Observable<Club> {
+    if (!this._currentUser.isAuthenticated) {
+      throw new Error('current user is a guest');
+    }
+    return this.http.get(`${this.baseUrl}/clubs/?user=true`).pipe(
+      map((data: any[]) => {
+        if (!data) {
+          throw new Error('no club found for ' + this._currentUser.name);
+        } else if (data.length > 1) {
+          throw new Error('multiple clubs found for ' + this._currentUser.name);
+        }
+        return new Club(data[0]);
+      })
+    );
   }
 
   private saveTokenToStorage(data: string, remember: boolean): void {

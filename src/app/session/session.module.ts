@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatIconModule, MatCardModule, MatInputModule, MatCheckboxModule, MatButtonModule } from '@angular/material';
+import { MatIconModule, MatCardModule, MatInputModule, MatCheckboxModule, MatButtonModule, MatSelectModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -11,6 +11,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { SigninComponent } from './signin/signin.component';
 import { ResetPasswordSentComponent } from './reset-password/reset-password-sent.component';
 import { ResetPasswordConfirmComponent } from './reset-password/reset-password-confirm.component';
+import { EmailSigninComponent } from './email-signin/email-signin.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ResetPasswordConfirmComponent } from './reset-password/reset-password-c
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatSelectModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule
@@ -30,7 +32,8 @@ import { ResetPasswordConfirmComponent } from './reset-password/reset-password-c
     ForgotComponent,
     SigninComponent,
     ResetPasswordSentComponent,
-    ResetPasswordConfirmComponent
+    ResetPasswordConfirmComponent,
+    EmailSigninComponent
   ]
 })
 

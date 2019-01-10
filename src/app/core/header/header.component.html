@@ -4,20 +4,25 @@
     <mat-icon>menu</mat-icon>
   </button>
   <div class="branding">
-    <h1>Welcome to MPGA.net</h1>
+    <h1 fxHide fxShow.xs>MPGA.net</h1>
+    <h1 fxShow fxHide.xs>Welcome to MPGA.net</h1>
   </div>
   <div class="flex-me">
     &nbsp;
   </div>
   <button [matMenuTriggerFor]="user" mat-flat-button color="primary" class="ml-xs">
-    <span class="mr-1">{{ currentUser.isAuthenticated ? currentUser.firstName : 'guest' }}</span><mat-icon>person</mat-icon>
+    <span class="mr-1">{{ currentUser?.isAuthenticated ? currentUser.firstName : 'guest' }}</span><mat-icon>person</mat-icon>
   </button>
   <mat-menu #user="matMenu" x-position="before">
-    <a *ngIf="currentUser && currentUser.isAuthenticated" mat-menu-item [href]="dbLocation" target="_blank">
+    <a *ngIf="currentUser && currentUser.isAuthenticated" mat-menu-item [routerLink]="['/profile/edit']">
+      <mat-icon>person_outline</mat-icon>
+      Profile
+    </a>
+    <a *ngIf="currentUser && currentUser.isStaff" mat-menu-item [href]="dbLocation" target="_blank">
       <mat-icon>build</mat-icon>
       Database
     </a>
-    <a *ngIf="currentUser && currentUser.isAuthenticated" mat-menu-item [routerLink]="['/admin', 'reports']">
+    <a *ngIf="currentUser && currentUser.isStaff" mat-menu-item [routerLink]="['/admin', 'reports']">
       <mat-icon>reorder</mat-icon>
       Reports
     </a>

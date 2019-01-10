@@ -9,7 +9,7 @@
     <small *ngIf="fieldErrors.firstName" class="mat-text-warn">{{fieldErrors.firstName}}</small>
     <small *ngIf="fieldErrors.lastName" class="mat-text-warn">{{fieldErrors.lastName}}</small>
   </p>
-  <p>
+  <p *ngIf="!condensed">
     <mat-form-field class="half-width">
       <mat-select placeholder="Contact type" [formControl]="form.controls['contactType']">
         <mat-option *ngFor="let ct of contactTypes" [value]="ct">{{ ct }}</mat-option>
@@ -35,6 +35,6 @@
     </mat-form-field>
     <small *ngIf="fieldErrors.email" class="mat-text-warn">{{fieldErrors.email}}</small>
   </p>
-  <app-address [address]="address"></app-address>
+  <app-address [address]="address" *ngIf="!condensed"></app-address>
   <small *ngIf="showAddressWarning" class="mat-text-warn">A valid address is required when you want mailings sent here</small>
 </div>

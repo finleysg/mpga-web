@@ -1,11 +1,11 @@
 <div [formGroup]="form">
-  <app-contact [contact]="clubContact.contact"></app-contact>
-  <p>
+  <app-contact [contact]="clubContact.contact" [condensed]="condensed"></app-contact>
+  <p *ngIf="!condensed">
     <mat-checkbox [formControl]="form.controls['isPrimary']">
       This is a primary email contact
     </mat-checkbox>
   </p>
-  <p>
+  <p *ngIf="!condensed">
     <mat-checkbox [formControl]="form.controls['useForMailings']" (change)="addressRequired($event)">
       Send MPGA mailings to this contact
     </mat-checkbox>

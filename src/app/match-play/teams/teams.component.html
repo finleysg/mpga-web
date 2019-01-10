@@ -29,11 +29,11 @@
       </mat-card-content>
       <mat-card-content>
         <p>
-          Click on a team to get contact details about the captain or captains. You can request 
+          Click on a team to get contact details about the captain or captains. You can request
           contact detail for a single team or an entire group.
         </p>
         <p>
-          You must have a contact email on file with the MPGA. We will only send this information to 
+          You must have a contact email on file with the MPGA. We will only send this information to
           a known email address.
         </p>
       </mat-card-content>
@@ -42,9 +42,12 @@
   <div fxFlex.gt-sm="67%" fxFlex="100">
     <mat-card>
       <mat-card-header>
-        <mat-card-title class="mat-text-primary">{{currentYear}} Match Play Teams</mat-card-title>
+        <mat-card-title class="mat-text-primary">{{config.matchPlayYear}} Match Play Teams <span *ngIf="!config.matchPlayFinalized">(Tentative)</span></mat-card-title>
       </mat-card-header>
       <mat-card-content>
+        <a mat-flat-button color="accent" (click)="signup()" class="club-action" alt="Sign up for team match play">
+          Sign Up Now for {{config.matchPlayYear}}
+        </a>
         <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
           <ng-container matColumnDef="groupName">
             <th mat-header-cell *matHeaderCellDef>Club Name</th>

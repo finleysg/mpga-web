@@ -9,18 +9,30 @@ import { CustomFormsModule } from 'ng2-validation';
 import { ContactFilterPipe } from './edit-club/contact-filter.pipe';
 import { CanEditGuard } from './can-edit-guard.service';
 import { IsStaffGuard } from './is-staff-guard.service';
+import { RegisterClubComponent } from './register-club/register-club.component';
+import { MatchPlayRegisterComponent } from './match-play-register/match-play-register.component';
+import { MatchPlayResultsComponent } from './match-play-results/match-play-results.component';
+import { FormsModule } from '@angular/forms';
+import { CaptainFilterPipe } from './match-play-register/captain-filter.pipe';
+import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 
 @NgModule({
   imports: [
     SharedModule,
     routing,
     CustomFormsModule,
-    MatChipsModule
+    MatChipsModule,
+    FormsModule
   ],
   declarations: [
     ReportsComponent,
     EditClubComponent,
-    ContactFilterPipe
+    RegisterClubComponent,
+    ContactFilterPipe,
+    CaptainFilterPipe,
+    MatchPlayRegisterComponent,
+    MatchPlayResultsComponent,
+    TeamDetailComponent
   ],
   providers: [
     CanEditGuard,
