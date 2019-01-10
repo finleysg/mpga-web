@@ -1,12 +1,13 @@
+<ng-container *ngIf="eventDetail$ | async as event">
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="25%" fxFlex="100">
-    <div fx-layout="row" *ngIf="event">
+    <div fx-layout="row">
       <app-event-registration-preview [event]="event" *ngIf="event.canRegister"></app-event-registration-preview>
       <app-event-results-preview [event]="event"></app-event-results-preview>
     </div>
   </div>
   <div fxFlex.gt-sm="50%" fxFlex="100">
-    <mat-card *ngIf="event">
+    <mat-card>
       <mat-card-content class="mat-purple">
         <h2 class="mt-0 mb-0">{{ event.name }}</h2>
         <!-- <div fxFlex></div>
@@ -44,14 +45,15 @@
         </div>
       </mat-card-content>
     </mat-card>
-    <div *ngIf="event" id="contact">
+    <div id="contact">
       <app-contact-message [title]="'Tournament Questions and Requests'" [messageType]="'tournament'" [event]="event.name"></app-contact-message>
     </div>
   </div>
   <div fxFlex.gt-sm="25%" fxFlex="100">
-    <div fx-layout="row" *ngIf="event">
+    <div fx-layout="row">
       <app-event-history-preview [event]="event"></app-event-history-preview>
       <app-event-gallery-preview [event]="event"></app-event-gallery-preview>
     </div>
   </div>
 </div>
+</ng-container>

@@ -1,6 +1,7 @@
+<ng-container *ngIf="tournament$ | async as tournament">
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="70%" fxFlex="100">
-    <mat-card *ngIf="tournament">
+    <mat-card>
       <mat-card-header class="mat-purple">
         <mat-card-title>{{ tournament.name }} History</mat-card-title>
       </mat-card-header>
@@ -51,3 +52,4 @@
   <div fxFlex.gt-sm="30%" fxFlex="100">
   </div>
 </div>
+</ng-container>

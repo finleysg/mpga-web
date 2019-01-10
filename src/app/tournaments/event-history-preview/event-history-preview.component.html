@@ -1,9 +1,9 @@
-<mat-card *ngIf="results && results.length">
+<mat-card>
   <mat-card-header class="mat-teal">
     <mat-card-title>{{ currentYear }} Winners</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <div *ngFor="let row of results">
+    <div *ngFor="let row of winners$ | async">
       <h4 class="event-bold">{{ row.flightOrDivision }}</h4>
       <p>{{ row.winner }} ({{ row.winnerClub }})<span *ngIf="row.coWinner"> / {{ row.coWinner }} ({{ row.coWinnerClub }})</span></p>
       <p>Score: {{ row.score }}<span *ngIf="row.isNet">*</span></p>
