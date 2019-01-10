@@ -18,13 +18,6 @@ export class MembershipDetailComponent implements OnInit {
   club: PublicClub;
   user: User;
 
-  // for managing temporary login
-  doEdit: boolean;
-  requestEmail: string;
-  requestEmailInvalid: boolean;
-  token: string;
-  hasToken: boolean;
-
   constructor(
     private mpgaData: MpgaDataService,
     private route: ActivatedRoute,
@@ -58,23 +51,9 @@ export class MembershipDetailComponent implements OnInit {
 
   editClub(): void {
     if (this.user.isAuthenticated) {
-      this.router.navigate(['/admin', 'club', this.club.id]);
+      this.router.navigate(['/admin', 'clubs', this.club.id, 'edit']);
     } else {
-      this.doEdit = true;
+      this.router.navigate(['/session/email-signin'], {queryParams: {redirect: 'club-edit'}});
     }
-  }
-
-  sendToken(): void {
-    this.userData.requestToken(this.requestEmail)
-      .subscribe(result => {
-        this.hasToken = true;
-        this.snackbar.open(result, null, {duration: 5000, panelClass: ['success-snackbar']});
-      });
-  }
-
-  login(): void {
-    this.userData.loginWithToken(this.token).subscribe(() => {
-      this.router.navigate(['/admin', 'club', this.club.id]);
-    });
   }
 }

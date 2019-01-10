@@ -1,61 +1,43 @@
-import { Component, OnChanges, Input } from '@angular/core';
-import { PublicClub, ClubContact, Club } from 'src/app/models/clubs';
-import { ClubMaintenanceService } from 'src/app/services/club-maintenance.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnInit, Input } from '@angular/core';
 import { MpgaDocument } from 'src/app/models/documents';
 import { UserService } from 'src/app/services/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnChanges {
+export class RegistrationComponent implements OnInit {
 
-  @Input() clubs: PublicClub[];
   @Input() pdf: MpgaDocument;
   @Input() currentSeason: number;
-  selectedClub: Club;
-  selectedContact: ClubContact;
-  hasToken: boolean;
-  token: string;
+  user: User;
 
   constructor(
-    private clubMaintenanceService: ClubMaintenanceService,
     private userService: UserService,
-    private snackbar: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute
+    private snackbar: MatSnackBar
   ) { }
 
-  ngOnChanges() {
-    this.clubMaintenanceService.club.subscribe(club => this.selectedClub = club);
+  ngOnInit() {
+    // TODO: unsubscribe
+    this.userService.currentUser$.subscribe(user => this.user = user);
   }
 
-  selectClub(club: PublicClub): void {
-    if (club) {
-      this.clubMaintenanceService.loadClub(club.id);
-    }
-  }
-
-  selectContact(cc: ClubContact): void {
-    if (cc.contact.email) {
-      this.selectedContact = cc;
-    }
-  }
-
-  sendToken(): void {
-    this.userService.requestToken(this.selectedContact.contact.email)
-      .subscribe(result => {
-        this.hasToken = true;
-        this.snackbar.open(result, null, {duration: 5000, panelClass: ['success-snackbar']});
+  onlineSignup(): void {
+    if (this.user && this.user.isAuthenticated) {
+      this.userService.userClub().subscribe(club => {
+        if (club && club.id) {
+          this.router.navigate(['/admin', 'clubs', club.id, 'register']);
+        } else {
+          this.snackbar.open('We do not have a home club for you', null, {duration: 5000, panelClass: ['error-snackbar']});
+        }
       });
-  }
-
-  login(): void {
-    this.userService.loginWithToken(this.token).subscribe(() => {
-      this.router.navigate([this.selectedClub.id, 'register'], {relativeTo: this.route});
-    });
+    } else {
+      this.router.navigate(['/session/email-signin'], {queryParams: {redirect: 'club-registration'}});
+    }
   }
 }

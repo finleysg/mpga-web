@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, Observable, forkJoin } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { Club, ClubContact, Contact, Membership } from '../models/clubs';
+import { Club, ClubContact, Contact, Membership, Team } from '../models/clubs';
 import { BaseService } from '../services/base.service';
 
 @Injectable()
@@ -33,6 +33,14 @@ export class ClubMaintenanceService extends BaseService {
   }
 
   saveClub(club: Club): Observable<void | Object> {
+    return this.saveClubContacts(club).pipe(
+      tap(() => {
+        this.updateClub(club).subscribe(() => this.loadClub(club.id));
+      })
+    );
+  }
+
+  saveClubContacts(club: Club): Observable<void | Object> {
     const calls = club.clubContacts.map(cc => {
       if (cc.deleted) {
         return this.deleteClubContact(cc);
@@ -43,11 +51,7 @@ export class ClubMaintenanceService extends BaseService {
         return this.updateClubContact(cc);
       }
     });
-    return forkJoin(calls).pipe(
-      tap(() => {
-        this.updateClub(club).subscribe(() => this.loadClub(club.id));
-      })
-    );
+    return forkJoin(calls);
   }
 
   updateClub(club: Club): Observable<void | Object> {
@@ -57,7 +61,7 @@ export class ClubMaintenanceService extends BaseService {
   }
 
   createClubContact(cc: ClubContact): Observable<void | Object> {
-    return this.http.post(`${this.baseUrl}/club-contacts/${cc.id}/?edit=true`, cc.prepJson(), {
+    return this.http.post(`${this.baseUrl}/club-contacts/?edit=true`, cc.prepJson(), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
@@ -72,10 +76,47 @@ export class ClubMaintenanceService extends BaseService {
     return this.http.delete(`${this.baseUrl}/club-contacts/${cc.id}/?edit=true`);
   }
 
+  saveTeams(teams: Team[]): Observable<void | Object> {
+    const calls = teams.map(team => {
+      if (team.deleted && team.id) {
+        return this.deleteTeam(team);
+      } else if (!team.id && !team.deleted) {
+        return this.createTeam(team);
+      } else {
+        return this.updateTeam(team);
+      }
+    });
+    return forkJoin(calls);
+  }
+
+  createTeam(team: Team): Observable<void | Object> {
+    return this.http.post(`${this.baseUrl}/teams/`, team.prepJson(), {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  updateTeam(team: Team): Observable<void | Object> {
+    return this.http.put(`${this.baseUrl}/teams/${team.id}/`, team.prepJson(), {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+  deleteTeam(team: Team): Observable<void | Object> {
+    return this.http.delete(`${this.baseUrl}/teams/${team.id}/`);
+  }
+
   contacts(): Observable<Contact[]> {
     return this.http.get(`${this.baseUrl}/contacts/?edit=true`).pipe(
       map((json: any[]) => {
         return json.map(o => new Contact(o));
+      })
+    );
+  }
+
+  hasContact(clubId: number, email: string): Observable<boolean> {
+    return this.http.get(`${this.baseUrl}/clubs/validate-contact/${clubId}/?email=${email}`).pipe(
+      map((json: any) => {
+        return json as boolean;
       })
     );
   }

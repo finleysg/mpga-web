@@ -1,0 +1,16 @@
+<div [formGroup]="form">
+  <mat-slide-toggle [formControl]="form.controls['isSenior']">
+    Senior Team?
+  </mat-slide-toggle>
+  <mat-form-field class="ml-2">
+    <mat-select placeholder="Requested Division" [formControl]="form.controls['groupName']">
+      <mat-option *ngFor="let group of groups" [value]="group">
+        {{group}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <small *ngIf="fieldErrors.groupName" class="mat-text-warn">{{fieldErrors.groupName}}</small>
+  <mat-form-field class="full-width">
+    <textarea matInput rows="5" placeholder="Notes or Requests" [formControl]="form.controls['notes']"></textarea>
+  </mat-form-field>
+</div>

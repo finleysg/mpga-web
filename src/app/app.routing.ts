@@ -28,4 +28,4 @@ const AppRoutes: Routes = [
   { path: '**', redirectTo: 'session/404' }
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(AppRoutes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(AppRoutes, {enableTracing: false});

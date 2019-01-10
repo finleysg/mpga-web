@@ -18,6 +18,7 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
 
   @Input() clubContact: ClubContact;
   @Input() roles: string[];
+  @Input() condensed: boolean;
   @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   @ViewChild(ContactComponent) contactForm: ContactComponent;

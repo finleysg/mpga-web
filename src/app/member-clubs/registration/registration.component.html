@@ -3,9 +3,11 @@
     <mat-card-title>{{currentSeason}} Registration</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <a mat-flat-button color="primary" [href]="pdf.file">PDF Registration</a>
+    <p>Pay your membership dues online with a credit card, or download the
+      signup form to pay by check.
+    </p>
   </mat-card-content>
-  <mat-card-content>
+  <!-- <mat-card-content>
     <h2 class="mat-text-primary">Online Registration</h2>
     <p>Request a temporary login from the MPGA website and register online with a credit card.
       You must be in the contact list for your club and have a valid email in our contact database.
@@ -37,9 +39,9 @@
     <mat-form-field class="half-width">
       <input matInput placeholder="Login Token" [(ngModel)]="token">
     </mat-form-field>
-  </mat-card-content>
-  <mat-card-actions *ngIf="selectedContact && selectedContact.contact.email">
-    <button *ngIf="!hasToken" mat-flat-button color="accent" (click)="sendToken()">Send Login Link</button>
-    <button *ngIf="hasToken" mat-flat-button color="accent" (click)="login()">Login</button>
+  </mat-card-content> -->
+  <mat-card-actions>
+    <a mat-flat-button [href]="pdf.file" target="_blank">Signup Form</a>
+    <a mat-flat-button color="primary" (click)="onlineSignup()">Online Signup</a>
   </mat-card-actions>
 </mat-card>

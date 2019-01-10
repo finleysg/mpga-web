@@ -1,0 +1,71 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="33.33%" fxFlex="100">
+    <mat-card *ngIf="club">
+      <mat-card-header class="mat-teal">
+        <mat-card-title>{{ club.name }}</mat-card-title>
+        <mat-card-subtitle>{{config.matchPlayYear}} Match Play Signup</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <button mat-flat-button color="accent" (click)="save()">Save<mat-icon class="ml-1">save_alt</mat-icon></button>
+      </mat-card-content>
+      <mat-card-content *ngIf="instructions">
+        <div [markdown]="instructions.content"></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33%" fxFlex="100">
+    <mat-card>
+      <mat-card-header class="mat-teal">
+        <mat-card-title>Team Requests</mat-card-title>
+        <mat-card-subtitle>Add, edit, or remove your team requests</mat-card-subtitle>
+        <div fxFlex></div>
+        <button mat-mini-fab color="accent" (click)="addTeam()" class="add-fab">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-content *ngFor="let team of teams">
+        <div>
+          <h3 *ngIf="team.groupName">{{team.groupName}} Team</h3>
+          <h3 *ngIf="!team.groupName">New Team</h3>
+          <div fxFlex></div>
+          <button mat-icon-button color="warn" (click)="removeTeam(team)" class="remover">
+            <mat-icon>cancel_circle</mat-icon>
+          </button>
+        </div>
+        <app-team-detail [team]="team"></app-team-detail>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33.33%" fxFlex="100" *ngIf="club">
+    <div class="mb-2">
+      <mat-card>
+        <mat-card-header class="mat-teal">
+          <mat-card-title-group>
+            <mat-card-title>Captains</mat-card-title>
+            <mat-card-subtitle>Add, edit, or remove your captains</mat-card-subtitle>
+          </mat-card-title-group>
+          <div fxFlex></div>
+          <button mat-mini-fab color="accent" (click)="addContact()" class="add-fab">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content *ngFor="let cc of club.clubContacts | captainFilter">
+          <div>
+            <h3 *ngIf="cc.contact.lastName">{{cc.contact.name}}</h3>
+            <h3 *ngIf="!cc.contact.lastName">New Captain</h3>
+            <div fxFlex></div>
+            <button mat-icon-button color="warn" (click)="removeContact(cc)" class="remover">
+              <mat-icon>cancel_circle</mat-icon>
+            </button>
+          </div>
+          <app-club-contact [clubContact]="cc" [roles]="allRoles" [condensed]="true"></app-club-contact>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <mat-card *ngIf="club">
+      <mat-card-content>
+        <button mat-flat-button color="accent" (click)="save()">Save<mat-icon class="ml-1">save_alt</mat-icon></button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

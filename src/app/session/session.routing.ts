@@ -4,6 +4,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { SigninComponent } from './signin/signin.component';
 import { ResetPasswordConfirmComponent } from './reset-password/reset-password-confirm.component';
 import { ResetPasswordSentComponent } from './reset-password/reset-password-sent.component';
+import { EmailSigninComponent } from './email-signin/email-signin.component';
 
 export const SessionRoutes: Routes = [
   {
@@ -12,6 +13,7 @@ export const SessionRoutes: Routes = [
       { path: '404', component: NotFoundComponent },
       { path: 'forgot', component: ForgotComponent },
       { path: 'signin', component: SigninComponent },
+      { path: 'email-signin', component: EmailSigninComponent },
       { path: 'reset-password-confirm/:uid/:token', component: ResetPasswordConfirmComponent },
       { path: 'reset-password-sent', component: ResetPasswordSentComponent }]
   }

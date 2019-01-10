@@ -8,8 +8,6 @@ import { MembershipDetailComponent } from './membership-detail/membership-detail
 import { MatChipsModule } from '@angular/material/chips';
 import { RegistrationComponent } from './registration/registration.component';
 import { MatRadioModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
-import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   imports: [
@@ -18,14 +16,12 @@ import { RegisterComponent } from './register/register.component';
     MatExpansionModule,
     MatChipsModule,
     MatRadioModule,
-    FormsModule,
     routing
   ],
   declarations: [
     MembershipListComponent,
     MembershipDetailComponent,
-    RegistrationComponent,
-    RegisterComponent
+    RegistrationComponent
   ]
 })
 export class MemberClubsModule { }

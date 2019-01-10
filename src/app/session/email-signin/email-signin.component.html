@@ -1,0 +1,49 @@
+<div class="session mat-indigo">
+  <div class="session-content">
+    <div class="session-wrapper">
+      <mat-card>
+        <mat-card-content>
+          <div class="text-xs-center pb-1">
+            <!-- <img src="assets/images/logo-dark.svg" alt=""/> -->
+            <p class="mat-text-muted">Request a temporary login from the MPGA.
+              You must be in the contact list for your club and have a valid email in our contact database.
+            </p>
+          </div>
+          <div *ngIf="canSelectClub">
+            <p>Select your club from the list below:</p>
+            <mat-form-field class="full-width">
+              <mat-select placeholder="MPGA Clubs" (selectionChange)="selectClub($event.value)">
+                <mat-option *ngFor="let c of clubs" [value]="c">{{ c.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div *ngIf="selectedClub">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Email address" [(ngModel)]="requestEmail">
+            </mat-form-field>
+          </div>
+          <div *ngIf="badEmail">
+            <p class="mat-text-warn">
+              We do not have that email address on file for {{selectedClub.name}}.
+            </p>
+            <p class="footnote">
+              Is this a mistake? Please <a class="decorated" [routerLink]="['/about', 'contact']">contact the MPGA</a> 
+              with your contact information and role with {{selectedClub.name}}, and we will add you to our 
+              contact database.
+            </p>
+          </div>
+          <div *ngIf="hasToken">
+            <p>Enter the login code we just sent you and log in to complete your registration:</p>
+            <mat-form-field class="half-width">
+              <input matInput placeholder="Login Token" [(ngModel)]="token">
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+        <mat-card-actions *ngIf="selectedClub && requestEmail">
+          <button *ngIf="!hasToken" mat-flat-button color="accent" (click)="sendToken()">Send Login Link</button>
+          <button *ngIf="hasToken" mat-flat-button color="accent" (click)="login()">Login</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

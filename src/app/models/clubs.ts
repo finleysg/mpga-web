@@ -107,6 +107,10 @@ export class Club extends Model {
 
   addContact(contact: Contact): ClubContact {
     const cc = new ClubContact({'contact': contact});
+    cc.club = this.id;
+    if (!this.clubContacts) {
+      this.clubContacts = [];
+    }
     this.clubContacts.unshift(cc);
     return cc;
   }
@@ -144,20 +148,42 @@ export class Membership extends Model {
 }
 
 export class Team extends Model {
+  localId: string = Math.floor(Math.random() * 1000).toString();
   id: number;
   year: number;
   club: Club;
   groupName: string;
   isSenior: boolean;
   notes: string;
+  deleted: boolean;
 
   constructor(obj: any) {
     super();
     if (obj) {
       const team = super.fromJson(obj);
-      team.club = new PublicClub(obj['club']);
+      team.club = new Club(obj['club']);
+      if (!team.club || !team.club.id) {
+        // Only have an id, not an object
+        console.log('only a club id is present');
+        team.club = new Club({id: obj['club']});
+      }
       Object.assign(this, team);
     }
+  }
+
+  static divisions(): string[] {
+    return ['12 Man', '16 Man A', '16 Man B', '20 Man'];
+  }
+
+  static seniorDivisions(): string[] {
+    return ['8 Man A', '8 Man B'];
+  }
+
+  prepJson(): any {
+    const json = this.snakeCase(this);
+    json.is_senior = this.isSenior ? this.isSenior : false;
+    json.club = this.club.id;
+    return json;
   }
 
   captainNames(senior: boolean): string {
@@ -181,10 +207,10 @@ export class Team extends Model {
 export class ClubContact extends Model {
   club: number;
   contact: Contact;
-  isPrimary: boolean;
-  useForMailings: boolean;
-  deleted: boolean;
-  roles: ClubContactRole[];
+  isPrimary = false;
+  useForMailings = false;
+  deleted = false;
+  roles: ClubContactRole[] = [];
   notes: string;
 
   constructor(obj: any) {
@@ -213,6 +239,10 @@ export class ClubContact extends Model {
 
   get isSeniorCaptain(): boolean {
     return this.roles && this.roles.some(r => r.role === 'Sr. Match Play Captain');
+  }
+
+  get maybeCaptain(): boolean {
+    return !this.roles || this.roles.some(r => r.role.indexOf('Captain') > 0);
   }
 
   prepJson(): any {
