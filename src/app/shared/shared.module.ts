@@ -26,13 +26,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { DialogService } from './dialog.service';
 import { MarkdownDirective } from './markdown/markdown.directive';
-import { ContactPickerComponent } from './contact-picker/contact-picker.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactMessageComponent } from './contact-message/contact-message.component';
-import { AddressComponent } from './address/address.component';
-import { ClubContactComponent } from './club-contact/club-contact.component';
-import { ClubComponent } from './club/club.component';
-import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   imports: [
@@ -63,16 +58,10 @@ import { ContactComponent } from './contact/contact.component';
   declarations: [
     ConfirmDialogComponent,
     MarkdownDirective,
-    ContactPickerComponent,
-    ContactMessageComponent,
-    AddressComponent,
-    ClubComponent,
-    ClubContactComponent,
-    ContactComponent
+    ContactMessageComponent
   ],
   entryComponents: [
-    ConfirmDialogComponent,
-    ContactPickerComponent
+    ConfirmDialogComponent
   ],
   providers: [
     DialogService
@@ -104,11 +93,7 @@ import { ContactComponent } from './contact/contact.component';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     FlexLayoutModule,
-    ContactMessageComponent,
-    AddressComponent,
-    ClubComponent,
-    ClubContactComponent,
-    ContactComponent
+    ContactMessageComponent
   ]
 })
 export class SharedModule { }

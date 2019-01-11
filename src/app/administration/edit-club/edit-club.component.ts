@@ -4,11 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Club, Contact, ClubContact, ClubValidationMessage } from '../../models/clubs';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ContactPickerComponent } from '../../shared/contact-picker/contact-picker.component';
-import { ClubComponent } from '../../shared/club/club.component';
 import { MatSnackBar } from '@angular/material';
-import { ClubContactComponent } from '../../shared/club-contact/club-contact.component';
 import { LandingPage } from 'src/app/models/pages';
+import { ClubComponent } from '../components/club/club.component';
+import { ClubContactComponent } from '../components/club-contact/club-contact.component';
+import { ContactPickerComponent } from '../components/contact-picker/contact-picker.component';
 
 @Component({
   selector: 'app-edit-club',

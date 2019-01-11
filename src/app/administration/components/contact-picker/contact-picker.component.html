@@ -7,7 +7,7 @@
       [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayContact" (optionSelected)="selected($event)">
       <mat-option *ngFor="let contact of filteredContacts | async" [value]="contact">
-        {{contact.name}} ({{contact.city}})
+        {{contact.name}} ({{contact.email}})
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>

@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { ClubContact, ClubContactRole } from '../../models/clubs';
+import { ClubContact, ClubContactRole } from 'src/app/models/clubs';
 import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent, MatCheckboxChange } from '@angular/material';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl, FormGroup } from '@angular/forms';

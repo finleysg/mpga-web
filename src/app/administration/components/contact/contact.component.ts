@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, OnDestroy, ViewChild } from '@angular/core';
-import { Contact, Address } from '../../models/clubs';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContactForm } from './contact.form';
 import { AddressComponent } from '../address/address.component';
+import { Contact, Address } from 'src/app/models/clubs';
 
 @Component({
   selector: 'app-contact',

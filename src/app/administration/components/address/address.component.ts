@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnChanges } from '@angular/core';
-import { Address } from '../../models/clubs';
+import { Address } from 'src/app/models/clubs';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AddressForm } from '../address/address.form';

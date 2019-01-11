@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Club } from '../../models/clubs';
 import { ClubForm } from './club.form';
 import { Subscription } from 'rxjs';
+import { Club } from 'src/app/models/clubs';
 
 @Component({
   selector: 'app-club',

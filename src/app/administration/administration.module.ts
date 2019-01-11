@@ -15,6 +15,11 @@ import { MatchPlayResultsComponent } from './match-play-results/match-play-resul
 import { FormsModule } from '@angular/forms';
 import { CaptainFilterPipe } from './match-play-register/captain-filter.pipe';
 import { TeamDetailComponent } from './components/team-detail/team-detail.component';
+import { AddressComponent } from './components/address/address.component';
+import { ClubComponent } from './components/club/club.component';
+import { ClubContactComponent } from './components/club-contact/club-contact.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ContactPickerComponent } from './components/contact-picker/contact-picker.component';
 
 @NgModule({
   imports: [
@@ -32,11 +37,18 @@ import { TeamDetailComponent } from './components/team-detail/team-detail.compon
     CaptainFilterPipe,
     MatchPlayRegisterComponent,
     MatchPlayResultsComponent,
-    TeamDetailComponent
+    TeamDetailComponent,
+    AddressComponent,
+    ClubComponent,
+    ClubContactComponent,
+    ContactComponent
   ],
   providers: [
     CanEditGuard,
     IsStaffGuard
+  ],
+  entryComponents: [
+    ContactPickerComponent
   ]
 })
 export class AdministrationModule { }

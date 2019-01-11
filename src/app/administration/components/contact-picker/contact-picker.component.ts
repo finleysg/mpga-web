@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Contact } from '../../models/clubs';
+import { Contact } from 'src/app/models/clubs';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';

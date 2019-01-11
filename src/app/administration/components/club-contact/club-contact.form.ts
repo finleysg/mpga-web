@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { ClubContact } from '../../models/clubs';
+import { ClubContact } from 'src/app/models/clubs';
 
 @Injectable()
 export class ClubContactForm {

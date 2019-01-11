@@ -6,13 +6,12 @@ import { AppConfigService } from 'src/app/app.config.service';
 import { AppConfig } from 'src/app/app.config';
 import { ActivatedRoute } from '@angular/router';
 import { LandingPage } from 'src/app/models/pages';
-import { ContactPickerComponent } from 'src/app/shared/contact-picker/contact-picker.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TeamDetailComponent } from '../components/team-detail/team-detail.component';
-import { ClubContactComponent } from 'src/app/shared/club-contact/club-contact.component';
-import { tap } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
+import { ClubContactComponent } from '../components/club-contact/club-contact.component';
+import { ContactPickerComponent } from '../components/contact-picker/contact-picker.component';
 
 @Component({
   selector: 'app-match-play-register',
