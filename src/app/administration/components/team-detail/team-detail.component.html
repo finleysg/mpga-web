@@ -4,8 +4,8 @@
   </mat-slide-toggle>
   <mat-form-field class="ml-2">
     <mat-select placeholder="Requested Division" [formControl]="form.controls['groupName']">
-      <mat-option *ngFor="let group of groups" [value]="group">
-        {{group}}
+      <mat-option *ngFor="let division of divisions" [value]="division">
+        {{division}}
       </mat-option>
     </mat-select>
   </mat-form-field>

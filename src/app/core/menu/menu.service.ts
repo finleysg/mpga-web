@@ -66,18 +66,18 @@ export class MenuService {
         children: [
           {
             state: ['teams'],
-            name: 'Teams and Captains'
+            name: 'Teams'
           },
           {
             state: ['info'],
             name: 'Rules'
           },
           {
-            state: ['schedules'],
-            name: 'Schedules and Results'
+            state: ['results'],
+            name: 'Results'
           },
           {
-            state: ['results'],
+            state: ['history'],
             name: 'Past Results'
           }
         ]

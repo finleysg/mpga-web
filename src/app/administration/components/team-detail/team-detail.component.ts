@@ -3,7 +3,6 @@ import { TeamDetailForm } from './team-detail.form';
 import { Team } from 'src/app/models/clubs';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-team-detail',
@@ -15,8 +14,8 @@ export class TeamDetailComponent implements OnInit, OnDestroy {
 
   @Input()
   team: Team;
-
-  groups: string[];
+  @Input()
+  divisions: string[];
 
   form: FormGroup;
   fieldErrors: any;
@@ -26,7 +25,6 @@ export class TeamDetailComponent implements OnInit, OnDestroy {
   constructor(private teamForm: TeamDetailForm) { }
 
   ngOnInit() {
-    this.groups = Team.divisions().concat(Team.seniorDivisions());
     this.formSubscription = this.teamForm.form$.subscribe(form => this.form = form);
     this.errorSubscription = this.teamForm.errors$.subscribe(errors => this.fieldErrors = errors);
     this.teamForm.buildForm(this.team);

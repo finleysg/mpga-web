@@ -20,6 +20,7 @@ import { ClubComponent } from './components/club/club.component';
 import { ClubContactComponent } from './components/club-contact/club-contact.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactPickerComponent } from './components/contact-picker/contact-picker.component';
+import { ClubMaintenanceService } from './club-maintenance.service';
 
 @NgModule({
   imports: [
@@ -41,9 +42,11 @@ import { ContactPickerComponent } from './components/contact-picker/contact-pick
     AddressComponent,
     ClubComponent,
     ClubContactComponent,
-    ContactComponent
+    ContactComponent,
+    ContactPickerComponent
   ],
   providers: [
+    ClubMaintenanceService,
     CanEditGuard,
     IsStaffGuard
   ],

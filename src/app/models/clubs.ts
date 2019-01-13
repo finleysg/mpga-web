@@ -210,6 +210,7 @@ export class ClubContact extends Model {
   isPrimary = false;
   useForMailings = false;
   deleted = false;
+  dirty = false;
   roles: ClubContactRole[] = [];
   notes: string;
 
@@ -300,6 +301,7 @@ export class PublicContact extends Model {
 
 export class PublicClub extends Model {
   name: string;
+  shortName: string;
   website: string;
   type2: boolean;
   notes: string;
@@ -376,5 +378,51 @@ export class Affiliate extends Model {
       const affiliate = super.fromJson(obj);
       Object.assign(this, affiliate);
     }
+  }
+}
+
+export class MatchResult extends Model {
+  groupName: string;
+  matchDate: moment.Moment;
+  homeTeam: number;
+  awayTeam: number;
+  homeTeamName: string;
+  awayTeamName: string;
+  homeTeamScore: number;
+  awayTeamScore: number;
+  enteredBy: string;
+  forfeit: boolean;
+  notes: string;
+
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const result = super.fromJson(obj);
+      Object.assign(this, result);
+    }
+  }
+
+  prepJson(): any {
+    return {
+      'group_name': this.groupName,
+      'match_date': this.matchDate,
+      'home_team': this.homeTeam,
+      'away_team': this.awayTeam,
+      'home_team_score': this.homeTeamScore,
+      'away_team_score': this.awayTeamScore,
+      'entered_by': this.enteredBy,
+      'forfeit': this.forfeit ? true : false,
+      'notes': this.notes
+    };
+  }
+
+  get winner(): string {
+    let winner = '';
+    if (this.homeTeamScore > this.awayTeamScore) {
+      winner = this.homeTeamName;
+    } else if (this.awayTeamScore > this.homeTeamScore) {
+      winner = this.awayTeamName;
+    }
+    return winner;
   }
 }

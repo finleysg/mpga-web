@@ -1,33 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject, Observable, forkJoin } from 'rxjs';
+import { Subject, Observable, forkJoin, of } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-import { Club, ClubContact, Contact, Membership, Team } from '../models/clubs';
+import { Club, ClubContact, Contact, Membership, Team, MatchResult } from '../models/clubs';
 import { BaseService } from '../services/base.service';
+import { EMPTY } from 'rxjs';
 
 @Injectable()
 export class ClubMaintenanceService extends BaseService {
 
-  private _club: Club;
+  // private _club: Club;
   private _data: Subject<Club>;
+  private _roleSource: Subject<string[]>;
 
   constructor(
     private http: HttpClient
   ) {
     super();
     this._data = new Subject<Club>();
+    this._roleSource = new Subject<string[]>();
   }
 
   get club(): Observable<Club> {
     return this._data.asObservable();
   }
 
+  get clubRoles(): Observable<string[]> {
+    return this._roleSource.asObservable();
+  }
+
   loadClub(id: number): void {
     const url = `${this.baseUrl}/clubs/${id}/?edit=true`;
-    this.http.get(url).pipe(
-      tap((json: any) => {
-        this._club = new Club(json);
-        this._data.next(Object.assign(new Club({}), this._club));
+    forkJoin([
+      this.http.get(`${this.baseUrl}/roles/`),
+      this.http.get(url)
+    ]).pipe(
+      tap(results => {
+        this._roleSource.next(results[0] as string[]);
+        const club = new Club(results[1]);
+        this._data.next(Object.assign(new Club({}), club));
       })
     ).subscribe();
   }
@@ -42,16 +53,21 @@ export class ClubMaintenanceService extends BaseService {
 
   saveClubContacts(club: Club): Observable<void | Object> {
     const calls = club.clubContacts.map(cc => {
-      if (cc.deleted) {
+      if (cc.deleted && cc.id) {
         return this.deleteClubContact(cc);
-      } else if (!cc.id) {
+      } else if (!cc.id && !cc.deleted) {
         return this.createClubContact(cc);
       } else {
-        // TODO: include only dirty club contacts
-        return this.updateClubContact(cc);
+        if (cc.dirty) {
+          return this.updateClubContact(cc);
+        }
       }
-    });
-    return forkJoin(calls);
+    }).filter(c => c !== undefined);
+    if (calls && calls.length > 0) {
+      return forkJoin(calls);
+    } else {
+      return EMPTY;
+    }
   }
 
   updateClub(club: Club): Observable<void | Object> {
@@ -74,6 +90,15 @@ export class ClubMaintenanceService extends BaseService {
 
   deleteClubContact(cc: ClubContact): Observable<void | Object> {
     return this.http.delete(`${this.baseUrl}/club-contacts/${cc.id}/?edit=true`);
+  }
+
+  teams(year: number, clubId: number): Observable<Team[]> {
+    const url = `${this.baseUrl}/teams/?year=${year}&club=${clubId}&edit=true`;
+    return this.http.get(url).pipe(
+      map((json: any) => {
+        return json.map(o => new Team(o));
+      })
+    );
   }
 
   saveTeams(teams: Team[]): Observable<void | Object> {
@@ -113,14 +138,6 @@ export class ClubMaintenanceService extends BaseService {
     );
   }
 
-  hasContact(clubId: number, email: string): Observable<boolean> {
-    return this.http.get(`${this.baseUrl}/clubs/validate-contact/${clubId}/?email=${email}`).pipe(
-      map((json: any) => {
-        return json as boolean;
-      })
-    );
-  }
-
   register(club: Club, year: number, stripeToken: any): Observable<Membership> {
     const payload = {
       year: year,
@@ -133,5 +150,12 @@ export class ClubMaintenanceService extends BaseService {
         return new Membership(json);
       })
     );
+  }
+
+  saveResult(result: MatchResult): Observable<void | Object> {
+    const url = `${this.baseUrl}/match-results/`;
+    return this.http.post(url, result.prepJson(), {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
   }
 }

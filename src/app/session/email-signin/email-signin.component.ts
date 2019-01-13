@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PublicClub } from 'src/app/models/clubs';
-import { ClubMaintenanceService } from 'src/app/services/club-maintenance.service';
 import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -23,7 +22,6 @@ export class EmailSigninComponent implements OnInit {
   badEmail: boolean;
 
   constructor(
-    private clubMaintenanceService: ClubMaintenanceService,
     private mpgaData: MpgaDataService,
     private userService: UserService,
     private snackbar: MatSnackBar,
@@ -50,7 +48,7 @@ export class EmailSigninComponent implements OnInit {
     if (!this.selectedClub || !this.requestEmail) {
       return;
     }
-    this.clubMaintenanceService.hasContact(this.selectedClub.id, this.requestEmail)
+    this.mpgaData.hasContact(this.selectedClub.id, this.requestEmail)
       .subscribe((result: boolean) => {
         this.badEmail = !result;
         if (result) {

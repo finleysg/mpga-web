@@ -45,7 +45,7 @@
         <mat-card-title class="mat-text-primary">{{config.matchPlayYear}} Match Play Teams <span *ngIf="!config.matchPlayFinalized">(Tentative)</span></mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <a mat-flat-button color="accent" (click)="signup()" class="club-action" alt="Sign up for team match play">
+        <a mat-flat-button *ngIf="!config.matchPlayFinalized" color="accent" (click)="signup()" class="club-action" alt="Sign up for team match play">
           Sign Up Now for {{config.matchPlayYear}}
         </a>
         <table mat-table [dataSource]="dataSource" multiTemplateDataRows>

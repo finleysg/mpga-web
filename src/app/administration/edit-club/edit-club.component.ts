@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { ClubMaintenanceService } from '../../services/club-maintenance.service';
+import { ClubMaintenanceService } from '../club-maintenance.service';
 import { ActivatedRoute } from '@angular/router';
 import { Club, Contact, ClubContact, ClubValidationMessage } from '../../models/clubs';
 import { MpgaDataService } from '../../services/mpga-data.service';

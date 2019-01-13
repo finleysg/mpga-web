@@ -24,7 +24,7 @@ export class Model implements IModel {
     const newObj = {};
     if (obj) {
       for (const d in obj) {
-        if (obj.hasOwnProperty(d) && d !== 'deleted' && d !== 'localId') {
+        if (obj.hasOwnProperty(d) && !this.isLocalProperty(d)) {
           const prop = d.replace(/[\w]([A-Z])/g, function (m) {
             return m[0] + '_' + m[1];
           }).toLowerCase();
@@ -44,6 +44,10 @@ export class Model implements IModel {
         prop.startsWith('use_') ||
         prop.startsWith('can_') ||
         prop.startsWith('has_'));
+  }
+
+  isLocalProperty(prop: string): boolean {
+    return ['deleted', 'dirty', 'localId'].indexOf(prop) >= 0;
   }
 
   camelCase(obj: any): any {

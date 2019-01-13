@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetec
 import { NgForm } from '@angular/forms';
 import { AppConfigService } from 'src/app/app.config.service';
 import { AppConfig } from 'src/app/app.config';
-import { ClubMaintenanceService } from 'src/app/services/club-maintenance.service';
+import { ClubMaintenanceService } from '../club-maintenance.service';
 import { Club } from 'src/app/models/clubs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';

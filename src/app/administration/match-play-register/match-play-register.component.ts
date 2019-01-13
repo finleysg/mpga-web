@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { ClubMaintenanceService } from 'src/app/services/club-maintenance.service';
 import { MpgaDataService } from 'src/app/services/mpga-data.service';
 import { Team, Club, Contact, ClubContact } from 'src/app/models/clubs';
 import { AppConfigService } from 'src/app/app.config.service';
@@ -12,6 +11,7 @@ import { TeamDetailComponent } from '../components/team-detail/team-detail.compo
 import { forkJoin } from 'rxjs';
 import { ClubContactComponent } from '../components/club-contact/club-contact.component';
 import { ContactPickerComponent } from '../components/contact-picker/contact-picker.component';
+import { ClubMaintenanceService } from '../club-maintenance.service';
 
 @Component({
   selector: 'app-match-play-register',
@@ -40,13 +40,13 @@ export class MatchPlayRegisterComponent implements OnInit {
 
   ngOnInit() {
     const clubId = +this.route.snapshot.params['id'];
-    this.clubData.loadClub(clubId);
     this.clubData.club.subscribe(club => this.club = club);
-    this.mpgaData.roles().subscribe(roles => this.allRoles = roles);
+    this.clubData.clubRoles.subscribe(roles => this.allRoles = roles);
+    this.clubData.loadClub(clubId);
     this.mpgaData.langingPage('RM').subscribe(content => this.instructions = content);
     this.appConfig.config.subscribe(config => {
       this.config = config;
-      this.mpgaData.teams(config.matchPlayYear, clubId).subscribe(teams => {
+      this.clubData.teams(config.matchPlayYear, clubId).subscribe(teams => {
         this.teams = teams;
       });
     });

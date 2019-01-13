@@ -1,3 +1,70 @@
-<div class="coming-soon">
-  <img src="https://media.giphy.com/media/14ko1wkUS2thu/giphy.gif">
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="75%" fxFlex="100">
+    <mat-card>
+      <mat-card-header class="mat-teal">
+        <mat-card-title>{{config.matchPlayYear}} Match Results</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div>
+          <button mat-flat-button color="accent" (click)="addResults()" class="club-action" alt="Enter match results">
+            Enter Match Result
+          </button>
+          <span fxFlex></span>
+          <mat-form-field class="ml-1">
+            <mat-select placeholder="Filter by Group" (selectionChange)="applyFilter($event.value)">
+              <mat-option value="all">All</mat-option>
+              <mat-option *ngFor="let group of config.matchPlayGroups" [value]="group">{{group}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <table mat-table [dataSource]="filteredResults" [multiTemplateDataRows]="true" class="results-table">
+          <ng-container cdkColumnDef="date">
+            <th mat-header-cell *cdkHeaderCellDef> Date </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.matchDate | date: 'mediumDate'}} </td>
+          </ng-container>
+          <ng-container cdkColumnDef="group">
+            <th mat-header-cell *cdkHeaderCellDef> Group </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.groupName}} </td>
+          </ng-container>
+          <ng-container cdkColumnDef="home">
+            <th mat-header-cell *cdkHeaderCellDef> Home Team </th>
+            <td mat-cell *cdkCellDef="let row" [class.winner]="row.homeTeamName === row.winner"> {{row.homeTeamName}}
+            </td>
+          </ng-container>
+          <ng-container cdkColumnDef="away">
+            <th mat-header-cell *cdkHeaderCellDef> Away Team </th>
+            <td mat-cell *cdkCellDef="let row" [class.winner]="row.awayTeamName == row.winner"> {{row.awayTeamName}}
+            </td>
+          </ng-container>
+          <ng-container cdkColumnDef="homeScore">
+            <th mat-header-cell *cdkHeaderCellDef> Home Score </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.homeTeamScore}}</td>
+          </ng-container>
+          <ng-container cdkColumnDef="awayScore">
+            <th mat-header-cell *cdkHeaderCellDef> Away Score </th>
+            <td mat-cell *cdkCellDef="let row"> {{row.awayTeamScore}} </td>
+          </ng-container>
+          <ng-container cdkColumnDef="forfeit">
+            <th mat-header-cell *cdkHeaderCellDef></th>
+            <td mat-cell *cdkCellDef="let row"><span *ngIf="row.forfeit">*</span></td>
+          </ng-container>
+          <!-- Header and Row Declarations -->
+          <tr mat-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="25%" fxFlex="100">
+    <mat-card>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>Match Play Brackets/Schedules</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p *ngFor="let doc of brackets | async">
+          <a mat-stroked-button color="primary" [href]="doc.file" target="_blank">{{doc.title}}</a>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>

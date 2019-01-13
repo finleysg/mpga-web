@@ -9,7 +9,7 @@ import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/announcement';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
 import { Membership, Team, PublicContact, PublicClub, ClubValidationMessage, PublicClubContact,
-  ExecutiveCommittee, Affiliate } from '../models/clubs';
+  ExecutiveCommittee, Affiliate, MatchResult } from '../models/clubs';
 import * as moment from 'moment';
 
 @Injectable()
@@ -85,8 +85,12 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  clubs(): Observable<PublicClub[]> {
-    return this.http.get(`${this.baseUrl}/clubs/`).pipe(
+  clubs(hasTeams?: boolean): Observable<PublicClub[]> {
+    let url = `${this.baseUrl}/clubs/`;
+    if (hasTeams) {
+      url = url + '?has_teams=true';
+    }
+    return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new PublicClub(o));
       })
@@ -137,11 +141,20 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  teams(year: number, clubId?: number): Observable<Team[]> {
-    const url = clubId ? `${this.baseUrl}/teams/?year=${year}&club=${clubId}&edit=true` : `${this.baseUrl}/teams/?year=${year}`;
+  teams(year: number): Observable<Team[]> {
+    const url = `${this.baseUrl}/teams/?year=${year}`;
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new Team(o));
+      })
+    );
+  }
+
+  results(year: number): Observable<MatchResult[]> {
+    const url = `${this.baseUrl}/match-results/?year=${year}`;
+    return this.http.get(url).pipe(
+      map((json: any) => {
+        return json.map(o => new MatchResult(o));
       })
     );
   }
@@ -218,6 +231,14 @@ export class MpgaDataService extends BaseService {
       thisYear -= 1;
     } while (thisYear >= 2017);  // we have membership and team history only going back to 2017
     return years;
+  }
+
+  hasContact(clubId: number, email: string): Observable<boolean> {
+    return this.http.get(`${this.baseUrl}/clubs/validate-contact/${clubId}/?email=${email}`).pipe(
+      map((json: any) => {
+        return json as boolean;
+      })
+    );
   }
 
   private mediaUrl(resource: string, year?: number, tournamentId?: number, docType?: string): string {

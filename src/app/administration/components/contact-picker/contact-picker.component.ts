@@ -6,7 +6,7 @@ import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { ClubMaintenanceService } from 'src/app/services/club-maintenance.service';
+import { ClubMaintenanceService } from '../../club-maintenance.service';
 
 @Component({
   selector: 'app-contact-picker',

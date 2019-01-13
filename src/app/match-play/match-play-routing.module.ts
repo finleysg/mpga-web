@@ -8,8 +8,8 @@ import { TeamsComponent } from './teams/teams.component';
 const routes: Routes = [
   { path: '', children: [
     { path: 'info', component: DetailComponent },
-    { path: 'results', component: ResultsComponent },
-    { path: 'schedules', component: ScheduleComponent },
+    { path: 'history', component: ResultsComponent },
+    { path: 'results', component: ScheduleComponent },
     { path: 'teams', component: TeamsComponent }
   ]}
 ];

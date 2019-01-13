@@ -38,9 +38,11 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
     this.requireAddress = this.clubContact.useForMailings;
     this.formSubscription = this.clubContactForm.form$.subscribe(form => this.form = form);
     this.clubContactForm.buildForm(this.clubContact);
+    if (this.roles) {
       this.availableRoles = this.roleCtrl.valueChanges.pipe(
         startWith(null),
         map((role: string | null) => role ? this._filter(role) : this.roles.slice()));
+    }
   }
 
   ngOnDestroy() {
@@ -62,6 +64,7 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
     if (this.isValid()) {
       this.contactForm.update(this.requireAddress);
       this.clubContactForm.updateValue(this.clubContact);
+      this.clubContact.dirty = this.isDirty();
       return true;
     }
     return false;
