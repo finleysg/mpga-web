@@ -17,7 +17,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <table mat-table [dataSource]="filteredResults" [multiTemplateDataRows]="true" class="results-table">
+        <table mat-table [dataSource]="filteredResults" multiTemplateDataRows class="results-table">
           <ng-container cdkColumnDef="date">
             <th mat-header-cell *cdkHeaderCellDef> Date </th>
             <td mat-cell *cdkCellDef="let row"> {{row.matchDate | date: 'mediumDate'}} </td>
@@ -33,7 +33,7 @@
           </ng-container>
           <ng-container cdkColumnDef="away">
             <th mat-header-cell *cdkHeaderCellDef> Away Team </th>
-            <td mat-cell *cdkCellDef="let row" [class.winner]="row.awayTeamName == row.winner"> {{row.awayTeamName}}
+            <td mat-cell *cdkCellDef="let row" [class.winner]="row.awayTeamName === row.winner"> {{row.awayTeamName}}
             </td>
           </ng-container>
           <ng-container cdkColumnDef="homeScore">
@@ -48,9 +48,16 @@
             <th mat-header-cell *cdkHeaderCellDef></th>
             <td mat-cell *cdkCellDef="let row"><span *ngIf="row.forfeit">*</span></td>
           </ng-container>
+          <ng-container cdkColumnDef="notes">
+            <td mat-cell *matCellDef="let row" class="match-notes" [attr.colspan]="displayedColumns.length">
+              {{row.notes}}
+            </td>
+          </ng-container>
           <!-- Header and Row Declarations -->
           <tr mat-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+          <tr mat-row *cdkRowDef="let row; columns: displayedColumns" class="results-row"></tr>
+          <tr mat-row *cdkRowDef="let row; columns: ['notes']" class="notes-row" [class.no-notes]="!row.notes">
+          </tr>
         </table>
       </mat-card-content>
     </mat-card>

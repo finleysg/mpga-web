@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PublicClub } from 'src/app/models/clubs';
+import { Club } from 'src/app/models/clubs';
 import { UserService } from 'src/app/services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,9 +12,9 @@ import { MpgaDataService } from 'src/app/services/mpga-data.service';
 })
 export class EmailSigninComponent implements OnInit {
 
-  clubs: PublicClub[];
+  clubs: Club[];
   canSelectClub: boolean;
-  selectedClub: PublicClub;
+  selectedClub: Club;
   requestEmail: string;
   hasToken: boolean;
   token: string;
@@ -40,7 +40,7 @@ export class EmailSigninComponent implements OnInit {
     });
   }
 
-  selectClub(club: PublicClub): void {
+  selectClub(club: Club): void {
     this.selectedClub = club;
   }
 

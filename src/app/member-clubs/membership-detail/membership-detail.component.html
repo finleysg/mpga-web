@@ -52,18 +52,18 @@
           </p>
           <p>
             <span class="detail-topic">Primary phone:</span>
-            <span *ngIf="cc.contact.publicPhone">({{ cc.contact.publicPhone }}-xxx-xxxx)</span>
-            <span *ngIf="!cc.contact.publicPhone">no phone</span>
+            <span *ngIf="cc.contact.primaryPhone">{{ cc.contact.primaryPhone }}</span>
+            <span *ngIf="!cc.contact.primaryPhone">no phone</span>
           </p>
           <p>
             <span class="detail-topic">Email:</span>
-            <span *ngIf="cc.contact.publicPhone">(xxxxx@{{ cc.contact.publicEmail }})</span>
-            <span *ngIf="!cc.contact.publicPhone">no email</span>
+            <span *ngIf="cc.contact.email">{{ cc.contact.email }}</span>
+            <span *ngIf="!cc.contact.email">no email</span>
           </p>
           <p>
             <span class="detail-topic">Address:</span>
-            <span *ngIf="cc.contact.publicAddress">({{ cc.contact.publicAddress }})</span>
-            <span *ngIf="!cc.contact.publicAddress">no address</span>
+            <span *ngIf="cc.contact.city">{{ cc.contact.city }}</span>
+            <span *ngIf="!cc.contact.city">no address</span>
           </p>
           <p *ngIf="cc.isPrimary" class="italic">
             <mat-icon color="accent" [inline]="true">star</mat-icon>&nbsp;Primary contact (email)

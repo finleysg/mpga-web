@@ -8,8 +8,10 @@
       <mat-card-content>
         <div [formGroup]="form">
           <p>
-            <mat-form-field class="half-width">
-              <input matInput type="date" placeholder="Match Date" [formControl]="form.controls['matchDate']">
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker1" placeholder="Match Date" [formControl]="form.controls['matchDate']">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
           </p>
           <p>

@@ -279,81 +279,8 @@ export class ClubValidationMessage {
   }
 }
 
-export class PublicContact extends Model {
-  firstName: string;
-  lastName: string;
-  contactType: string;
-  publicPhone: string;
-  publicEmail: string;
-  publicAddress: string;
-  notes: string;
-
-  constructor(obj: any) {
-    super();
-    const contact = this.fromJson(obj);
-    Object.assign(this, contact);
-  }
-
-  get name(): string {
-    return `${this.firstName} ${this.lastName}`;
-  }
-}
-
-export class PublicClub extends Model {
-  name: string;
-  shortName: string;
-  website: string;
-  type2: boolean;
-  notes: string;
-  size: number;
-  golfCourse: GolfCourse;
-  clubContacts: PublicClubContact[];
-  years: number[];  // years for which we have membership data
-
-  constructor(obj: any) {
-    super();
-    if (obj) {
-      const club = super.fromJson(obj);
-      club.golfCourse = new GolfCourse(obj['golf_course']);
-      if (obj['club_contacts']) {
-        club.clubContacts = obj['club_contacts'].map(cc => new ClubContact(cc));
-      }
-      Object.assign(this, club);
-    }
-  }
-}
-
-export class PublicClubContact extends Model {
-  club: number;
-  contact: PublicContact;
-  isPrimary: boolean;
-  useForMailings: boolean;
-  roles: ClubContactRole[];
-  notes: string;
-
-  constructor(obj: any) {
-    super();
-    if (obj) {
-      const cc = super.fromJson(obj);
-      cc.contact = new Contact(obj['contact']);
-      if (obj['roles']) {
-        cc.roles = obj['roles'].map(r => new ClubContactRole(r));
-      }
-      Object.assign(this, cc);
-    }
-  }
-
-  get isCaptain(): boolean {
-    return this.roles && this.roles.some(r => r.role === 'Match Play Captain');
-  }
-
-  get isSeniorCaptain(): boolean {
-    return this.roles && this.roles.some(r => r.role === 'Sr. Match Play Captain');
-  }
-}
-
 export class ExecutiveCommittee extends Model {
-  contact: PublicContact;
+  contact: Contact;
   role: string;
   homeClub: string;
 
@@ -405,7 +332,7 @@ export class MatchResult extends Model {
   prepJson(): any {
     return {
       'group_name': this.groupName,
-      'match_date': this.matchDate,
+      'match_date': this.matchDate.format('YYYY-MM-DD'),
       'home_team': this.homeTeam,
       'away_team': this.awayTeam,
       'home_team_score': this.homeTeamScore,
@@ -418,9 +345,9 @@ export class MatchResult extends Model {
 
   get winner(): string {
     let winner = '';
-    if (this.homeTeamScore > this.awayTeamScore) {
+    if (+this.homeTeamScore > +this.awayTeamScore) {
       winner = this.homeTeamName;
-    } else if (this.awayTeamScore > this.homeTeamScore) {
+    } else if (+this.awayTeamScore > +this.homeTeamScore) {
       winner = this.awayTeamName;
     }
     return winner;

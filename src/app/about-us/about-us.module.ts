@@ -9,6 +9,7 @@ import { HistoryComponent } from './history/history.component';
 import { AffiliatesComponent } from './affiliates/affiliates.component';
 import { MatTableModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
+import { SiteFaqComponent } from './site-faq/site-faq.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     ContactComponent,
     CommitteeComponent,
     HistoryComponent,
-    AffiliatesComponent
+    AffiliatesComponent,
+    SiteFaqComponent
   ]
 })
 export class AboutUsModule { }

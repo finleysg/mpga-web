@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatchResult, PublicClub } from '../../models/clubs';
+import { MatchResult, Club } from '../../models/clubs';
 import { UserService } from '../../services/user.service';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { ClubMaintenanceService } from '../club-maintenance.service';
@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 export class MatchPlayResultsComponent implements OnInit, OnDestroy {
 
   result: MatchResult;
-  clubs: Observable<PublicClub[]>;
+  clubs: Observable<Club[]>;
   config: Observable<AppConfig>;
 
   form: FormGroup;

@@ -21,6 +21,8 @@ import { ClubContactComponent } from './components/club-contact/club-contact.com
 import { ContactComponent } from './components/contact/contact.component';
 import { ContactPickerComponent } from './components/contact-picker/contact-picker.component';
 import { ClubMaintenanceService } from './club-maintenance.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   imports: [
@@ -28,6 +30,8 @@ import { ClubMaintenanceService } from './club-maintenance.service';
     routing,
     CustomFormsModule,
     MatChipsModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
     FormsModule
   ],
   declarations: [

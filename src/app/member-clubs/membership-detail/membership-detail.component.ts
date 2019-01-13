@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MpgaDataService } from 'src/app/services/mpga-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Membership, ClubContactRole } from 'src/app/models/clubs';
-import { PublicClub } from '../../models/clubs';
+import { Club } from '../../models/clubs';
 import { User } from 'src/app/models/user';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material';
@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material';
 export class MembershipDetailComponent implements OnInit {
 
   membership: Membership;
-  club: PublicClub;
+  club: Club;
   user: User;
 
   constructor(

@@ -8,7 +8,7 @@ import { EventDetail, Tournament, Award } from '../models/events';
 import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/announcement';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
-import { Membership, Team, PublicContact, PublicClub, ClubValidationMessage, PublicClubContact,
+import { Membership, Team, Contact, Club, ClubValidationMessage, ClubContact,
   ExecutiveCommittee, Affiliate, MatchResult } from '../models/clubs';
 import * as moment from 'moment';
 
@@ -85,23 +85,23 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  clubs(hasTeams?: boolean): Observable<PublicClub[]> {
+  clubs(hasTeams?: boolean): Observable<Club[]> {
     let url = `${this.baseUrl}/clubs/`;
     if (hasTeams) {
       url = url + '?has_teams=true';
     }
     return this.http.get(url).pipe(
       map((json: any) => {
-        return json.map(o => new PublicClub(o));
+        return json.map(o => new Club(o));
       })
     );
   }
 
-  club(id: number): Observable<PublicClub> {
+  club(id: number): Observable<Club> {
     const url = `${this.baseUrl}/clubs/${id}/`;
     return this.http.get(url).pipe(
       map((json: any) => {
-        return new PublicClub(json);
+        return new Club(json);
       })
     );
   }
@@ -199,18 +199,18 @@ export class MpgaDataService extends BaseService {
     );
   }
 
-  contacts(): Observable<PublicContact[]> {
+  contacts(): Observable<Contact[]> {
     return this.http.get(`${this.baseUrl}/contacts/`).pipe(
       map((json: any[]) => {
-        return json.map(o => new PublicContact(o));
+        return json.map(o => new Contact(o));
       })
     );
   }
 
-  clubContacts(): Observable<PublicClubContact[]> {
+  clubContacts(): Observable<ClubContact[]> {
     return this.http.get(`${this.baseUrl}/club-contacts/`).pipe(
       map((json: any[]) => {
-        return json.map(o => new PublicClubContact(o));
+        return json.map(o => new ClubContact(o));
       })
     );
   }

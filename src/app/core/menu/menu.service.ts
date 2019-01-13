@@ -113,6 +113,10 @@ export class MenuService {
           {
             state: ['affiliates'],
             name: 'Affiliated Organizations'
+          },
+          {
+            state: ['faq'],
+            name: 'Website FAQ'
           }
         ]
       }

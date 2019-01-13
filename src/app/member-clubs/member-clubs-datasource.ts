@@ -1,10 +1,10 @@
 import { DataSource } from '@angular/cdk/table';
-import { PublicClub } from '../models/clubs';
+import { Club } from '../models/clubs';
 import { BehaviorSubject, Observable, merge, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MpgaDataService } from '../services/mpga-data.service';
 
-export class MemberClubsDataSource extends DataSource<PublicClub> {
+export class MemberClubsDataSource extends DataSource<Club> {
 
   private rowCount = new BehaviorSubject(0);
   private seasonChange = new BehaviorSubject(0);
@@ -16,7 +16,7 @@ export class MemberClubsDataSource extends DataSource<PublicClub> {
     super();
   }
 
-  connect(): Observable<PublicClub[]> {
+  connect(): Observable<Club[]> {
     const displayDataChanges = [
       this.database.dataChange,
       this.seasonChange,
@@ -31,7 +31,7 @@ export class MemberClubsDataSource extends DataSource<PublicClub> {
 
   disconnect() { }
 
-  getFilteredData(): PublicClub[] {
+  getFilteredData(): Club[] {
     const data = this.season ? this.database.data.filter(c => c.years.indexOf(this.season) >= 0).slice() :
       this.database.data.slice();
     this.rowCount.next(data.length);
@@ -42,8 +42,8 @@ export class MemberClubsDataSource extends DataSource<PublicClub> {
 }
 
 export class MemberClubsData {
-  public dataChange: BehaviorSubject<PublicClub[]> = new BehaviorSubject<PublicClub[]>([]);
-  get data(): PublicClub[] { return this.dataChange.value; }
+  public dataChange: BehaviorSubject<Club[]> = new BehaviorSubject<Club[]>([]);
+  get data(): Club[] { return this.dataChange.value; }
 
   constructor(private mpgaData: MpgaDataService) {
     forkJoin([

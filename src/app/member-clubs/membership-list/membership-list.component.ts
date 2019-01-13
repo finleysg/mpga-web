@@ -3,7 +3,7 @@ import { MpgaDataService } from 'src/app/services/mpga-data.service';
 import { MemberClubsData, MemberClubsDataSource } from '../member-clubs-datasource';
 import { LandingPage } from 'src/app/models/pages';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PublicClub, PublicClubContact } from '../../models/clubs';
+import { Club, ClubContact } from '../../models/clubs';
 import { MpgaDocument } from 'src/app/models/documents';
 import { AppConfigService } from 'src/app/app.config.service';
 
@@ -54,7 +54,7 @@ export class MembershipListComponent implements OnInit {
     });
   }
 
-  webIcon(item: PublicClub): string {
+  webIcon(item: Club): string {
     if (item && item.website) {
       return 'web';
     }
@@ -66,11 +66,11 @@ export class MembershipListComponent implements OnInit {
     this.dataSource.season = season;
   }
 
-  clubDetail(item: PublicClub): void {
+  clubDetail(item: Club): void {
     this.router.navigate([item.id], {relativeTo: this.route});
   }
 
-  clubWebsite(item: PublicClub): void {
+  clubWebsite(item: Club): void {
     if (item.website) {
       this.router.navigateByUrl(item.website, {skipLocationChange: true});
     }

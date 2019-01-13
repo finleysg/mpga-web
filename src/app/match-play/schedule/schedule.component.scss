@@ -5,3 +5,29 @@
 .winner {
   font-weight: bold;
 }
+
+.notes-row {
+  border-bottom-width: 0;
+  height: 30px;
+}
+
+.notes-row td {
+  border-bottom-width: 0;
+}
+.results-row td {
+  border-bottom-width: 0;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(0, 0, 0, 0.12);
+}
+
+tr.no-notes {
+  visibility: hidden;
+  height: 0!important;
+  min-height: 0!important;
+}
+
+.match-notes {
+  font-style: italic;
+  padding-left: 50px!important;
+}

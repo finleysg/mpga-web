@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MpgaDocument } from '../../models/documents';
-import { MatchResult, Club, PublicClub } from '../../models/clubs';
+import { MatchResult, Club } from '../../models/clubs';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { AppConfigService } from '../../app.config.service';
 import { AppConfig } from '../../app.config';
@@ -22,7 +22,7 @@ export class ScheduleComponent implements OnInit {
   brackets: Observable<MpgaDocument[]>;
   results: MatchResult[];
   filteredResults: MatchResult[];
-  clubs: PublicClub[];
+  clubs: Club[];
 
   constructor(
     private mpgaData: MpgaDataService,
@@ -39,6 +39,7 @@ export class ScheduleComponent implements OnInit {
       this.mpgaData.results(this.config.matchPlayYear).subscribe(results => {
         this.results = results;
         this.filteredResults = this.results.slice(0);
+        this.filteredResults.forEach(r => console.log(r.winner));
       });
     });
     this.mpgaData.clubs().subscribe(clubs => this.clubs = clubs);
