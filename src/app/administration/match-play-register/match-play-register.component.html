@@ -14,7 +14,7 @@
     </mat-card>
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100">
-    <mat-card>
+    <mat-card *ngIf="config">
       <mat-card-header class="mat-teal">
         <mat-card-title>Team Requests</mat-card-title>
         <mat-card-subtitle>Add, edit, or remove your team requests</mat-card-subtitle>
@@ -32,13 +32,13 @@
             <mat-icon>cancel_circle</mat-icon>
           </button>
         </div>
-        <app-team-detail [team]="team" [divisions]="config.divisions"></app-team-detail>
+        <app-team-detail [team]="team" [divisions]="config.matchPlayDivisions"></app-team-detail>
       </mat-card-content>
     </mat-card>
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100" *ngIf="club">
     <div class="mb-2">
-      <mat-card>
+      <mat-card *ngIf="club">
         <mat-card-header class="mat-teal">
           <mat-card-title-group>
             <mat-card-title>Captains</mat-card-title>

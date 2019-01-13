@@ -58,9 +58,7 @@ export class ClubMaintenanceService extends BaseService {
       } else if (!cc.id && !cc.deleted) {
         return this.createClubContact(cc);
       } else {
-        if (cc.dirty) {
-          return this.updateClubContact(cc);
-        }
+        return this.updateClubContact(cc);
       }
     }).filter(c => c !== undefined);
     if (calls && calls.length > 0) {
@@ -115,13 +113,13 @@ export class ClubMaintenanceService extends BaseService {
   }
 
   createTeam(team: Team): Observable<void | Object> {
-    return this.http.post(`${this.baseUrl}/teams/`, team.prepJson(), {
+    return this.http.post(`${this.baseUrl}/teams/?edit=true`, team.prepJson(), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
 
   updateTeam(team: Team): Observable<void | Object> {
-    return this.http.put(`${this.baseUrl}/teams/${team.id}/`, team.prepJson(), {
+    return this.http.put(`${this.baseUrl}/teams/${team.id}/?edit=true`, team.prepJson(), {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }

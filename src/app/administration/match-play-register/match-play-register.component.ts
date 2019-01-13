@@ -3,7 +3,7 @@ import { MpgaDataService } from 'src/app/services/mpga-data.service';
 import { Team, Club, Contact, ClubContact } from 'src/app/models/clubs';
 import { AppConfigService } from 'src/app/app.config.service';
 import { AppConfig } from 'src/app/app.config';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LandingPage } from 'src/app/models/pages';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -35,7 +35,8 @@ export class MatchPlayRegisterComponent implements OnInit {
     private mpgaData: MpgaDataService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -43,7 +44,7 @@ export class MatchPlayRegisterComponent implements OnInit {
     this.clubData.club.subscribe(club => this.club = club);
     this.clubData.clubRoles.subscribe(roles => this.allRoles = roles);
     this.clubData.loadClub(clubId);
-    this.mpgaData.langingPage('RM').subscribe(content => this.instructions = content);
+    this.mpgaData.langingPage('MP').subscribe(content => this.instructions = content);
     this.appConfig.config.subscribe(config => {
       this.config = config;
       this.clubData.teams(config.matchPlayYear, clubId).subscribe(teams => {
@@ -104,7 +105,8 @@ export class MatchPlayRegisterComponent implements OnInit {
         this.clubData.saveTeams(this.teams),
         this.clubData.saveClubContacts(this.club)
       ]).subscribe(() => {
-        this.snackbar.open('Your teams and captains have been saved', null, { duration: 5000, panelClass: ['success-snackbar'] });
+        this.snackbar.open('Your team request(s) have been saved', null, { duration: 5000, panelClass: ['success-snackbar'] });
+        this.router.navigate(['/match-play/teams']);
       });
     }
   }

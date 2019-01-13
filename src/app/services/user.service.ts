@@ -74,10 +74,9 @@ export class UserService extends BaseService {
     );
   }
 
-  logout(): void {
-    this.http.post(`${this.authUrl}/logout/`, {}).subscribe(
-      () => this.resetUser(),   // onNext
-      (err) => this.resetUser() // onError
+  logout(): Observable<void | Object> {
+    return this.http.post(`${this.authUrl}/logout/`, {}).pipe(
+      tap(() => this.resetUser())
     );
   }
 

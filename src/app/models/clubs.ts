@@ -243,7 +243,7 @@ export class ClubContact extends Model {
   }
 
   get maybeCaptain(): boolean {
-    return !this.roles || this.roles.some(r => r.role.indexOf('Captain') > 0);
+    return !this.roles || this.roles.length === 0 || this.roles.some(r => r.role.indexOf('Captain') > 0);
   }
 
   prepJson(): any {
