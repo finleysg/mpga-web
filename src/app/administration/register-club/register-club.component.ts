@@ -5,7 +5,8 @@ import { AppConfig } from 'src/app/app.config';
 import { ClubMaintenanceService } from '../club-maintenance.service';
 import { Club } from 'src/app/models/clubs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 declare const Stripe: any;
 
@@ -33,7 +34,8 @@ export class RegisterClubComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private appConfig: AppConfigService,
     private clubService: ClubMaintenanceService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.appConfig.config.subscribe(config => {
       this.config = config;
@@ -67,12 +69,30 @@ export class RegisterClubComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cd.detectChanges();
   }
 
-  async onSubmit(form: NgForm) {
+  onSubmit(form: NgForm): void {
+    this.card.update();
+    if (!this.error) {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '320px',
+        data: {
+          title: 'Confirm Payment',
+          message: 'Click OK to submit your dues payment. You will be redirected to your club admin page.'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.sumbitPayment();
+        }
+      });
+    }
+  }
+
+  async sumbitPayment() {
     try {
       this.busy = true;
       const { token, error } = await this.stripe.createToken(this.card);
       if (error) {
-        this.snackbar.open(error, null, { duration: 5000, panelClass: ['error-snackbar'] });
+        this.snackbar.open(error.message, null, { duration: 5000, panelClass: ['error-snackbar'] });
       } else {
         this.clubService.register(this.club, this.config.memberClubYear, token)
           .subscribe(() => {

@@ -23,7 +23,7 @@
             <div *ngIf="busy" class="busy"><mat-spinner [diameter]="30"></mat-spinner></div>
             <div id="card-errors" class="mat-text-warn" role="alert" *ngIf="error">{{ error }}</div>
           </div>
-          <button [disabled]="busy" type="submit">Pay ${{config?.membershipDues}}</button>
+          <button [disabled]="busy || error" type="submit">Pay ${{config?.membershipDues}}</button>
         </form>
       </mat-card-content>
     </mat-card>

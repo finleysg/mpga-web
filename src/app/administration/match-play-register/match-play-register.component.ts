@@ -12,6 +12,7 @@ import { forkJoin } from 'rxjs';
 import { ClubContactComponent } from '../components/club-contact/club-contact.component';
 import { ContactPickerComponent } from '../components/contact-picker/contact-picker.component';
 import { ClubMaintenanceService } from '../club-maintenance.service';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-match-play-register',
@@ -99,14 +100,25 @@ export class MatchPlayRegisterComponent implements OnInit {
     } else if (this.ccForms.some(cc => !cc.isValid())) {
       this.snackbar.open('There are problems with one or more of the contacts', null, { duration: 5000, panelClass: ['error-snackbar'] });
     } else {
-      this.teamsForms.forEach(tf => tf.update());
-      this.ccForms.forEach(cc => cc.update());
-      forkJoin([
-        this.clubData.saveTeams(this.teams),
-        this.clubData.saveClubContacts(this.club)
-      ]).subscribe(() => {
-        this.snackbar.open('Your team request(s) have been saved', null, { duration: 5000, panelClass: ['success-snackbar'] });
-        this.router.navigate(['/match-play/teams']);
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '320px',
+        data: {
+          title: 'Confirm Request',
+          message: 'Click OK to continue and save these changes. You will be redirected back to the teams page.'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.teamsForms.forEach(tf => tf.update());
+          this.ccForms.forEach(cc => cc.update());
+          forkJoin([
+            this.clubData.saveTeams(this.teams),
+            this.clubData.saveClubContacts(this.club)
+          ]).subscribe(() => {
+            this.snackbar.open('Your team request(s) have been saved', null, { duration: 5000, panelClass: ['success-snackbar'] });
+            this.router.navigate(['/match-play/teams']);
+          });
+        }
       });
     }
   }

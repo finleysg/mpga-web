@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { ClubMaintenanceService } from '../club-maintenance.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Club, Contact, ClubContact, ClubValidationMessage } from '../../models/clubs';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { LandingPage } from 'src/app/models/pages';
 import { ClubComponent } from '../components/club/club.component';
 import { ClubContactComponent } from '../components/club-contact/club-contact.component';
 import { ContactPickerComponent } from '../components/contact-picker/contact-picker.component';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-edit-club',
@@ -30,7 +31,8 @@ export class EditClubComponent implements OnInit {
     private mpgaData: MpgaDataService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private router: Router
   ) {
   }
 
@@ -46,14 +48,26 @@ export class EditClubComponent implements OnInit {
 
   saveClub(): void {
     if (!this.clubForm.isValid()) {
-      this.snackbar.open('There are problems with the main Club form', null, {duration: 5000, panelClass: ['error-snackbar']});
+      this.snackbar.open('There are problems with the main Club form', null, { duration: 5000, panelClass: ['error-snackbar'] });
     } else if (this.clubContacts.some(cc => !cc.isValid())) {
-      this.snackbar.open('There are problems with one or more of the contacts', null, {duration: 5000, panelClass: ['error-snackbar']});
+      this.snackbar.open('There are problems with one or more of the contacts', null, { duration: 5000, panelClass: ['error-snackbar'] });
     } else {
-      this.clubForm.update();
-      this.clubContacts.forEach(cc => cc.update());
-      this.clubData.saveClub(this.club).subscribe(() => {
-        this.snackbar.open('Your changes have been saved', null, {duration: 3000, panelClass: ['success-snackbar']});
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        width: '320px',
+        data: {
+          title: 'Confirm Your Changes',
+          message: 'Click OK to continue and save these changes. You will be redirected back to your club detail page.'
+        }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.clubForm.update();
+          this.clubContacts.forEach(cc => cc.update());
+          this.clubData.saveClub(this.club).subscribe(() => {
+            this.snackbar.open('Your changes have been saved', null, { duration: 3000, panelClass: ['success-snackbar'] });
+            this.router.navigate(['/members', 'clubs', this.club.id]);
+          });
+        }
       });
     }
   }
@@ -73,8 +87,12 @@ export class EditClubComponent implements OnInit {
   removeContact(clubContact: ClubContact): void {
     clubContact.deleted = true;
     this.snackbar.open(`${clubContact.contact.name} will be removed permanently when you save your changes`,
-      'Undo', {duration: 7000, panelClass: ['warn-snackbar']}).onAction().subscribe(() => {
+      'Undo', { duration: 7000, panelClass: ['warn-snackbar'] }).onAction().subscribe(() => {
         clubContact.deleted = false;
       });
+  }
+
+  back(): void {
+    this.router.navigate(['/members', 'clubs', this.club.id]);
   }
 }
