@@ -44,9 +44,7 @@ export class ClubComponent implements OnInit, OnDestroy {
   }
 
   update(): void {
-    if (this.form.valid) {
-      this.clubForm.updateValue(this.club);
-    }
+    this.clubForm.updateValue(this.club);
   }
 
   // cancel(): void {

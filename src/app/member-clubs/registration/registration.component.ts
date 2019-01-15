@@ -1,16 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { MpgaDocument } from 'src/app/models/documents';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
+  private readonly onDestroy = new Subject<void>();
 
   @Input() pdf: MpgaDocument;
   @Input() currentSeason: number;
@@ -23,8 +26,13 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // TODO: unsubscribe
-    this.userService.currentUser$.subscribe(user => this.user = user);
+    this.userService.currentUser$
+      .pipe(takeUntil(this.onDestroy))
+      .subscribe(user => this.user = user);
+  }
+
+  ngOnDestroy() {
+    this.onDestroy.next();
   }
 
   onlineSignup(): void {
@@ -33,7 +41,7 @@ export class RegistrationComponent implements OnInit {
         if (club && club.id) {
           this.router.navigate(['/admin', 'clubs', club.id, 'register']);
         } else {
-          this.snackbar.open('We do not have a home club for you', null, {duration: 5000, panelClass: ['error-snackbar']});
+          this.snackbar.open('We are not in a club\'s contact list', null, {duration: 5000, panelClass: ['error-snackbar']});
         }
       });
     } else {

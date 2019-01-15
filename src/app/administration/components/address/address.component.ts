@@ -229,7 +229,6 @@ export class AddressComponent implements OnChanges, OnDestroy {
   constructor(private addressForm: AddressForm) { }
 
   ngOnChanges() {
-    console.log('address change');
     this.formSubscription = this.addressForm.form$.subscribe(form => this.form = form);
     this.addressForm.buildForm(this.address);
   }
@@ -243,8 +242,6 @@ export class AddressComponent implements OnChanges, OnDestroy {
   }
 
   update(): void {
-    if (this.form.valid) {
-      this.addressForm.updateValue(this.address);
-    }
+    this.addressForm.updateValue(this.address);
   }
 }

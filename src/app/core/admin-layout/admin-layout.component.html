@@ -1,9 +1,13 @@
 <div class="app mat-typography" [ngClass]="{'side-panel-opened': sidePanelOpened, 'side-panel-closed': !sidePanelOpened }">
   <app-header (toggleSidenav)="sidemenu.toggle()"></app-header>
   <mat-sidenav-container class="app-inner">
-    <mat-sidenav #sidemenu class="sidebar-panel" id="sidebar-panel" [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()" (open)="sidePanelOpened = true"
-    (close)="sidePanelOpened = false" (mouseover)="menuMouseOver()" (mouseout)="menuMouseOut()" [perfectScrollbar]="config" [disabled]="mediaMatcher.matches">
+    <mat-sidenav #sidemenu class="sidebar-panel" id="sidebar-panel" [mode]="isOver() ? 'over' : 'side'" [opened]="!isOver()"
+      (open)="sidePanelOpened = true" (close)="sidePanelOpened = false" (mouseover)="menuMouseOver()" (mouseout)="menuMouseOut()"
+      [perfectScrollbar]="config" [disabled]="mediaMatcher.matches">
       <app-sidebar (click)="updatePS()"></app-sidebar>
+      <!-- <footer class="nav-footer">
+        <p>Crafted with Care by ZoomdoggyDesign</p>
+      </footer> -->
     </mat-sidenav>
     <div [perfectScrollbar]="config" [disabled]="mediaMatcher.matches">
       <router-outlet></router-outlet>

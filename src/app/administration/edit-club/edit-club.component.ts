@@ -47,11 +47,12 @@ export class EditClubComponent implements OnInit {
   }
 
   saveClub(): void {
-    if (!this.clubForm.isValid()) {
-      this.snackbar.open('There are problems with the main Club form', null, { duration: 5000, panelClass: ['error-snackbar'] });
-    } else if (this.clubContacts.some(cc => !cc.isValid())) {
-      this.snackbar.open('There are problems with one or more of the contacts', null, { duration: 5000, panelClass: ['error-snackbar'] });
-    } else {
+    // if (!this.clubForm.isValid()) {
+    //   this.snackbar.open('There are problems with the main Club form', null, { duration: 5000, panelClass: ['error-snackbar'] });
+    // } else if (this.clubContacts.some(cc => !cc.isValid())) {
+    //   this.snackbar.open('There are problems with one or more of the contacts', null,
+    //        { duration: 5000, panelClass: ['error-snackbar'] });
+    // } else {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         width: '320px',
         data: {
@@ -69,7 +70,7 @@ export class EditClubComponent implements OnInit {
           });
         }
       });
-    }
+    // }
   }
 
   addContact(): void {
@@ -79,7 +80,7 @@ export class EditClubComponent implements OnInit {
 
     ref.afterClosed().subscribe((result: Contact) => {
       if (result) {
-        this.club.addContact(result); // TODO: would be nice to scroll to this contact
+        this.club.addContact(result);
       }
     });
   }

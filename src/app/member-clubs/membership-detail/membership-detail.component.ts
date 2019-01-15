@@ -5,7 +5,6 @@ import { Membership, ClubContactRole } from 'src/app/models/clubs';
 import { Club } from '../../models/clubs';
 import { User } from 'src/app/models/user';
 import { UserService } from '../../services/user.service';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-membership-detail',
@@ -23,7 +22,6 @@ export class MembershipDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userData: UserService,
-    private snackbar: MatSnackBar
   ) {
     this.userData.currentUser$.subscribe(user => this.user = user);
   }
@@ -34,7 +32,7 @@ export class MembershipDetailComponent implements OnInit {
         this.club = club;
         this.mpgaData.memberships(this.club.id).subscribe(memberships => {
           if (memberships && memberships.length > 0) {
-            this.membership = memberships.pop();  // TODO: ensure the collection is sorted by year
+            this.membership = memberships[0];  // the collection is sorted by year descending
           }
         });
       });

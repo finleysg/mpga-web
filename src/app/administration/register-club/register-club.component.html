@@ -1,5 +1,20 @@
 <div fxLayout="row wrap">
-  <div fxFlex.gt-sm="33%" fxFlex="100">
+  <div fxFlex.gt-sm="33%" fxFlex="100" *ngIf="registered">
+    <mat-card>
+      <mat-card-header class="mat-amber">
+        <mat-card-title>
+          Already Registered
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        {{club?.name}} has already paid membership dues for the {{config?.memberClubYear}} season.
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button [routerLink]="['/members/clubs']">Back</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="33%" fxFlex="100" *ngIf="!registered">
     <mat-card>
       <mat-card-header class="mat-purple">
         <mat-card-title>{{config?.memberClubYear}} Membership Dues</mat-card-title>
@@ -7,7 +22,7 @@
       <mat-card-content>
         <h3 class="mat-text-primary">{{club?.name}}</h3>
         <p>Use a credit card below to pay the {{config?.memberClubYear}} dues for your
-          club. All payments are handled securely by <a href="https://stripe.com" target="_blank">Stripe</a>. 
+          club. All payments are handled securely by <a href="https://stripe.com" target="_blank">Stripe</a>.
           No credit card data is saved by the MPGA.
         </p>
         <p>Once payment is completed, we will redirect you to your clubs detail page where

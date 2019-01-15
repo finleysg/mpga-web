@@ -3,10 +3,12 @@ import { NgForm } from '@angular/forms';
 import { AppConfigService } from 'src/app/app.config.service';
 import { AppConfig } from 'src/app/app.config';
 import { ClubMaintenanceService } from '../club-maintenance.service';
-import { Club } from 'src/app/models/clubs';
+import { Club, Membership } from 'src/app/models/clubs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { Subscription } from 'rxjs';
+import { MpgaDataService } from '../../services/mpga-data.service';
 
 declare const Stripe: any;
 
@@ -19,6 +21,11 @@ export class RegisterClubComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('cardInfo') cardInfo: ElementRef;
 
+  clubSub: Subscription;
+  configSub: Subscription;
+  memSub: Subscription;
+
+  registered: boolean;
   config: AppConfig;
   club: Club;
   stripe: any;
@@ -34,10 +41,11 @@ export class RegisterClubComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private appConfig: AppConfigService,
     private clubService: ClubMaintenanceService,
+    private mpgaData: MpgaDataService,
     private snackbar: MatSnackBar,
     private dialog: MatDialog
   ) {
-    this.appConfig.config.subscribe(config => {
+    this.configSub = this.appConfig.config.subscribe(config => {
       this.config = config;
       this.stripe = Stripe(config.stripePublicKey);
       this.elements = this.stripe.elements();
@@ -45,8 +53,15 @@ export class RegisterClubComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.clubService.club.subscribe(club => this.club = club);
-    this.clubService.loadClub(+this.route.snapshot.params['id']);
+    const clubId = +this.route.snapshot.params['id'];
+    this.memSub = this.mpgaData.memberships(clubId).subscribe(memberships => {
+      if (memberships && memberships.length > 0) {
+        // already registered?
+        this.registered = memberships[0].year === this.config.memberClubYear;
+      }
+    });
+    this.clubSub = this.clubService.club.subscribe(club => this.club = club);
+    this.clubService.loadClub(clubId);
   }
 
   ngAfterViewInit() {
@@ -58,6 +73,9 @@ export class RegisterClubComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.card.removeEventListener('change', this.cardHandler);
     this.card.destroy();
+    this.clubSub.unsubscribe();
+    this.configSub.unsubscribe();
+    this.memSub.unsubscribe();
   }
 
   onChange({ error }) {

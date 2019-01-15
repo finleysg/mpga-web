@@ -29,7 +29,6 @@ export class ContactComponent implements OnChanges, OnDestroy {
   constructor(private contactForm: ContactForm) { }
 
   ngOnChanges() {
-    console.log('contact change');
     this.address = this.contact.copyAddress();
     this.formSubscription = this.contactForm.form$.subscribe(form => this.form = form);
     this.errorSubscription = this.contactForm.errors$.subscribe(errors => this.fieldErrors = errors);
@@ -65,10 +64,10 @@ export class ContactComponent implements OnChanges, OnDestroy {
     return this.form.dirty && this.addressForm.isDirty();
   }
 
-  update(addressRequired: boolean): void {
-    if (this.condensed && this.form.valid) {
+  update(): void {
+    if (this.condensed) {
       this.contactForm.updateValue(this.contact);
-    } else if (this.form.valid && this.addressIsValid(addressRequired)) {
+    } else {
       this.addressForm.update();
       this.contactForm.updateValue(this.contact);
       this.contact.updateAddress(this.address);

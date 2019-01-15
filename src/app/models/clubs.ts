@@ -85,6 +85,7 @@ export class Contact extends Model {
 
 export class Club extends Model {
   name: string;
+  shortName: string;
   website: string;
   type2: boolean;
   notes: string;

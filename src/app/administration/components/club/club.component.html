@@ -7,6 +7,12 @@
   </p>
   <p>
     <mat-form-field class="full-width">
+      <input matInput placeholder="Short name" [formControl]="form.controls['shortName']">
+    </mat-form-field>
+    <small *ngIf="fieldErrors.shortName" class="mat-text-warn">{{fieldErrors.shortName}}</small>
+  </p>
+  <p>
+    <mat-form-field class="full-width">
       <input matInput type="url" placeholder="Club website" [formControl]="form.controls['website']">
       <mat-hint>This is the full url for your club's website or webpage (not the golf course website).</mat-hint>
     </mat-form-field>

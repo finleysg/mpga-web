@@ -34,7 +34,6 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
   constructor(private clubContactForm: ClubContactForm) { }
 
   ngOnChanges() {
-    console.log('club-contact change');
     this.requireAddress = this.clubContact.useForMailings;
     this.formSubscription = this.clubContactForm.form$.subscribe(form => this.form = form);
     this.clubContactForm.buildForm(this.clubContact);
@@ -60,14 +59,10 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
     return this.form.dirty && this.contactForm.isDirty();
   }
 
-  update(): boolean {
-    if (this.isValid()) {
-      this.contactForm.update(this.requireAddress);
-      this.clubContactForm.updateValue(this.clubContact);
-      this.clubContact.dirty = this.isDirty();
-      return true;
-    }
-    return false;
+  update(): void {
+    this.contactForm.update();
+    this.clubContactForm.updateValue(this.clubContact);
+    this.clubContact.dirty = this.isDirty();
   }
 
   // cancel(): void {
@@ -78,7 +73,7 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
 
   addressRequired(event: MatCheckboxChange): void {
     this.requireAddress = event.checked;
-    this.contactForm.update(this.requireAddress);
+    this.contactForm.update();
   }
 
   addRole(clubContact: ClubContact, event: MatChipInputEvent): void {

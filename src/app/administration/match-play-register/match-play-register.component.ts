@@ -95,11 +95,12 @@ export class MatchPlayRegisterComponent implements OnInit {
   }
 
   save(): void {
-    if (this.teamsForms.some(tf => !tf.isValid())) {
-      this.snackbar.open('There are problems with one of the requested teams', null, { duration: 5000, panelClass: ['error-snackbar'] });
-    } else if (this.ccForms.some(cc => !cc.isValid())) {
-      this.snackbar.open('There are problems with one or more of the contacts', null, { duration: 5000, panelClass: ['error-snackbar'] });
-    } else {
+    // if (this.teamsForms.some(tf => !tf.isValid())) {
+    //   this.snackbar.open('There are problems with one of the requested teams', null, { duration: 5000, panelClass: ['error-snackbar'] });
+    // } else if (this.ccForms.some(cc => !cc.isValid())) {
+    //   this.snackbar.open('There are problems with one or more of the contacts', null,
+    //       { duration: 5000, panelClass: ['error-snackbar'] });
+    // } else {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         width: '320px',
         data: {
@@ -120,6 +121,6 @@ export class MatchPlayRegisterComponent implements OnInit {
           });
         }
       });
-    }
+    // }
   }
 }

@@ -16,6 +16,9 @@ export class ClubForm {
     'name': {
       'required': 'A club name is required.'
     },
+    'shortName': {
+      'required': 'A shortened club name is required.'
+    },
     'website': {
       'url': 'Please enter the full url of your club website.'
     },
@@ -25,6 +28,7 @@ export class ClubForm {
   };
   private fieldErrors = {
     'name': '',
+    'shortName': '',
     'website': '',
     'size': ''
   };
@@ -39,6 +43,7 @@ export class ClubForm {
   buildForm(club: Club) {
     this.form = this.builder.group({
       'name': [club.name, [Validators.required]],
+      'shortName': [club.shortName, [Validators.required]],
       'website': [club.website, [CustomValidators.url]],
       'size': [club.size, [CustomValidators.number]],
       'type2': [club.type2],
@@ -54,10 +59,6 @@ export class ClubForm {
   updateValue(club: Club): void {
     Object.assign(club, this.form.value);
   }
-
-  // reset(): void {
-  //   this.form.reset();
-  // }
 
   onValueChanges(): void {
     if (!this.form) { return; }
