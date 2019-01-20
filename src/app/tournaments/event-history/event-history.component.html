@@ -1,55 +1,65 @@
 <ng-container *ngIf="tournament$ | async as tournament">
-<div fxLayout="row wrap">
-  <div fxFlex.gt-sm="70%" fxFlex="100">
-    <mat-card>
-      <mat-card-header class="mat-purple">
-        <mat-card-title>{{ tournament.name }} History</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div [markdown]="tournament.description"></div>
-      </mat-card-content>
-      <mat-card-content>
-        <mat-form-field>
-          <mat-select placeholder="Year" (selectionChange)="applyFilter($event.value)">
-            <mat-option [value]="0">All</mat-option>
-            <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <table mat-table class="history-table" [dataSource]="dataSource">
-          <ng-container cdkColumnDef="year">
-            <th mat-header-cell *cdkHeaderCellDef> Year </th>
-            <td mat-cell *cdkCellDef="let row"> {{row.year}} </td>
-          </ng-container>
-          <ng-container cdkColumnDef="location">
-            <th mat-header-cell *cdkHeaderCellDef> Location </th>
-            <td mat-cell *cdkCellDef="let row"> {{row.location}} </td>
-          </ng-container>
-          <ng-container cdkColumnDef="flight">
-            <th mat-header-cell *cdkHeaderCellDef> Flight </th>
-            <td mat-cell *cdkCellDef="let row"> {{row.flightOrDivision}} </td>
-          </ng-container>
+  <div fxLayout="row wrap">
+    <div fxFlex.gt-sm="70%" fxFlex="100">
+      <mat-card>
+        <mat-card-header class="mat-purple">
+          <mat-card-title>{{ tournament.name }} History</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div [markdown]="tournament.description"></div>
+        </mat-card-content>
+        <mat-card-content>
+          <mat-form-field>
+            <mat-select placeholder="Year" (selectionChange)="applyFilter($event.value)">
+              <mat-option [value]="0">All</mat-option>
+              <mat-option *ngFor="let year of years" [value]="year">{{year}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <table mat-table class="history-table" [dataSource]="dataSource">
+            <ng-container cdkColumnDef="year">
+              <th mat-header-cell *cdkHeaderCellDef> Year </th>
+              <td mat-cell *cdkCellDef="let row"> {{row.year}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="location">
+              <th mat-header-cell *cdkHeaderCellDef> Location </th>
+              <td mat-cell *cdkCellDef="let row"> {{row.location}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="flight">
+              <th mat-header-cell *cdkHeaderCellDef> Flight </th>
+              <td mat-cell *cdkCellDef="let row"> {{row.flightOrDivision}} </td>
+            </ng-container>
             <ng-container cdkColumnDef="winner">
-            <th mat-header-cell *cdkHeaderCellDef> Winner(s) </th>
-            <td mat-cell *cdkCellDef="let row"> {{row.winnersFormatted()}} </td>
-          </ng-container>
-          <ng-container cdkColumnDef="score">
-            <th mat-header-cell *cdkHeaderCellDef> Score </th>
-            <td mat-cell *cdkCellDef="let row"> {{row.score}}<span *ngIf="row.isNet">*</span> </td>
-          </ng-container>
-          <ng-container matColumnDef="note">
-            <td mat-footer-cell *matFooterCellDef colspan="5">
-              * Net score
-            </td>
-          </ng-container>
-          <!-- Header and Row Declarations -->
-          <tr mat-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *cdkRowDef="let row; columns: displayedColumns"></tr>
-          <tr mat-footer-row *cdkFooterRowDef="['note']" class="footnote"></tr>
-        </table>
-      </mat-card-content>
-    </mat-card>
+              <th mat-header-cell *cdkHeaderCellDef> Winner(s) </th>
+              <td mat-cell *cdkCellDef="let row"> {{row.winnersFormatted()}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="score">
+              <th mat-header-cell *cdkHeaderCellDef> Score </th>
+              <td mat-cell *cdkCellDef="let row"> {{row.score}}<span *ngIf="row.isNet">*</span> </td>
+            </ng-container>
+            <ng-container matColumnDef="note">
+              <td mat-footer-cell *matFooterCellDef colspan="5">
+                * Net score
+              </td>
+            </ng-container>
+            <!-- Header and Row Declarations -->
+            <tr mat-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+            <tr mat-footer-row *cdkFooterRowDef="['note']" class="footnote"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div fxFlex.gt-sm="30%" fxFlex="100">
+      <mat-card>
+        <mat-card-header class="mat-purple">
+          <mat-card-title>Past Tournament Results</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-action-list>
+            <a *ngFor="let result of results$ | async" mat-list-item [href]="result.file" target="_blank"> {{result.title}} </a>
+          </mat-action-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-  <div fxFlex.gt-sm="30%" fxFlex="100">
-  </div>
-</div>
 </ng-container>

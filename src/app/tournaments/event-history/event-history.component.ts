@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Tournament, TournamentWinner } from '../../models/events';
+import { MpgaDocument } from '../../models/documents';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -14,6 +15,7 @@ import { tap } from 'rxjs/operators';
 export class EventHistoryComponent implements OnInit {
 
   tournament$: Observable<Tournament>;
+  results$: Observable<MpgaDocument[]>;
   years: number[];
   flights: string[];
   allWinners: TournamentWinner[];
@@ -28,7 +30,9 @@ export class EventHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tournament$ = this.dataService.tournament(+this.route.snapshot.params['id']).pipe(
+    const tournamentId = +this.route.snapshot.params['id'];
+    this.results$ = this.dataService.documents({tournamentId: tournamentId, docType: 'Results'});
+    this.tournament$ = this.dataService.tournament(tournamentId).pipe(
       tap((tournament: Tournament) => {
         this.years = [...new Set(tournament.winners.map(w => w.year))].sort((a, b) => b - a); // descending
         this.flights = [...new Set(tournament.winners.map(w => w.flightOrDivision))];
