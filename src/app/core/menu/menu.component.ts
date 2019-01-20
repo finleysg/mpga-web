@@ -12,12 +12,14 @@ import { Router } from '@angular/router';
 export class MenuComponent {
 
   public menu: Menu[];
+  public version: string;
 
   constructor(
     public menuService: MenuService,
     private router: Router
   ) {
     this.menuService.getMenu().subscribe(menu => this.menu = menu);
+    this.version = (window as any).mpgaVersion;
   }
 
   navigateTo(parent: string[], child: string[]): void {

@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --prod && node update-version.js",
+    "build-patch": "npm version patch && npm run build",
+    "build-minor": "npm version minor && npm run build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
