@@ -7,7 +7,7 @@
       deadline for online registration is <strong>{{ event.registrationEnd.format('dddd, MMMM Do') }}.</strong></p>
     <p>Mail-in registration must be post-marked on or before <strong>{{ event.earlyRegistrationEnd.format('dddd, MMMM Do') }}.</strong></p>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions *ngIf="event.canRegister">
     <a *ngIf="registrationUrl" [href]="registrationUrl.url" target="_blank" mat-button color="accent">Register Online</a>
     <a *ngIf="registrationForm" [href]="registrationForm.file" target="_blank" mat-button color="accent">Registration Form</a>
   </mat-card-actions>

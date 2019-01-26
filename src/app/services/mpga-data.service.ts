@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseService } from './base.service';
 import { Policy } from '../models/policies';
-import { EventDetail, Tournament, Award } from '../models/events';
+import { EventDetail, Tournament, Award, EventLink } from '../models/events';
 import { LandingPage } from '../models/pages';
 import { Announcement } from '../models/announcement';
 import { MpgaDocument, MpgaPhoto } from '../models/documents';
@@ -155,6 +155,15 @@ export class MpgaDataService extends BaseService {
     return this.http.get(url).pipe(
       map((json: any) => {
         return json.map(o => new MatchResult(o));
+      })
+    );
+  }
+
+  eventLinks(tournamentId: number): Observable<EventLink[]> {
+    const url = `${this.baseUrl}/event-links/?tournament=${tournamentId}`;
+    return this.http.get(url).pipe(
+      map((json: any) => {
+        return json.map(o => new EventLink().fromJson(o));
       })
     );
   }

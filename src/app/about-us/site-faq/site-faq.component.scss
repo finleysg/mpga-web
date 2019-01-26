@@ -1,0 +1,6 @@
+@import '../../../assets/styles/scss/material.variables';
+
+.faq h3 {
+  color: mat-color($mat-teal, 700) !important;
+  font-weight: 800 !important;
+}

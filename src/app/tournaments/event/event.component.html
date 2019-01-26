@@ -2,7 +2,7 @@
 <div fxLayout="row wrap">
   <div fxFlex.gt-sm="25%" fxFlex="100">
     <div fx-layout="row">
-      <app-event-registration-preview [event]="event" *ngIf="event.canRegister"></app-event-registration-preview>
+      <app-event-registration-preview [event]="event" *ngIf="!event.registrationIsClosed"></app-event-registration-preview>
       <app-event-results-preview [event]="event"></app-event-results-preview>
     </div>
   </div>

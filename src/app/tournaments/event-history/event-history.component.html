@@ -60,6 +60,16 @@
           </mat-action-list>
         </mat-card-content>
       </mat-card>
+      <mat-card>
+        <mat-card-header class="mat-purple">
+          <mat-card-title>Tournament Media / Online Results</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-action-list>
+            <a *ngFor="let link of links$ | async" mat-list-item [href]="link.url" target="_blank"> {{link.title}} </a>
+          </mat-action-list>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
 </ng-container>

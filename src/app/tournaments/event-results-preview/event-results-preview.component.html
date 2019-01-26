@@ -12,7 +12,7 @@
       </p>
     </div>
     <div *ngIf="mediaLinks && mediaLinks.length">
-      <h4 class="event-bold">{{ event.name }} in the News</h4>
+      <h4 class="event-bold">MPGA in the News</h4>
       <p *ngFor="let link of mediaLinks">
         <a [href]="link.url" target="_blank">
           {{ link.title }}&nbsp;<mat-icon color="primary" [inline]="true">open_in_new</mat-icon>
