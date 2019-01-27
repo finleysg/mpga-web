@@ -31,6 +31,9 @@ __Reports:__ Simple reports, exportable as CSV.
 - All Contacts
 - Math Play Captains
 - Member Clubs
+ 
+__Documentation Wiki:__ Add a wiki to the Django project where we can manage HOWTO topics for EC members
+and help onboard new EC members.
 
 __Image Gallery:__ For each tournament, display a responsive gallery of thumbnail images. Clicking on an
 image loads a full-size viewer. The viewer allows scrolling through all images in the gallery.
