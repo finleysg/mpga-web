@@ -41,7 +41,7 @@
           <div [markdown]="item.text"></div>
           <p *ngIf="item.externalUrl"><a mat-stroked-button color="primary" [href]="item.externalUrl" target="_blank">{{item.externalName}}</a></p>
           <p *ngIf="item.document && item.document.title"><a mat-stroked-button color="primary" [href]="item.document.file"
-              target="_blank">{{item.document.Title}}</a></p>
+              target="_blank">{{item.document.title}}</a></p>
         </div>
       </mat-card-content>
     </mat-card>
