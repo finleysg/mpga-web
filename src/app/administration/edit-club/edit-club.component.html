@@ -27,22 +27,6 @@
         <app-club [club]="club"></app-club>
       </mat-card-content>
     </mat-card>
-    <!-- <mat-card *ngIf="problems">
-      <mat-card-header class="mat-amber">
-        <mat-card-title>Data Problems</mat-card-title>
-        <mat-card-subtitle>Errors and warnings about this club record</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <mat-list>
-          <mat-list-item *ngFor="let problem of problems">
-            <mat-icon *ngIf="problem.level === 'error'" mat-list-icon class="error-message">error</mat-icon>
-            <mat-icon *ngIf="problem.level === 'warning'" mat-list-icon class="warning-message">warning</mat-icon>
-            <mat-icon *ngIf="problem.level === 'info'" mat-list-icon class="info-message">info</mat-icon>
-            <p mat-line>{{problem.message}}</p>
-          </mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card> -->
   </div>
   <div fxFlex.gt-sm="33.33%" fxFlex="100" *ngIf="club">
     <div *ngFor="let cc of club.clubContacts | contactFilter" class="mb-2">
@@ -58,8 +42,8 @@
             <mat-icon>remove_circle</mat-icon>
           </button>
         </mat-card-header>
-        <mat-card-content *ngIf="allRoles">
-          <app-club-contact [clubContact]="cc" [roles]="allRoles"></app-club-contact>
+        <mat-card-content>
+          <app-club-contact [clubContact]="cc"></app-club-contact>
         </mat-card-content>
       </mat-card>
     </div>

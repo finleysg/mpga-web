@@ -1,12 +1,11 @@
-import { Component, OnChanges, Input, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnChanges, Input, ViewChild, OnDestroy } from '@angular/core';
 import { ClubContact, ClubContactRole } from 'src/app/models/clubs';
-import { MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent, MatCheckboxChange } from '@angular/material';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { MatCheckboxChange, MatDialog } from '@angular/material';
+import { FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { ContactComponent } from '../contact/contact.component';
 import { ClubContactForm } from './club-contact.form';
+import { RoleEditorComponent } from '../role-editor/role-editor.component';
 
 @Component({
   selector: 'app-club-contact',
@@ -17,31 +16,23 @@ import { ClubContactForm } from './club-contact.form';
 export class ClubContactComponent implements OnChanges, OnDestroy {
 
   @Input() clubContact: ClubContact;
-  @Input() roles: string[];
   @Input() condensed: boolean;
-  @ViewChild('roleInput') roleInput: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
   @ViewChild(ContactComponent) contactForm: ContactComponent;
 
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  roleCtrl = new FormControl();
-  availableRoles: Observable<string[]>;
   requireAddress: boolean;
 
   form: FormGroup;
   private formSubscription: Subscription;
 
-  constructor(private clubContactForm: ClubContactForm) { }
+  constructor(
+    private clubContactForm: ClubContactForm,
+    private dialog: MatDialog
+  ) { }
 
   ngOnChanges() {
     this.requireAddress = this.clubContact.useForMailings;
     this.formSubscription = this.clubContactForm.form$.subscribe(form => this.form = form);
     this.clubContactForm.buildForm(this.clubContact);
-    if (this.roles) {
-      this.availableRoles = this.roleCtrl.valueChanges.pipe(
-        startWith(null),
-        map((role: string | null) => role ? this._filter(role) : this.roles.slice()));
-    }
   }
 
   ngOnDestroy() {
@@ -65,33 +56,26 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
     this.clubContact.dirty = this.isDirty();
   }
 
-  // cancel(): void {
-  //   this.contactForm.cancel();
-  //   this.form.reset();
-  //   this.clubContactForm.buildForm(this.clubContact);
-  // }
-
   addressRequired(event: MatCheckboxChange): void {
     this.requireAddress = event.checked;
     this.contactForm.update();
   }
 
-  addRole(clubContact: ClubContact, event: MatChipInputEvent): void {
-    // Add role only when MatAutocomplete is not open
-    // To make sure this does not conflict with OptionSelected Event
-    if (!this.matAutocomplete.isOpen) {
-      const input = event.input;
-      const value = event.value;
-
-      if ((value || '').trim()) {
-        clubContact.addRole(value.trim());
+  addRoles(): void {
+    const dialogRef = this.dialog.open(RoleEditorComponent, {
+      width: '320px',
+      data: {
+        clubContact: this.clubContact
       }
-
-      // Reset the input value
-      if (input) {
-        input.value = '';
+    });
+    dialogRef.afterClosed().subscribe((result: any[]) => {
+      if (result) {
+        this.clubContact.clearRoles();
+        result.forEach(r => {
+          this.clubContact.addRole(r);
+        });
       }
-    }
+    });
   }
 
   removeRole(clubContact: ClubContact, role: ClubContactRole): void {
@@ -99,15 +83,5 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
     if (index >= 0) {
       clubContact.roles.splice(index, 1);
     }
-  }
-
-  selected(clubContact: ClubContact, event: MatAutocompleteSelectedEvent): void {
-    clubContact.addRole(event.option.viewValue);
-    this.roleInput.nativeElement.value = '';
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.roles.filter(role => role.toLowerCase().indexOf(filterValue) === 0);
   }
 }

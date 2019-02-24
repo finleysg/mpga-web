@@ -11,24 +11,15 @@
     </mat-checkbox>
     <small *ngIf="requireAddress" class="ml-1 mat-text-accent">(Make sure this contact has a valid address)</small>
   </p>
+  <a class="change-roles" (click)="addRoles()">Change roles...</a>
   <p>
-    <mat-form-field class="role-list">
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let role of clubContact.roles" class="mat-chip-role" [selectable]="true" [removable]="true"
-          (removed)="removeRole(clubContact, role)">
-          {{role.role}}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Club roles..." #roleInput [formControl]="roleCtrl" [matAutocomplete]="auto"
-          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
-          (matChipInputTokenEnd)="addRole(clubContact, $event)" class="clickable">
-      </mat-chip-list>
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected(clubContact, $event)">
-        <mat-option *ngFor="let role of availableRoles | async" [value]="role">
-          {{role}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let role of clubContact.roles" class="mat-chip-role" [removable]="true"
+        (removed)="removeRole(clubContact, role)">
+        {{role.role}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
     <small *ngIf="!clubContact.roles || clubContact.roles.length === 0" class="mat-text-warn">Please assign at least one role to this contact</small>
   </p>
   <p>

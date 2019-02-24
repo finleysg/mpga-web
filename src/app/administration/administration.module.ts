@@ -23,6 +23,7 @@ import { ContactPickerComponent } from './components/contact-picker/contact-pick
 import { ClubMaintenanceService } from './club-maintenance.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { RoleEditorComponent } from './components/role-editor/role-editor.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     ClubComponent,
     ClubContactComponent,
     ContactComponent,
-    ContactPickerComponent
+    ContactPickerComponent,
+    RoleEditorComponent
   ],
   providers: [
     ClubMaintenanceService,
@@ -55,7 +57,8 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     IsStaffGuard
   ],
   entryComponents: [
-    ContactPickerComponent
+    ContactPickerComponent,
+    RoleEditorComponent
   ]
 })
 export class AdministrationModule { }

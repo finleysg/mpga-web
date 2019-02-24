@@ -7,3 +7,8 @@
 .role-list {
   width: 100%;
 }
+.change-roles {
+  text-decoration: underline !important;
+  color: mat-color($mat-teal, 300);
+  margin-bottom: 10px;
+}

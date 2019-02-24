@@ -63,6 +63,6 @@ export class ContactPickerComponent implements OnInit {
 
   private _filter(name: string): Contact[] {
     const filterValue = name.toLowerCase();
-    return this.contacts.filter(contact => contact.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.contacts.filter(contact => contact.name.toLowerCase().indexOf(filterValue) >= 0);
   }
 }

@@ -205,6 +205,19 @@ export class Team extends Model {
   }
 }
 
+export class ClubContactRole extends Model {
+  clubContact: number;
+  role: string;
+
+  constructor(obj: any) {
+    super();
+    if (obj) {
+      const ccr = super.fromJson(obj);
+      Object.assign(this, ccr);
+    }
+  }
+}
+
 export class ClubContact extends Model {
   club: number;
   contact: Contact;
@@ -235,6 +248,10 @@ export class ClubContact extends Model {
     this.roles.push(role);
   }
 
+  clearRoles(): void {
+    this.roles = [];
+  }
+
   get isCaptain(): boolean {
     return this.roles && this.roles.some(r => r.role === 'Match Play Captain');
   }
@@ -252,19 +269,6 @@ export class ClubContact extends Model {
     cc.roles = this.roles.map(r => r.prepJson());
     cc.contact = this.contact.prepJson();
     return cc;
-  }
-}
-
-export class ClubContactRole extends Model {
-  clubContact: number;
-  role: string;
-
-  constructor(obj: any) {
-    super();
-    if (obj) {
-      const ccr = super.fromJson(obj);
-      Object.assign(this, ccr);
-    }
   }
 }
 

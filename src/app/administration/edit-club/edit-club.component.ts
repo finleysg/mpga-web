@@ -10,6 +10,7 @@ import { ClubComponent } from '../components/club/club.component';
 import { ClubContactComponent } from '../components/club-contact/club-contact.component';
 import { ContactPickerComponent } from '../components/contact-picker/contact-picker.component';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-club',
@@ -22,7 +23,7 @@ export class EditClubComponent implements OnInit {
   @ViewChildren(ClubContactComponent) clubContacts: QueryList<ClubContactComponent>;
 
   club: Club;
-  allRoles: string[];
+  // allRoles: string[];
   instructions: LandingPage;
   problems: ClubValidationMessage[];
 
@@ -32,7 +33,8 @@ export class EditClubComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {
   }
 
@@ -42,7 +44,6 @@ export class EditClubComponent implements OnInit {
       this.clubData.loadClub(+params['id']);
       this.mpgaData.validationMessages(+params['id']).subscribe(messages => this.problems = messages);
     });
-    this.mpgaData.roles().subscribe(roles => this.allRoles = roles);
     this.mpgaData.langingPage('E').subscribe(content => this.instructions = content);
   }
 
@@ -80,17 +81,48 @@ export class EditClubComponent implements OnInit {
 
     ref.afterClosed().subscribe((result: Contact) => {
       if (result) {
-        this.club.addContact(result);
+        if (!this.isClubContact(result)) {
+          this.club.addContact(result);
+        }
       }
     });
   }
 
   removeContact(clubContact: ClubContact): void {
-    clubContact.deleted = true;
-    this.snackbar.open(`${clubContact.contact.name} will be removed permanently when you save your changes`,
-      'Undo', { duration: 7000, panelClass: ['warn-snackbar'] }).onAction().subscribe(() => {
-        clubContact.deleted = false;
-      });
+    if (this.isSelf(clubContact)) { return; }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '320px',
+      data: {
+        title: 'Remove Club Contact',
+        message: `Remove ${clubContact.contact.name} from ${this.club.shortName}'s club contact list?`
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        clubContact.deleted = true;
+        this.snackbar.open(`${clubContact.contact.name} will be removed permanently when you save your changes`,
+          null, { duration: 3000, panelClass: ['warn-snackbar'] });
+      }
+    });
+  }
+
+  isSelf(clubContact: ClubContact): boolean {
+    if (clubContact.contact.email === this.userService.user.email) {
+      this.snackbar.open('You cannot remove yourself. Someone else has to do that for you.', 
+        null, { duration: 3000, panelClass: ['error-snackbar']});
+      return true;
+    }
+    return false;
+  }
+
+  isClubContact(contact: Contact): boolean {
+    const existing = this.club.clubContacts.find(cc => cc.contact.email === contact.email);
+    if (existing) {
+      this.snackbar.open(`${contact.name} is already a contact for ${this.club.shortName}.`,
+        null, { duration: 3000, panelClass: ['error-snackbar']});
+      return true;
+    }
+    return false;
   }
 
   back(): void {
