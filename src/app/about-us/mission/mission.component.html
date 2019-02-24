@@ -1,0 +1,26 @@
+<div fxLayout="row wrap">
+  <div fxFlex.gt-sm="70%" fxFlex="100">
+    <mat-card>
+      <mat-card-header class="mat-purple">
+        <mat-card-title>The Mission of the MPGA</mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="byLaws">
+        <a mat-flat-button color="primary" [href]="byLaws.file" target="_blank">MPGA ByLaws</a>
+      </mat-card-content>
+      <mat-card-content>
+        <div [markdown]="(mission$ | async).content"></div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex.gt-sm="30%" fxFlex="100">
+    <mat-card *ngFor="let award of awards$ | async">
+      <mat-card-header class="mat-teal">
+        <mat-card-title>{{ award.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div [markdown]="award.description"></div>
+        <app-collapsible-history [winnerList]="award.winners" [display]="5"></app-collapsible-history>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

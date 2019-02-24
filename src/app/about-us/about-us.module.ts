@@ -5,11 +5,12 @@ import { routing } from './about-us-routing.module';
 import { CodeOfConductComponent } from './code-of-conduct/code-of-conduct.component';
 import { ContactComponent } from './contact/contact.component';
 import { CommitteeComponent } from './committee/committee.component';
-import { HistoryComponent } from './history/history.component';
+import { MissionComponent } from './mission/mission.component';
 import { AffiliatesComponent } from './affiliates/affiliates.component';
 import { MatTableModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { SiteFaqComponent } from './site-faq/site-faq.component';
+import { CollapsibleHistoryComponent } from './collapsible-history/collapsible-history.component';
 
 @NgModule({
   imports: [
@@ -22,9 +23,10 @@ import { SiteFaqComponent } from './site-faq/site-faq.component';
     CodeOfConductComponent,
     ContactComponent,
     CommitteeComponent,
-    HistoryComponent,
+    MissionComponent,
     AffiliatesComponent,
-    SiteFaqComponent
+    SiteFaqComponent,
+    CollapsibleHistoryComponent
   ]
 })
 export class AboutUsModule { }
