@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-header class="mat-purple">
+    <mat-card-title>Upload Tournament Photos</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <file-drop showBrowseBtn="true" browseBtnLabel="select a file..." customBtnStyling="mat-button mat-accent"
+      (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)">
+      <span>Drop an image here or</span>
+    </file-drop>
+  </mat-card-content>
+  <mat-card-content *ngIf="selectedFile">
+    <p><strong>{{selectedFile.name}}</strong></p>
+    <p>
+      <mat-form-field class="full-width">
+        <input matInput type="text" [(ngModel)]="caption" placeholder="Caption">
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-checkbox [(ngModel)]="isChampion">Champion Photo</mat-checkbox>
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <a (click)="upload(tournament)" [disabled]="!selectedFile" mat-button color="primary">Upload Photo</a>
+    <a (click)="done()" mat-button>Close</a>
+  </mat-card-actions>
+</mat-card>

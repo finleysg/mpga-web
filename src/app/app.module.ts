@@ -33,6 +33,7 @@ import { MpgaDataService } from './services/mpga-data.service';
 import { EventService } from './services/event.service';
 import { ContactService } from './services/contact.service';
 import { AppConfigService, ConfigLoader } from './app.config.service';
+import { FileService } from './services/file.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -74,6 +75,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MpgaDataService,
     EventService,
     ContactService,
+    FileService,
     AppConfigService,
     {
       provide: APP_INITIALIZER,

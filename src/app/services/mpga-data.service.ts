@@ -197,7 +197,7 @@ export class MpgaDataService extends BaseService {
     const url = this.mediaUrl('photos', year, tournamentId, picType);
     return this.http.get(url).pipe(
       map((json: any) => {
-        return json.map(o => new MpgaPhoto().fromJson(o));
+        return json.map(o => new MpgaPhoto(o));
       })
     );
   }

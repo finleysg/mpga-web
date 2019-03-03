@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import {
   MatSidenavModule,
@@ -29,11 +30,14 @@ import { MarkdownDirective } from './markdown/markdown.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactMessageComponent } from './contact-message/contact-message.component';
 import { ResponsiveColumnsDirective } from './responsive-columns/responsive-columns.directive';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { FileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     MatSidenavModule,
     MatCardModule,
@@ -54,13 +58,15 @@ import { ResponsiveColumnsDirective } from './responsive-columns/responsive-colu
     MatAutocompleteModule,
     FlexLayoutModule,
     MatChipsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FileDropModule
   ],
   declarations: [
     ConfirmDialogComponent,
     MarkdownDirective,
     ContactMessageComponent,
-    ResponsiveColumnsDirective
+    ResponsiveColumnsDirective,
+    ImageUploadComponent
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -74,9 +80,11 @@ import { ResponsiveColumnsDirective } from './responsive-columns/responsive-colu
   exports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     MarkdownDirective,
     ResponsiveColumnsDirective,
+    ImageUploadComponent,
     MatSidenavModule,
     MatCardModule,
     MatMenuModule,
@@ -96,7 +104,8 @@ import { ResponsiveColumnsDirective } from './responsive-columns/responsive-colu
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     FlexLayoutModule,
-    ContactMessageComponent
+    ContactMessageComponent,
+    FileDropModule
   ]
 })
 export class SharedModule { }

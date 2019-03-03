@@ -47,4 +47,14 @@ export class MpgaPhoto extends Model {
     lastUpdate: moment.Moment;
     createdBy: string;
     tournament: number;
+    tags: string[];
+
+    constructor(json: any) {
+      super();
+      const obj = this.fromJson(json);
+      if (json && json.tags) {
+        obj.tags = json.tags.map(t => t.tag);
+      }
+      Object.assign(this, obj);
+    }
 }
