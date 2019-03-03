@@ -1,14 +1,12 @@
-<div class="coming-soon">
+<!-- <div class="coming-soon">
   <img src="https://media.giphy.com/media/14ko1wkUS2thu/giphy.gif">
-</div>
-
-<!-- <mat-grid-list cols="6" gutterSize="10px" rowHeight="1:1">
-  <mat-grid-tile *ngFor="let pic of photos">
-    <img mat-card-image [src]="pic.thumbnailUrl" alt="pic.caption">
-    <mat-grid-tile-footer>
-      <h3 matLine>{{ pic.year }}</h3>
-      <span matLine>{{ pic.caption }}</span>
-      <mat-icon>view</mat-icon>
-    </mat-grid-tile-footer>
+</div> -->
+<mat-grid-list [appResponsiveColumns]="{xs: 2, sm: 2, md: 4, lg: 6, xl: 8}">
+  <mat-grid-tile *ngFor="let item of items; let i = index">
+    <div class="grid-item"
+      [lightbox]="i"
+      [gallery]="galleryId">
+      <img [src]="item.data.thumb">
+    </div>
   </mat-grid-tile>
-</mat-grid-list> -->
+</mat-grid-list>

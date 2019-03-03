@@ -3,6 +3,8 @@ import { SharedModule } from '../shared/shared.module';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { GalleryModule } from '@ngx-gallery/core';
+import { LightboxModule } from '@ngx-gallery/lightbox';
 
 import { routing } from './tournaments-routing.module';
 import { EventComponent } from './event/event.component';
@@ -21,7 +23,9 @@ import { EventRegistrationPreviewComponent } from './event-registration-preview/
     SharedModule,
     CdkTableModule,
     MatTableModule,
-    MatGridListModule
+    MatGridListModule,
+    GalleryModule,
+    LightboxModule
   ],
   declarations: [
     EventComponent,

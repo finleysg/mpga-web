@@ -26,6 +26,8 @@
     "@angular/platform-browser": "^7.1.0",
     "@angular/platform-browser-dynamic": "^7.1.0",
     "@angular/router": "^7.1.0",
+    "@ngx-gallery/core": "^4.0.2-beta.0",
+    "@ngx-gallery/lightbox": "^4.0.2-beta.0",
     "@ngx-loading-bar/core": "^3.0.0",
     "@ngx-loading-bar/http-client": "^3.0.0",
     "core-js": "^2.5.4",

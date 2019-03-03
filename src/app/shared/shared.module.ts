@@ -28,6 +28,7 @@ import { DialogService } from './dialog.service';
 import { MarkdownDirective } from './markdown/markdown.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactMessageComponent } from './contact-message/contact-message.component';
+import { ResponsiveColumnsDirective } from './responsive-columns/responsive-columns.directive';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { ContactMessageComponent } from './contact-message/contact-message.compo
   declarations: [
     ConfirmDialogComponent,
     MarkdownDirective,
-    ContactMessageComponent
+    ContactMessageComponent,
+    ResponsiveColumnsDirective
   ],
   entryComponents: [
     ConfirmDialogComponent
@@ -74,6 +76,7 @@ import { ContactMessageComponent } from './contact-message/contact-message.compo
     RouterModule,
     ReactiveFormsModule,
     MarkdownDirective,
+    ResponsiveColumnsDirective,
     MatSidenavModule,
     MatCardModule,
     MatMenuModule,
