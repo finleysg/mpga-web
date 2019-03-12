@@ -1,14 +1,16 @@
-<mat-card *ngIf="randomPhoto">
-  <mat-card-header class="mat-teal">
-    <mat-card-title>Photo Gallery</mat-card-title>
-  </mat-card-header>
-  <img mat-card-image [src]="randomPhoto.imageUrl" alt="randomPhoto.caption">
-  <mat-card-content>
-    <p>
-      {{ randomPhoto.caption }}
-    </p>
-  </mat-card-content>
-  <mat-card-actions>
-    <a [routerLink]="['/tournaments', 'gallery', event.tournament]" mat-button color="accent">All Tournament Photos</a>
-  </mat-card-actions>
-</mat-card>
+<ng-container *ngIf="randomPhoto$ | async as randomPhoto">
+  <mat-card>
+    <mat-card-header class="mat-teal">
+      <mat-card-title>Photo Gallery</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="randomPhoto.imageUrl" alt="randomPhoto.caption">
+    <mat-card-content>
+      <p>
+        {{ randomPhoto.caption }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <a [routerLink]="['/tournaments', 'gallery', event.tournament, event.mostRecentYear]" mat-button color="accent">All Tournament Photos</a>
+    </mat-card-actions>
+  </mat-card>  
+</ng-container>

@@ -16,6 +16,7 @@ import { EventGalleryComponent } from './event-gallery/event-gallery.component';
 import { EventGalleryPreviewComponent } from './event-gallery-preview/event-gallery-preview.component';
 import { EventResultsPreviewComponent } from './event-results-preview/event-results-preview.component';
 import { EventRegistrationPreviewComponent } from './event-registration-preview/event-registration-preview.component';
+import { MatChipsModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { EventRegistrationPreviewComponent } from './event-registration-preview/
     CdkTableModule,
     MatTableModule,
     MatGridListModule,
+    MatChipsModule,
     GalleryModule,
     LightboxModule
   ],

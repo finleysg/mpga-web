@@ -202,6 +202,24 @@ export class MpgaDataService extends BaseService {
     );
   }
 
+  randomPhoto(year: number, tournamentId: number): Observable<MpgaPhoto> {
+    const url = `${this.baseUrl}/tournament-photos/random/${tournamentId}/${year}/`;
+    return this.http.get(url).pipe(
+      map((json: any) => {
+        return new MpgaPhoto(json);
+      })
+    );
+  }
+
+  availableYears(tournamentId: number): Observable<number[]> {
+    const url = `${this.baseUrl}/tournament-photos/years/${tournamentId}/`;
+    return this.http.get(url).pipe(
+      map((json: any[]) => {
+        return json.map(y => +y);
+      })
+    );
+  }
+
   roles(): Observable<string[]> {
     return this.http.get(`${this.baseUrl}/roles/`).pipe(
       map((json: any[]) => json.map(o => o))

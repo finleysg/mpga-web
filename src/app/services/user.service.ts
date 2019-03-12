@@ -93,7 +93,8 @@ export class UserService extends BaseService {
 
   resetPassword(email: string): Observable<any> {
     return this.http.post(`${this.authUrl}/password/reset/`, { email: email }, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/json')
     });
   }
 

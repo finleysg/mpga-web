@@ -9,7 +9,7 @@ import { EventGalleryComponent } from './event-gallery/event-gallery.component';
 const routes: Routes = [
   { path: '', children: [
     { path: 'event/:id', component: EventComponent },
-    { path: 'gallery/:id', component: EventGalleryComponent },
+    { path: 'gallery/:id/:year', component: EventGalleryComponent },
     { path: 'history/:id', component: EventHistoryComponent },
     { path: 'hard-card', component: HardCardComponent },
     { path: 'bid', component: BidComponent }

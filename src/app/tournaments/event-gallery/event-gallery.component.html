@@ -1,6 +1,8 @@
-<!-- <div class="coming-soon">
-  <img src="https://media.giphy.com/media/14ko1wkUS2thu/giphy.gif">
-</div> -->
+<div class="filters">
+  <mat-chip-list [multiple]="false" [selectable]="true">
+    <mat-chip *ngFor="let year of years$ | async" [selected]="year == currentYear" (click)="selectYear(year)">{{year}}</mat-chip>
+  </mat-chip-list>
+</div>
 <mat-grid-list [appResponsiveColumns]="{xs: 2, sm: 4, md: 6, lg: 8, xl: 10}">
   <mat-grid-tile *ngFor="let item of items; let i = index">
     <div class="grid-item"

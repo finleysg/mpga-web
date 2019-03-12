@@ -2,6 +2,7 @@ import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { EventDetail } from 'src/app/models/events';
 import { MpgaPhoto } from '../../models/documents';
 import { MpgaDataService } from 'src/app/services/mpga-data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-event-gallery-preview',
@@ -11,8 +12,7 @@ import { MpgaDataService } from 'src/app/services/mpga-data.service';
 export class EventGalleryPreviewComponent implements OnChanges {
 
   @Input() event: EventDetail;
-  photos: MpgaPhoto[];
-  randomPhoto: MpgaPhoto;
+  randomPhoto$: Observable<MpgaPhoto>;
 
   constructor(
     private dataService: MpgaDataService
@@ -20,16 +20,7 @@ export class EventGalleryPreviewComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['event']) {
-      this.randomPhoto = null;
-      this.dataService.photos({year: this.event.mostRecentYear, tournamentId: this.event.tournament}).subscribe(
-        pics => {
-          this.photos = pics;
-          if (pics && pics.length) {
-            const picNumber = Math.floor(Math.random() * Math.floor(pics.length));
-            this.randomPhoto = pics[picNumber];
-          }
-        }
-      );
+      this.randomPhoto$ = this.dataService.randomPhoto(this.event.mostRecentYear, this.event.tournament);
     }
   }
 }
