@@ -5,6 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GalleryModule } from '@ngx-gallery/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
+import { MatChipsModule } from '@angular/material';
 
 import { routing } from './tournaments-routing.module';
 import { EventComponent } from './event/event.component';
@@ -16,7 +17,7 @@ import { EventGalleryComponent } from './event-gallery/event-gallery.component';
 import { EventGalleryPreviewComponent } from './event-gallery-preview/event-gallery-preview.component';
 import { EventResultsPreviewComponent } from './event-results-preview/event-results-preview.component';
 import { EventRegistrationPreviewComponent } from './event-registration-preview/event-registration-preview.component';
-import { MatChipsModule } from '@angular/material';
+import { EventResultsListComponent } from './event-results-list/event-results-list.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { MatChipsModule } from '@angular/material';
     EventGalleryComponent,
     EventGalleryPreviewComponent,
     EventResultsPreviewComponent,
-    EventRegistrationPreviewComponent
+    EventRegistrationPreviewComponent,
+    EventResultsListComponent
   ]
 })
 export class TournamentsModule { }

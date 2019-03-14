@@ -1,0 +1,11 @@
+<div>
+  <mat-action-list>
+    <a *ngFor="let result of displayList" mat-list-item [href]="result.file" target="_blank"> {{result.title}} </a>
+  </mat-action-list>
+  <div>
+    <a (click)="toggleDisplayAll()">
+      <span *ngIf="!displayAll">See more...</span>
+      <span *ngIf="displayAll">See less...</span>
+    </a>
+  </div>
+</div>

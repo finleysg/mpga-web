@@ -55,9 +55,7 @@
           <mat-card-title>Past Tournament Results</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <mat-action-list>
-            <a *ngFor="let result of results$ | async" mat-list-item [href]="result.file" target="_blank"> {{result.title}} </a>
-          </mat-action-list>
+          <app-event-results-list [results]="results$ | async" [display]="5"></app-event-results-list>
         </mat-card-content>
       </mat-card>
       <mat-card>
