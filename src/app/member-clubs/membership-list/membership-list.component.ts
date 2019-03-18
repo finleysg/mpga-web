@@ -20,7 +20,7 @@ export class MembershipListComponent implements OnInit {
   database: MemberClubsData | null;
   dataSource: MemberClubsDataSource | null;
   seasons: number[];
-  selectedSeason: number;
+  selectedSeason: number = 0;
   currentSeason: number;
   clubFilter: string;
   totalRows: number;
@@ -37,7 +37,7 @@ export class MembershipListComponent implements OnInit {
     this.seasons = this.mpgaData.seasons();
     this.appConfig.config.subscribe(config => {
       this.currentSeason = config.memberClubYear;
-      this.selectedSeason = this.currentSeason;
+      // this.selectedSeason = this.currentSeason;
 
       this.mpgaData.langingPage('C').subscribe(content => this.pageContent = content);
       this.mpgaData.documents({year: this.currentSeason, docType: 'Club Registration'})

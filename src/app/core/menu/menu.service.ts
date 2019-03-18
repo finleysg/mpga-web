@@ -74,7 +74,7 @@ export class MenuService {
           },
           {
             state: ['results'],
-            name: 'Results'
+            name: 'Brackets & Results'
           },
           {
             state: ['history'],
