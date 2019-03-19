@@ -13,6 +13,7 @@ export class MeetingComponent implements OnInit {
 
   event: EventDetail;
   minutes: MpgaDocument;
+  regForm: MpgaDocument;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,13 @@ export class MeetingComponent implements OnInit {
               this.minutes = docs.find(d => {
                 // TODO: some less fragile way of associating minutes to a given meeting
                 return d.tags.indexOf('Minutes') >= 0 &&
+                  this.event.name.indexOf('Board') >= 0 ? d.tags.indexOf('BOD') >= 0 :
+                  this.event.name.indexOf('Spring') >= 0 ? d.tags.indexOf('Spring Banquet') >= 0 :
+                  d.tags.indexOf('Fall Banquet') >= 0;
+              });
+              this.regForm = docs.find(d => {
+                // TODO: some less fragile way of associating the reg form to a given meeting
+                return d.tags.indexOf('Registration') >= 0 &&
                   this.event.name.indexOf('Board') >= 0 ? d.tags.indexOf('BOD') >= 0 :
                   this.event.name.indexOf('Spring') >= 0 ? d.tags.indexOf('Spring Banquet') >= 0 :
                   d.tags.indexOf('Fall Banquet') >= 0;

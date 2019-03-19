@@ -14,6 +14,9 @@
 
         <h5 class="meeting-bold">About this Meeting</h5>
         <div [markdown]="event.description"></div>
+        <p *ngIf="regForm">
+          <a mat-flat-button color="accent" [href]="regForm.file" target="_blank">{{regForm.title}}</a>
+        </p>
         <!-- <h5 *ngIf="event.fees" class="meeting-bold">Dinner / Golf Costs</h5>
         <mat-list dense *ngIf="event.fees">
           <mat-list-item *ngFor="let fee of event.fees">
