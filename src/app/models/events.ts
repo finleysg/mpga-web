@@ -212,6 +212,7 @@ export class EventDetail extends Model {
   }
 
   get registrationIsClosed(): boolean {
-    return this.registrationEnd.add(1, 'd').isBefore(moment());
+    // return this.registrationEnd.add(1, 'd').isBefore(moment());
+    return true;
   }
 }
