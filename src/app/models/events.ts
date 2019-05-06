@@ -203,7 +203,7 @@ export class EventDetail extends Model {
   }
 
   get canRegister(): boolean {
-    return this.registrationStart.isBefore(moment(1, 'd')) &&
+    return this.registrationStart.isBefore(moment()) &&
       this.registrationEnd.isAfter(moment());
   }
 
@@ -212,6 +212,6 @@ export class EventDetail extends Model {
   }
 
   get registrationIsClosed(): boolean {
-    return this.registrationEnd.isBefore(moment().add(1, 'd'));
+    return this.registrationEnd.add(1, 'd').isBefore(moment());
   }
 }
