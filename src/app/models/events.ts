@@ -212,7 +212,7 @@ export class EventDetail extends Model {
   }
 
   get registrationIsClosed(): boolean {
-    // return this.registrationEnd.add(1, 'd').isBefore(moment());
-    return false;
+    const endDate = this.registrationEnd.clone();
+    return endDate.add(1, 'd').isBefore(moment());
   }
 }
