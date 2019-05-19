@@ -190,8 +190,9 @@ export class EventDetail extends Model {
     // the most recent year with a completed tournament
     const eventYear = this.startDate.year();
     const currentYear = moment().year();
+    const endDate = this.startDate.add(this.rounds - 1, 'days');
     if (eventYear === currentYear) {
-      if (this.startDate.add(1, 'days').isAfter(moment())) {
+      if (endDate.isAfter(moment())) {
         return this.startDate.year() - 1;
       }
       return this.startDate.year();
