@@ -19,7 +19,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class EditClubComponent implements OnInit {
 
-  @ViewChild(ClubComponent) clubForm: ClubComponent;
+  @ViewChild(ClubComponent, { static: false }) clubForm: ClubComponent;
   @ViewChildren(ClubContactComponent) clubContacts: QueryList<ClubContactComponent>;
 
   club: Club;

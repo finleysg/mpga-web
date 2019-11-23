@@ -19,7 +19,7 @@ declare const Stripe: any;
 })
 export class RegisterClubComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('cardInfo') cardInfo: ElementRef;
+  @ViewChild('cardInfo', { static: false }) cardInfo: ElementRef;
 
   clubSub: Subscription;
   configSub: Subscription;

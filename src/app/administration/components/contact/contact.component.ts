@@ -15,7 +15,7 @@ export class ContactComponent implements OnChanges, OnDestroy {
 
   @Input() contact: Contact;
   @Input() condensed: boolean;
-  @ViewChild(AddressComponent) addressForm: AddressComponent;
+  @ViewChild(AddressComponent, { static: false }) addressForm: AddressComponent;
 
   address: Address;
   contactTypes = ['Men\'s Club', 'Facilities'];

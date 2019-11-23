@@ -17,7 +17,7 @@ export class ClubContactComponent implements OnChanges, OnDestroy {
 
   @Input() clubContact: ClubContact;
   @Input() condensed: boolean;
-  @ViewChild(ContactComponent) contactForm: ContactComponent;
+  @ViewChild(ContactComponent, { static: true }) contactForm: ContactComponent;
 
   requireAddress: boolean;
 

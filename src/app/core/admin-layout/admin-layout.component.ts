@@ -21,8 +21,8 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   url: string;
   sidePanelOpened;
 
-  @ViewChild('sidemenu') sidemenu;
-  @ViewChild(PerfectScrollbarDirective) directiveScroll: PerfectScrollbarDirective;
+  @ViewChild('sidemenu', { static: true }) sidemenu;
+  @ViewChild(PerfectScrollbarDirective, { static: true }) directiveScroll: PerfectScrollbarDirective;
 
   public config: PerfectScrollbarConfigInterface = {};
 

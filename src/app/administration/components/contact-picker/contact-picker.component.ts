@@ -15,7 +15,7 @@ import { ClubMaintenanceService } from '../../club-maintenance.service';
 })
 export class ContactPickerComponent implements OnInit {
 
-  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+  @ViewChild('auto', { static: true }) matAutocomplete: MatAutocomplete;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   contactCtrl = new FormControl();
