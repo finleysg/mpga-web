@@ -46,18 +46,18 @@ export class MenuService {
         icon: 'golf_course',
         children: this.tournamentMenu(events)
       },
-      {
-        state: ['meetings'],
-        name: 'Meetings',
-        type: 'sub',
-        icon: 'meeting_room',
-        children: events.filter(e => e.eventType !== 'T').map(e => {
-          return {
-            state: ['meeting', e.id.toString()],
-            name: e.shortName
-          };
-        })
-      },
+      // {
+      //   state: ['meetings'],
+      //   name: 'Meetings',
+      //   type: 'sub',
+      //   icon: 'meeting_room',
+      //   children: events.filter(e => e.eventType !== 'T').map(e => {
+      //     return {
+      //       state: ['meeting', e.id.toString()],
+      //       name: e.shortName
+      //     };
+      //   })
+      // },
       {
         state: ['match-play'],
         name: 'Team Match Play',
@@ -72,10 +72,10 @@ export class MenuService {
             state: ['info'],
             name: 'Rules'
           },
-          {
-            state: ['results'],
-            name: 'Brackets & Results'
-          },
+          // {
+          //   state: ['results'],
+          //   name: 'Brackets & Results'
+          // },
           {
             state: ['history'],
             name: 'Past Results'

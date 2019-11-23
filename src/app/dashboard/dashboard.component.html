@@ -5,10 +5,6 @@
         <mat-card-title>News and Announcements</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div>
-          <h3 class="mt-0 mb-0 announcement-item">2020 Team Match Play Sign-up</h3>
-          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZkWW4GW7tAjuajEHcLGkJ-6E_ejgS0iQ5x2Y_IE_8C27YsQ/viewform?embedded=true" width="640" height="1511" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-        </div>
         <div *ngFor="let item of announcements">
           <h3 class="mt-0 mb-0 announcement-item"> {{item.title}} </h3>
           <div [markdown]="item.text"></div>
