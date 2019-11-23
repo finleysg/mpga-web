@@ -8,21 +8,21 @@ const AppRoutes: Routes = [
     path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: '', loadChildren: './dashboard/dashboard.module#DashboardModule' },
-      { path: 'about', loadChildren: './about-us/about-us.module#AboutUsModule' },
-      { path: 'admin', loadChildren: './administration/administration.module#AdministrationModule' },
-      { path: 'match-play', loadChildren: './match-play/match-play.module#MatchPlayModule' },
-      { path: 'meetings', loadChildren: './meetings/meetings.module#MeetingsModule' },
-      { path: 'members', loadChildren: './member-clubs/member-clubs.module#MemberClubsModule' },
-      { path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
-      { path: 'tournaments', loadChildren: './tournaments/tournaments.module#TournamentsModule' }
+      { path: '', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
+      { path: 'about', loadChildren: () => import('./about-us/about-us.module').then(m => m.AboutUsModule) },
+      { path: 'admin', loadChildren: () => import('./administration/administration.module').then(m => m.AdministrationModule) },
+      { path: 'match-play', loadChildren: () => import('./match-play/match-play.module').then(m => m.MatchPlayModule) },
+      { path: 'meetings', loadChildren: () => import('./meetings/meetings.module').then(m => m.MeetingsModule) },
+      { path: 'members', loadChildren: () => import('./member-clubs/member-clubs.module').then(m => m.MemberClubsModule) },
+      { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
+      { path: 'tournaments', loadChildren: () => import('./tournaments/tournaments.module').then(m => m.TournamentsModule) }
     ]
   },
   {
     path: '',
     component: AuthLayoutComponent,
     children: [
-      { path: 'session', loadChildren: './session/session.module#SessionModule' }
+      { path: 'session', loadChildren: () => import('./session/session.module').then(m => m.SessionModule) }
     ]
   },
   { path: '**', redirectTo: 'session/404' }
