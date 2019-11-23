@@ -2,7 +2,7 @@ import { Component, OnDestroy, Input, Output, EventEmitter, OnChanges } from '@a
 import { UploadEvent, FileSystemFileEntry } from 'ngx-file-drop';
 import { Subject } from 'rxjs';
 import { Tournament } from 'src/app/models/events';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileService } from 'src/app/services/file.service';
 import { takeUntil } from 'rxjs/operators';
 import { GolfCourse } from 'src/app/models/clubs';

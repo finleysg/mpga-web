@@ -7,7 +7,7 @@ import { MembershipListComponent } from './membership-list/membership-list.compo
 import { MembershipDetailComponent } from './membership-detail/membership-detail.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { RegistrationComponent } from './registration/registration.component';
-import { MatRadioModule } from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   imports: [

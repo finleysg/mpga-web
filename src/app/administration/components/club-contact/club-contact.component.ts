@@ -1,6 +1,7 @@
 import { Component, OnChanges, Input, ViewChild, OnDestroy } from '@angular/core';
 import { ClubContact, ClubContactRole } from 'src/app/models/clubs';
-import { MatCheckboxChange, MatDialog } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContactComponent } from '../contact/contact.component';

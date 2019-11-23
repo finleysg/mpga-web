@@ -3,7 +3,7 @@ import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CustomValidators } from 'ng2-validation';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 
 const newPassword = new FormControl('', Validators.required);

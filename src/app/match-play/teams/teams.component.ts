@@ -3,7 +3,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { Team } from '../../models/clubs';
 import { TeamsData, TeamsDataSource } from '../teams-datasource';
-import { MatSlideToggle, MatSelectChange, MatSnackBar } from '@angular/material';
+import { MatSelectChange } from '@angular/material/select';
+import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LandingPage } from 'src/app/models/pages';
 import { AppConfigService } from 'src/app/app.config.service';
 import { AppConfig } from 'src/app/app.config';

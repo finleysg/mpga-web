@@ -7,7 +7,7 @@ import { ContactComponent } from './contact/contact.component';
 import { CommitteeComponent } from './committee/committee.component';
 import { MissionComponent } from './mission/mission.component';
 import { AffiliatesComponent } from './affiliates/affiliates.component';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { SiteFaqComponent } from './site-faq/site-faq.component';
 import { CollapsibleHistoryComponent } from './collapsible-history/collapsible-history.component';

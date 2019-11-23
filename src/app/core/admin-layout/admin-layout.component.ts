@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { UserService } from '../../services/user.service';
 import { AppErrorHandler } from '../../services/app-error-handler.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs/operators';
 
 const SMALL_WIDTH_BREAKPOINT = 960;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Club } from 'src/app/models/clubs';
 import { UserService } from 'src/app/services/user.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MpgaDataService } from 'src/app/services/mpga-data.service';
 

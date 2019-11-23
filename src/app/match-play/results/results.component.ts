@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Tournament, TournamentWinner } from 'src/app/models/events';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 import { MpgaDataService } from 'src/app/services/mpga-data.service';
 
 @Component({

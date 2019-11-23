@@ -5,7 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { GalleryModule } from '@ngx-gallery/core';
 import { LightboxModule } from '@ngx-gallery/lightbox';
-import { MatChipsModule } from '@angular/material';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { routing } from './tournaments-routing.module';
 import { EventComponent } from './event/event.component';

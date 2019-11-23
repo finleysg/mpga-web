@@ -9,7 +9,7 @@ import { FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { AppConfigService } from 'src/app/app.config.service';
 import { AppConfig } from '../../app.config';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({

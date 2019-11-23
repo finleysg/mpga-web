@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Club, Contact, ClubContact, ClubValidationMessage } from '../../models/clubs';
 import { MpgaDataService } from '../../services/mpga-data.service';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LandingPage } from 'src/app/models/pages';
 import { ClubComponent } from '../components/club/club.component';
 import { ClubContactComponent } from '../components/club-contact/club-contact.component';
