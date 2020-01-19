@@ -11,7 +11,7 @@ import { AppConfigService } from 'src/app/app.config.service';
 })
 export class PaceOfPlayComponent implements OnInit {
 
-  rules: Policy[];
+  rule: Policy;
 
   constructor(
     private mpgaData: MpgaDataService,
@@ -23,7 +23,7 @@ export class PaceOfPlayComponent implements OnInit {
       forkJoin([
         this.mpgaData.policies('PP'),
       ]).subscribe(results => {
-        this.rules = results[0];
+        this.rule = results[0][0];
       });
     });
   }
