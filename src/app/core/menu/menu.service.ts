@@ -139,6 +139,12 @@ export class MenuService {
     );
     items.push(
       {
+        state: ['pace-of-play'],
+        name: 'Pace of Play'
+      }
+    );
+    items.push(
+      {
         state: ['bid'],
         name: 'Tournament Bid Form'
       }
