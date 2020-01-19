@@ -18,6 +18,7 @@ import { EventGalleryPreviewComponent } from './event-gallery-preview/event-gall
 import { EventResultsPreviewComponent } from './event-results-preview/event-results-preview.component';
 import { EventRegistrationPreviewComponent } from './event-registration-preview/event-registration-preview.component';
 import { EventResultsListComponent } from './event-results-list/event-results-list.component';
+import { PaceOfPlayComponent } from './pace-of-play/pace-of-play.component';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { EventResultsListComponent } from './event-results-list/event-results-li
   declarations: [
     EventComponent,
     HardCardComponent,
+    PaceOfPlayComponent,
     BidComponent,
     EventHistoryComponent,
     EventHistoryPreviewComponent,
