@@ -1,6 +1,6 @@
 {
   "name": "mpga-web",
-  "version": "1.2.20",
+  "version": "1.2.21",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -44,7 +44,7 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.19",
+    "@angular-devkit/build-angular": "~0.803.24",
     "@angular/cli": "~8.3.19",
     "@angular/compiler-cli": "^8.2.14",
     "@angular/language-service": "^8.2.14",
@@ -58,7 +58,7 @@
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^3.1.1",
     "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "~2.0.0",
+    "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-firefox-launcher": "~1.1.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",

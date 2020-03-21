@@ -72,10 +72,10 @@ export class MenuService {
             state: ['info'],
             name: 'Rules'
           },
-          // {
-          //   state: ['results'],
-          //   name: 'Brackets & Results'
-          // },
+          {
+            state: ['results'],
+            name: 'Brackets & Results'
+          },
           {
             state: ['history'],
             name: 'Past Results'
